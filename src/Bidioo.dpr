@@ -50,15 +50,15 @@ uses
   Olf.FMX.AboutDialog in '..\lib-externes\AboutDialog-Delphi-Component\src\Olf.FMX.AboutDialog.pas',
   Olf.FMX.AboutDialogForm in '..\lib-externes\AboutDialog-Delphi-Component\src\Olf.FMX.AboutDialogForm.pas' {OlfAboutDialogForm},
   u_urlOpen in '..\lib-externes\librairies\src\u_urlOpen.pas',
-  uConsts in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uConsts.pas',
+  uConsts in 'uConsts.pas',
   Olf.RTL.Language in '..\lib-externes\librairies\src\Olf.RTL.Language.pas',
   Olf.RTL.CryptDecrypt in '..\lib-externes\librairies\src\Olf.RTL.CryptDecrypt.pas',
   Olf.RTL.Params in '..\lib-externes\librairies\src\Olf.RTL.Params.pas',
   Olf.Skia.SVGToBitmap in '..\lib-externes\librairies\src\Olf.Skia.SVGToBitmap.pas',
   uDMAboutBox in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uDMAboutBox.pas' {AboutBox: TDataModule},
-  uDMAboutBoxLogoStorrage in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uDMAboutBoxLogoStorrage.pas' {dmAboutBoxLogo: TDataModule},
-  uTxtAboutLicense in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uTxtAboutLicense.pas',
-  uTxtAboutDescription in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uTxtAboutDescription.pas',
+  uDMAboutBoxLogoStorrage in 'uDMAboutBoxLogoStorrage.pas' {dmAboutBoxLogo: TDataModule},
+  uTxtAboutLicense in 'uTxtAboutLicense.pas',
+  uTxtAboutDescription in 'uTxtAboutDescription.pas',
   Gamolf.FMX.HelpBar in '..\lib-externes\Delphi-Game-Engine\src\Gamolf.FMX.HelpBar.pas',
   Gamolf.FMX.Joystick in '..\lib-externes\Delphi-Game-Engine\src\Gamolf.FMX.Joystick.pas',
   Gamolf.FMX.MusicLoop in '..\lib-externes\Delphi-Game-Engine\src\Gamolf.FMX.MusicLoop.pas',
@@ -80,13 +80,27 @@ uses
   Olf.RTL.Streams in '..\lib-externes\librairies\src\Olf.RTL.Streams.pas',
   Olf.RTL.Maths.Conversions in '..\lib-externes\librairies\src\Olf.RTL.Maths.Conversions.pas',
   uBackgroundMusic in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uBackgroundMusic.pas',
-  uSoundEffects in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uSoundEffects.pas',
+  uSoundEffects in 'uSoundEffects.pas',
   USVGInputPrompts in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\kenney_nl\InputPrompts\USVGInputPrompts.pas',
   uDMGameControllerCenter in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uDMGameControllerCenter.pas' {DMGameControllerCenter: TDataModule},
-  uSVGBitmapManager_InputPrompts in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uSVGBitmapManager_InputPrompts.pas',
+  uSVGBitmapManager_InputPrompts in 'uSVGBitmapManager_InputPrompts.pas',
   uDMHelpBarManager in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uDMHelpBarManager.pas' {HelpBarManager: TDataModule},
   _ButtonsAncestor in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\_ButtonsAncestor.pas' {__ButtonAncestor: TFrame},
-  uSceneBackground in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uSceneBackground.pas' {SceneBackground: TFrame};
+  uSceneBackground in '..\_PRIVATE\assets\Fotolia\fond-de-page.fotolia\uSceneBackground.pas' {SceneBackground: TFrame},
+  uSceneHome in 'uSceneHome.pas' {HomeScene: TFrame},
+  uSceneGame in 'uSceneGame.pas' {GameScene: TFrame},
+  uSceneGameOver in 'uSceneGameOver.pas' {GameOverScene: TFrame},
+  uSceneOptions in 'uSceneOptions.pas' {OptionsScene: TFrame},
+  uSceneHallOfFame in 'uSceneHallOfFame.pas' {HallOfFameScene: TFrame},
+  cImageButton in 'cImageButton.pas' {btnImageButton: TFrame},
+  USVGIconesKolopach in '..\_PRIVATE\assets\Fotolia\icones.fotolia\IconesKolopach\USVGIconesKolopach.pas',
+  udmAdobeStock_180834041_titre in '..\_PRIVATE\assets\AdobeStock\AdobeStock_180834041\udmAdobeStock_180834041_titre.pas' {dmAdobeStock_180834041: TDataModule},
+  cGameTitle in 'cGameTitle.pas' {cadGameTitle: TFrame},
+  Olf.FMX.TextImageFrame in '..\lib-externes\librairies\src\Olf.FMX.TextImageFrame.pas' {OlfFMXTextImageFrame: TFrame},
+  USVGFruitsKolopach in '..\_PRIVATE\assets\Fotolia\motif-fruits.fotolia\FruitsKolopach\USVGFruitsKolopach.pas',
+  udmAdobeStock_176314025 in '..\_PRIVATE\assets\AdobeStock\AdobeStock_176314025\udmAdobeStock_176314025.pas' {dmAdobeStock_176314025: TDataModule},
+  cDialogBox in '..\_PRIVATE\assets\NicheEmpire\303-OTO-Ultimate-Marketing-Graphics-Collection-NE\cDialogBox.pas' {cadDialogBox: TFrame},
+  uSceneCredits in 'uSceneCredits.pas' {CreditsScene: TFrame};
 
 {$R *.res}
 
@@ -95,5 +109,7 @@ begin
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMGameControllerCenter, DMGameControllerCenter);
+  Application.CreateForm(TdmAdobeStock_180834041, dmAdobeStock_180834041);
+  Application.CreateForm(TdmAdobeStock_176314025, dmAdobeStock_176314025);
   Application.Run;
 end.

@@ -1,0 +1,22 @@
+inherited btnImageButton: TbtnImageButton
+  Size.Width = 100.000000000000000000
+  Size.Height = 100.000000000000000000
+  object rImage: TRectangle
+    Align = Client
+    Fill.Bitmap.WrapMode = TileStretch
+    Fill.Kind = Bitmap
+    Locked = True
+    HitTest = False
+    Size.Width = 100.000000000000000000
+    Size.Height = 100.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    object ShadowEffect1: TShadowEffect
+      Distance = 3.000000000000000000
+      Direction = 45.000000000000000000
+      Softness = 0.300000011920929000
+      Opacity = 0.600000023841857900
+      ShadowColor = claBlack
+    end
+  end
+end

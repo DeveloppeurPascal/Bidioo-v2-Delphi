@@ -1,0 +1,23 @@
+inherited CreditsScene: TCreditsScene
+  inherited BoxBackground: TRectangle
+    inherited flFooter: TFlowLayout
+      inherited btnClose: TButton
+        OnClick = btnCloseClick
+      end
+    end
+    inherited vsContent: TVertScrollBox
+      Viewport.Width = 400.000000000000000000
+      Viewport.Height = 348.000000000000000000
+      object Text1: TText
+        Align = Top
+        AutoSize = True
+        Size.Width = 400.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.HorzAlign = Leading
+        TextSettings.VertAlign = Leading
+      end
+    end
+  end
+end
