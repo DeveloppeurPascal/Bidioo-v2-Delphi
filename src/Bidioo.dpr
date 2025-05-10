@@ -1,9 +1,9 @@
 ﻿/// <summary>
 /// ***************************************************************************
 ///
-/// Gamolf FMX Game Starter Kit
+/// Bidioo
 ///
-/// Copyright 2024 Patrick Prémartin under AGPL 3.0 license.
+/// Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
 ///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -15,28 +15,18 @@
 ///
 /// ***************************************************************************
 ///
-/// The "Gamolf FMX Game Starter Kit" is both a "technical" example of a video
-/// game developed in Delphi with everything you need inside and a reusable
-/// project template you can customize for your own games.
-///
-/// The files provided are fully functional. Numerous comments are included in
-/// the sources to explain how they work and what you need to copy, override
-/// or customize to make video games without starting from scratch.
-///
-/// ***************************************************************************
-///
 /// Author(s) :
 /// Patrick PREMARTIN
 ///
 /// Site :
-/// https://fmxgamestarterkit.developpeur-pascal.fr/
+/// https://bidioo.gamolf.fr
 ///
 /// Project site :
-/// https://github.com/DeveloppeurPascal/Gamolf-FMX-Game-Starter-Kit
+/// https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 ///
 /// ***************************************************************************
-/// File last update : 2024-08-20T10:35:54.000+02:00
-/// Signature : cadecc1b4d025f19036832d980a0f8be872ace71
+/// File last update : 2025-05-10T18:34:20.000+02:00
+/// Signature : cdb085d83e35d1869c85eac5f43dc4002a07ff77
 /// ***************************************************************************
 /// </summary>
 
@@ -89,18 +79,23 @@ uses
   uSceneBackground in '..\_PRIVATE\assets\Fotolia\fond-de-page.fotolia\uSceneBackground.pas' {SceneBackground: TFrame},
   uSceneHome in 'uSceneHome.pas' {HomeScene: TFrame},
   uSceneGame in 'uSceneGame.pas' {GameScene: TFrame},
-  uSceneGameOver in 'uSceneGameOver.pas' {GameOverScene: TFrame},
-  uSceneOptions in 'uSceneOptions.pas' {OptionsScene: TFrame},
-  uSceneHallOfFame in 'uSceneHallOfFame.pas' {HallOfFameScene: TFrame},
   cImageButton in 'cImageButton.pas' {btnImageButton: TFrame},
   USVGIconesKolopach in '..\_PRIVATE\assets\Fotolia\icones.fotolia\IconesKolopach\USVGIconesKolopach.pas',
-  udmAdobeStock_180834041_titre in '..\_PRIVATE\assets\AdobeStock\AdobeStock_180834041\udmAdobeStock_180834041_titre.pas' {dmAdobeStock_180834041: TDataModule},
   cGameTitle in 'cGameTitle.pas' {cadGameTitle: TFrame},
   Olf.FMX.TextImageFrame in '..\lib-externes\librairies\src\Olf.FMX.TextImageFrame.pas' {OlfFMXTextImageFrame: TFrame},
   USVGFruitsKolopach in '..\_PRIVATE\assets\Fotolia\motif-fruits.fotolia\FruitsKolopach\USVGFruitsKolopach.pas',
-  udmAdobeStock_176314025 in '..\_PRIVATE\assets\AdobeStock\AdobeStock_176314025\udmAdobeStock_176314025.pas' {dmAdobeStock_176314025: TDataModule},
   cDialogBox in '..\_PRIVATE\assets\NicheEmpire\303-OTO-Ultimate-Marketing-Graphics-Collection-NE\cDialogBox.pas' {cadDialogBox: TFrame},
-  uSceneCredits in 'uSceneCredits.pas' {CreditsScene: TFrame};
+  uSceneOptions in 'uSceneOptions.pas' {OptionsScene: TFrame},
+  uSceneTutoriel in 'uSceneTutoriel.pas' {TutorielScene: TFrame},
+  uSceneGameOver in 'uSceneGameOver.pas' {GameOverScene: TFrame},
+  uSceneHallOfFame in 'uSceneHallOfFame.pas' {HallOfFameScene: TFrame},
+  uSceneCredits in 'uSceneCredits.pas' {CreditsScene: TFrame},
+  uBidiooGameData in 'uBidiooGameData.pas',
+  uBidiooScores in 'uBidiooScores.pas',
+  udmAdobeStock_119308227Bidioo in '..\_PRIVATE\assets\AdobeStock\AdobeStock_119308227-Bidioo\udmAdobeStock_119308227Bidioo.pas' {dmAdobeStock_119308227Bidioo: TDataModule},
+  udmAdobeStock_257147901 in '..\_PRIVATE\assets\AdobeStock\AdobeStock_257147901\udmAdobeStock_257147901.pas' {dmAdobeStock_257147901: TDataModule},
+  udmAdobeStock_257148021 in '..\_PRIVATE\assets\AdobeStock\AdobeStock_257148021\udmAdobeStock_257148021.pas' {dmAdobeStock_257148021: TDataModule},
+  uBidiooConfig in 'uBidiooConfig.pas';
 
 {$R *.res}
 
@@ -109,7 +104,8 @@ begin
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMGameControllerCenter, DMGameControllerCenter);
-  Application.CreateForm(TdmAdobeStock_180834041, dmAdobeStock_180834041);
-  Application.CreateForm(TdmAdobeStock_176314025, dmAdobeStock_176314025);
+  Application.CreateForm(TdmAdobeStock_119308227Bidioo, dmAdobeStock_119308227Bidioo);
+  Application.CreateForm(TdmAdobeStock_257147901, dmAdobeStock_257147901);
+  Application.CreateForm(TdmAdobeStock_257148021, dmAdobeStock_257148021);
   Application.Run;
 end.
