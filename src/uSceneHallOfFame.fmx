@@ -1,2 +1,37 @@
 inherited HallOfFameScene: THallOfFameScene
+  inherited BoxBackground: TRectangle
+    inherited vsContent: TVertScrollBox
+      Viewport.Width = 400.000000000000000000
+      Viewport.Height = 348.000000000000000000
+      object FlowLayout1: TFlowLayout
+        Align = Top
+        Size.Width = 400.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Justify = Center
+        JustifyLastLine = Center
+        FlowDirection = LeftToRight
+      end
+    end
+    inherited lFooter: TLayout
+      inherited flFooter: TFlowLayout
+        inherited btnLeft: TbtnImageButton
+          Visible = False
+        end
+        inherited btnRight: TbtnImageButton
+          Position.X = 37.500000000000000000
+          Visible = False
+        end
+        inherited btnOk: TbtnImageButton
+          Position.X = 107.500000000000000000
+          OnClick = btnOkClick
+        end
+        inherited btnCancel: TbtnImageButton
+          Position.X = 177.500000000000000000
+          Visible = False
+        end
+      end
+    end
+  end
 end
