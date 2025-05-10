@@ -1,9 +1,9 @@
 ﻿/// <summary>
 /// ***************************************************************************
 ///
-/// Gamolf FMX Game Starter Kit
+/// Bidioo
 ///
-/// Copyright 2024-2025 Patrick Prémartin under AGPL 3.0 license.
+/// Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
 ///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -15,28 +15,18 @@
 ///
 /// ***************************************************************************
 ///
-/// The "Gamolf FMX Game Starter Kit" is both a "technical" example of a video
-/// game developed in Delphi with everything you need inside and a reusable
-/// project template you can customize for your own games.
-///
-/// The files provided are fully functional. Numerous comments are included in
-/// the sources to explain how they work and what you need to copy, override
-/// or customize to make video games without starting from scratch.
-///
-/// ***************************************************************************
-///
 /// Author(s) :
 /// Patrick PREMARTIN
 ///
 /// Site :
-/// https://fmxgamestarterkit.developpeur-pascal.fr/
+/// https://bidioo.gamolf.fr
 ///
 /// Project site :
-/// https://github.com/DeveloppeurPascal/Gamolf-FMX-Game-Starter-Kit
+/// https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 ///
 /// ***************************************************************************
-/// File last update : 2025-05-08T20:46:50.000+02:00
-/// Signature : 9bd4d1c19ee2d80d82ca0df6d0d670625f2077b4
+/// File last update : 2025-05-10T17:26:28.000+02:00
+/// Signature : e23c243adbd684ec7989ef632eddbf9b6a1902b0
 /// ***************************************************************************
 /// </summary>
 
@@ -52,12 +42,12 @@ const
   /// Version number of your game, don't forget to update the
   /// Project/Options/Versions infos before compiling a public RELEASE
   /// </summary>
-  CAboutVersionNumber = '2.0';
+  CAboutVersionNumber = '2.0a';
 
   /// <summary>
   /// Version date of your game, change it when you publish a new public release
   /// </summary>
-  CAboutVersionDate = '20250509';
+  CAboutVersionDate = '20250510';
 
   /// <summary>
   /// Title of your game used in the About box and as the main form caption
@@ -67,7 +57,8 @@ const
   /// <summary>
   /// The copyright to show in the About box
   /// </summary>
-  CAboutCopyright = '(c) 2013-2025 Patrick Prémartin'; // 2024 your name or anything else
+  CAboutCopyright = '(c) 2013-2025 Patrick Prémartin';
+  // 2024 your name or anything else
 
   /// <summary>
   /// The website URL of your game (used in the About box)
@@ -99,7 +90,7 @@ const
   /// </remarks>
 {$IFDEF DEBUG}
   // In DEBUG mode
-  COpenGameInFullScreenMode = false;
+  COpenGameInFullScreenMode = true;
 {$ELSE}
   // For other compilations (including RELEASE)
   COpenGameInFullScreenMode = true;
@@ -191,7 +182,7 @@ type
   /// Create scenes screens by inheriting from /Scenes/_SceneAncestor.pas
   /// </remarks>
   TSceneType = (None (* "None" must stay *) , Exit (* "Exit" must stay *) ,
-    Home, Game, GameOver, Credits, Options, HallOfFame);
+    Home, Game, GameOver, Credits, Options, HallOfFame, Tutoriel);
 
 Const
   /// <summary>
@@ -271,7 +262,6 @@ try
   // Don't share the key file. If you need to modify it, you won't be able to
   // open the previous configuration file!
 {$I '..\_PRIVATE\src\GameDataFileXORKey.inc'}
-
 {$ENDIF}
 except
   on e: Exception do
