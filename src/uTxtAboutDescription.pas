@@ -1,9 +1,9 @@
 ﻿/// <summary>
 /// ***************************************************************************
 ///
-/// Ok Ducky!
+/// Bidioo
 ///
-/// Copyright 2021-2025 Patrick PREMARTIN under AGPL 3.0 license.
+/// Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
 ///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -19,14 +19,14 @@
 /// Patrick PREMARTIN
 ///
 /// Site :
-/// https://okducky.gamolf.fr
+/// https://bidioo.gamolf.fr
 ///
 /// Project site :
-/// https://github.com/DeveloppeurPascal/Ok-Ducky
+/// https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 ///
 /// ***************************************************************************
-/// File last update : 2025-05-01T15:44:02.000+02:00
-/// Signature : cc9807b30b611e71910fda5d1e1c41932d29d369
+/// File last update : 2025-05-09T18:49:34.000+02:00
+/// Signature : 1f3030f8405b3f211daf663cc24a8c4ee615d541
 /// ***************************************************************************
 /// </summary>
 

@@ -1,9 +1,9 @@
 ﻿/// <summary>
 /// ***************************************************************************
 ///
-/// Gamolf FMX Game Starter Kit
+/// Bidioo
 ///
-/// Copyright 2024 Patrick Prémartin under AGPL 3.0 license.
+/// Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
 ///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -15,28 +15,18 @@
 ///
 /// ***************************************************************************
 ///
-/// The "Gamolf FMX Game Starter Kit" is both a "technical" example of a video
-/// game developed in Delphi with everything you need inside and a reusable
-/// project template you can customize for your own games.
-///
-/// The files provided are fully functional. Numerous comments are included in
-/// the sources to explain how they work and what you need to copy, override
-/// or customize to make video games without starting from scratch.
-///
-/// ***************************************************************************
-///
 /// Author(s) :
 /// Patrick PREMARTIN
 ///
 /// Site :
-/// https://fmxgamestarterkit.developpeur-pascal.fr/
+/// https://bidioo.gamolf.fr
 ///
 /// Project site :
-/// https://github.com/DeveloppeurPascal/Gamolf-FMX-Game-Starter-Kit
+/// https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 ///
 /// ***************************************************************************
-/// File last update : 2024-08-20T10:23:28.000+02:00
-/// Signature : 356c92023ad50ab51a0cab115c4bb62bd6a8aebc
+/// File last update : 2025-05-10T18:43:04.000+02:00
+/// Signature : fe21b71cae1404ca1d03aaaf16d661d9cbcf427d
 /// ***************************************************************************
 /// </summary>
 
