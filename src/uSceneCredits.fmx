@@ -1,10 +1,5 @@
 inherited CreditsScene: TCreditsScene
   inherited BoxBackground: TRectangle
-    inherited flFooter: TFlowLayout
-      inherited btnClose: TButton
-        OnClick = btnCloseClick
-      end
-    end
     inherited vsContent: TVertScrollBox
       Viewport.Width = 400.000000000000000000
       Viewport.Height = 348.000000000000000000
@@ -17,6 +12,25 @@ inherited CreditsScene: TCreditsScene
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.HorzAlign = Leading
         TextSettings.VertAlign = Leading
+      end
+    end
+    inherited lFooter: TLayout
+      inherited flFooter: TFlowLayout
+        inherited btnLeft: TbtnImageButton
+          Visible = False
+        end
+        inherited btnRight: TbtnImageButton
+          Position.X = 37.500000000000000000
+          Visible = False
+        end
+        inherited btnOk: TbtnImageButton
+          Position.X = 107.500000000000000000
+          OnClick = btnOkClick
+        end
+        inherited btnCancel: TbtnImageButton
+          Position.X = 177.500000000000000000
+          Visible = False
+        end
       end
     end
   end
