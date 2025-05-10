@@ -1,3 +1,35 @@
+﻿/// <summary>
+/// ***************************************************************************
+///
+/// Bidioo
+///
+/// Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+/// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+/// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+/// DEALINGS IN THE SOFTWARE.
+///
+/// ***************************************************************************
+///
+/// Author(s) :
+/// Patrick PREMARTIN
+///
+/// Site :
+/// https://bidioo.gamolf.fr
+///
+/// Project site :
+/// https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
+///
+/// ***************************************************************************
+/// File last update : 2025-05-10T15:08:04.000+02:00
+/// Signature : be584867dea968ba7713f3150b857f538c8d3504
+/// ***************************************************************************
+/// </summary>
+
 unit cGameTitle;
 
 interface
@@ -14,7 +46,8 @@ uses
   FMX.Forms,
   FMX.Dialogs,
   FMX.StdCtrls,
-  Olf.FMX.TextImageFrame, FMX.Effects;
+  Olf.FMX.TextImageFrame,
+  FMX.Effects;
 
 type
   TcadGameTitle = class(TFrame)
@@ -31,15 +64,15 @@ implementation
 {$R *.fmx}
 
 uses
-  udmAdobeStock_180834041_titre,
-  uConsts;
+  uConsts,
+  udmAdobeStock_119308227Bidioo;
 
 procedure TcadGameTitle.AfterConstruction;
 begin
   inherited;
   txtGameTitle.BeginUpdate;
   try
-    txtGameTitle.Font := dmAdobeStock_180834041.ImageList;
+    txtGameTitle.Font := dmAdobeStock_119308227Bidioo.ImageList;
     txtGameTitle.AutoSize := true;
     txtGameTitle.Text := CAboutGameTitle;
   finally
