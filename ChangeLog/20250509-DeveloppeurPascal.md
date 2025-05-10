@@ -48,3 +48,6 @@ Reste à faire :
 * remplacer les bitmaps des boutons "flèches", "ok", "cancel" (provenant du CEI) des boites de dialogue par des images vectorielles
 * retrouver les références exactes des sons utilisés (et leur licence) + mettre à jour les crédits du jeu
 * trouver d'autres séries d'images utilisables sur le jeu en tant que tuiles (pierres précieuses, animaux, smileys, ...)
+
+* remettre un tutoriel au démarrage du jeu (à réactiver dans les options et non la scène de jeu comme avant)
+* activer ce tutoriel lors du premier lancement et afficher une explication pour chaque étape passée
