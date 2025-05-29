@@ -1,34 +1,34 @@
-/// <summary>
-/// ***************************************************************************
-///
-/// Bidioo
-///
-/// Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
-///
-/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-/// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-/// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-/// DEALINGS IN THE SOFTWARE.
-///
-/// ***************************************************************************
-///
-/// Author(s) :
-/// Patrick PREMARTIN
-///
-/// Site :
-/// https://bidioo.gamolf.fr
-///
-/// Project site :
-/// https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
-///
-/// ***************************************************************************
-/// File last update : 2025-05-10T18:56:48.000+02:00
-/// Signature : c6fb8f0a9f961fb342c92d458fcacbbf8c79a248
-/// ***************************************************************************
-/// </summary>
+(* C2PP
+  ***************************************************************************
+
+  Bidioo
+
+  Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+  DEALINGS IN THE SOFTWARE.
+
+  ***************************************************************************
+
+  Author(s) :
+  Patrick PREMARTIN
+
+  Site :
+  https://bidioo.gamolf.fr
+
+  Project site :
+  https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
+
+  ***************************************************************************
+  File last update : 2025-05-29T19:29:26.000+02:00
+  Signature : 28491f08370f4aa6d80b317b51b892695aa4525d
+  ***************************************************************************
+*)
 
 unit uSceneGameOver;
 
@@ -77,7 +77,7 @@ uses
   uConsts,
   uBidiooGameData,
   uBidiooScores,
-  udmAdobeStock_257148021;
+  udmAdobeStock_257148021, uSoundEffects;
 
 procedure TGameOverScene.AddText(const Text: String);
 var
@@ -106,6 +106,9 @@ begin
   inherited;
 
   TBidiooScores.Current.Add(TBidiooGameData.Current.Score);
+
+  TSoundEffects.Current.StopAll;
+  TSoundEffects.Current.Play(TSoundEffectType.FinDePartie);
 end;
 
 procedure TGameOverScene.TranslateTexts(const Language: string);
