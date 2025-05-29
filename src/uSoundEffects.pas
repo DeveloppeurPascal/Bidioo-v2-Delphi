@@ -1,58 +1,90 @@
-/// <summary>
-/// ***************************************************************************
-///
-/// Gamolf FMX Game Template
-///
-/// Copyright 2024 Patrick Prémartin under AGPL 3.0 license.
-///
-/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-/// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-/// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-/// DEALINGS IN THE SOFTWARE.
-///
-/// ***************************************************************************
-///
-/// The "Gamolf FMX Game Template" is both a "technical" example of a video
-/// game developed in Delphi with everything you need inside, and a reusable
-/// project template you can customize for your own games.
-///
-/// The files provided are fully functional. Numerous comments are included in
-/// the sources to explain how they work and what you need to copy, override
-/// or customize to make video games without starting from scratch.
-///
-/// ***************************************************************************
-///
-/// Author(s) :
-/// Patrick PREMARTIN
-///
-/// Site :
-/// https://gametemplate.developpeur-pascal.fr/
-///
-/// Project site :
-/// https://github.com/DeveloppeurPascal/Gamolf-FMX-Game-Template
-///
-/// ***************************************************************************
-/// File last update : 2024-08-09T23:38:04.000+02:00
-/// Signature : 3963cbb6d83091615c2bc802f47db588e8d0c6d0
-/// ***************************************************************************
-/// </summary>
+(* C2PP
+  ***************************************************************************
+
+  Bidioo
+
+  Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+  DEALINGS IN THE SOFTWARE.
+
+  ***************************************************************************
+
+  Author(s) :
+  Patrick PREMARTIN
+
+  Site :
+  https://bidioo.gamolf.fr
+
+  Project site :
+  https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
+
+  ***************************************************************************
+  File last update : 2025-05-29T19:41:42.000+02:00
+  Signature : 69565785216d5b07c93cc8efdf06511ee4f8d518
+  ***************************************************************************
+*)
 
 unit uSoundEffects;
 
 interface
 
-{$MESSAGE WARN 'Save uSoundEffects.pas in your game folder and customize its sounds list and loaded files. Don''t change the template version if you want to be able to update it.'}
-// TODO : Save uSoundEffects.pas in your game folder and customize its sounds list and loaded files. Don't change the template version if you want to be able to update it.
-
 type
 {$SCOPEDENUMS ON}
-  TSoundEffectType = (None (* Must exist ! *) , Demo);
-  // TODO : reference your sounds types
-  // TODO : add the files to folder _PRIVATE/sounds for Windows DEBUG (or change the folder in RegisterSounds())
-  // TODO : add the files to Project/Deployment for each supported platform
+  TSoundEffectType = (
+    /// <summary>
+    /// no sound
+    /// </summary>
+    None,
+    /// <summary>
+    /// clic on a button (normal button)
+    /// </summary>
+    Clic,
+    /// <summary>
+    /// clic on an option button (pressed button)
+    /// </summary>
+    ClicOption,
+    /// <summary>
+    /// win a new bonus
+    /// </summary>
+    BonusEnPlus,
+    /// <summary>
+    /// sound for "bomb" bonus
+    /// </summary>
+    BonusBombes,
+    /// <summary>
+    /// sound for "blend" bonus
+    /// </summary>
+    BonusMelanges,
+    /// <summary>
+    /// sound for "swap" bonus
+    /// </summary>
+    BonusSwap,
+    /// <summary>
+    /// sound for "delete" bonus
+    /// </summary>
+    BonusSuppr,
+    /// <summary>
+    /// sound for "help" bonus
+    /// </summary>
+    BonusBouees,
+    /// <summary>
+    /// lost a life
+    /// </summary>
+    PerteDUneVie,
+    /// <summary>
+    /// game over sound
+    /// </summary>
+    FinDePartie,
+    /// <summary>
+    /// match-3 found, cells destroyed
+    /// </summary>
+    CaseEnMoins);
 
   TSoundEffects = class;
   TSoundEffectsClass = class of TSoundEffects;
@@ -127,9 +159,28 @@ begin
     case Sound of
       TSoundEffectType.None:
         FileName := '';
-      TSoundEffectType.Demo:
-        FileName := 'DuckyOuch.wav';
-      // TODO : Update the list of sound effects files
+      TSoundEffectType.ClicOption:
+        FileName := 'BoxComplete.wav';
+      TSoundEffectType.BonusEnPlus:
+        FileName := 'MagicStars.wav';
+      TSoundEffectType.BonusBombes:
+        FileName := 'ExploMixLong.wav';
+      TSoundEffectType.BonusMelanges:
+        FileName := 'LoopAngryFlies.wav';
+      TSoundEffectType.BonusSwap:
+        FileName := 'LoopInSpace.wav';
+      TSoundEffectType.BonusSuppr:
+        FileName := 'LaserShot.wav';
+      TSoundEffectType.BonusBouees:
+        FileName := 'SparkleCave.wav';
+      TSoundEffectType.PerteDUneVie:
+        FileName := 'Moan.wav';
+      TSoundEffectType.FinDePartie:
+        FileName := 'GameOverRobot.wav';
+      TSoundEffectType.Clic:
+        FileName := '16GUNDRY.wav';
+      TSoundEffectType.CaseEnMoins:
+        FileName := 'IceCubeExploding.wav';
     else
       raise Exception.Create('Missing a sound effect !');
     end;
