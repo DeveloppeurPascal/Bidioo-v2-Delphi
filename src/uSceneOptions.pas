@@ -1,34 +1,34 @@
-/// <summary>
-/// ***************************************************************************
-///
-/// Bidioo
-///
-/// Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
-///
-/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-/// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-/// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-/// DEALINGS IN THE SOFTWARE.
-///
-/// ***************************************************************************
-///
-/// Author(s) :
-/// Patrick PREMARTIN
-///
-/// Site :
-/// https://bidioo.gamolf.fr
-///
-/// Project site :
-/// https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
-///
-/// ***************************************************************************
-/// File last update : 2025-05-10T19:08:04.000+02:00
-/// Signature : 8d942efa59644ed740af9d9ad0f12f0c33d94a9a
-/// ***************************************************************************
-/// </summary>
+(* C2PP
+  ***************************************************************************
+
+  Bidioo
+
+  Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+  DEALINGS IN THE SOFTWARE.
+
+  ***************************************************************************
+
+  Author(s) :
+  Patrick PREMARTIN
+
+  Site :
+  https://bidioo.gamolf.fr
+
+  Project site :
+  https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
+
+  ***************************************************************************
+  File last update : 2025-05-29T17:10:14.000+02:00
+  Signature : 3cf4249ac6c91726ed505c4b3bc1e1e3cccde473
+  ***************************************************************************
+*)
 
 unit uSceneOptions;
 
@@ -92,7 +92,8 @@ uses
   uConfig,
   uBidiooConfig,
   uBackgroundMusic,
-  uSoundEffects;
+  uSoundEffects,
+  uBidiooGameData;
 
 function TOptionsScene.AddButton(const ButtonType: TSVGIconesKolopachIndex;
   const Value: boolean; const OnClick: TNotifyEvent;
@@ -145,6 +146,7 @@ begin
     FBtnMixte.IsPressed := false;
     FBtnMaster.IsPressed := false;
     tconfig.Current.PlayMode := TBidiooPlayMode.Classic;
+    TBidiooGameData.Current.Load;
   end
   else
     FBtnClassic.IsPressed := true;
@@ -160,6 +162,7 @@ begin
     FBtnClassic.IsPressed := false;
     FBtnMixte.IsPressed := false;
     tconfig.Current.PlayMode := TBidiooPlayMode.Master;
+    TBidiooGameData.Current.Load;
   end
   else
     FBtnMaster.IsPressed := true;
@@ -175,6 +178,7 @@ begin
     FBtnClassic.IsPressed := false;
     FBtnMaster.IsPressed := false;
     tconfig.Current.PlayMode := TBidiooPlayMode.Mixte;
+    TBidiooGameData.Current.Load;
   end
   else
     FBtnMixte.IsPressed := true;
