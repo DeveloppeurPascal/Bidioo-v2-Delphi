@@ -181,6 +181,8 @@
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
         <SanitizedProjectName>Bidioo</SanitizedProjectName>
         <DCC_Define>SKIA;$(DCC_Define)</DCC_Define>
+        <OrientationLandscapeLeft>true</OrientationLandscapeLeft>
+        <OrientationLandscapeRight>true</OrientationLandscapeRight>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_UsePackage>fmx;DbxCommonDriver;bindengine;IndyIPCommon;emsclient;FireDACCommonDriver;Olf.TableDataSync.Pkg;IndyProtocols;RadiantShapesFmx_Design;IndyIPClient;dbxcds;FmxTeeUI;bindcompfmx;ibmonitor;FireDACSqliteDriver;DbxClientDriver;soapmidas;fmxFireDAC;dbexpress;inet;DataSnapCommon;fmxase;dbrtl;FireDACDBXDriver;CustomIPTransport;DBXInterBaseDriver;IndySystem;RadiantShapesFmx;ibxbindings;bindcomp;FireDACCommon;IndyCore;RESTBackendComponents;bindcompdbx;rtl;RESTComponents;DBXSqliteDriver;IndyIPServer;dsnapxml;DataSnapClient;DataSnapProviderClient;DataSnapFireDAC;emsclientfiredac;FireDAC;FireDACDSDriver;xmlrtl;tethering;ibxpress;dsnap;CloudService;FMXTee;DataSnapNativeClient;soaprtl;soapserver;FireDACIBDriver;$(DCC_UsePackage)</DCC_UsePackage>
@@ -450,6 +452,8 @@
         <iPad_Notification40>..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-40x40.png</iPad_Notification40>
         <iPad_Launch2x>..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-512x512.png</iPad_Launch2x>
         <iPad_LaunchDark2x>..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-512x512.png</iPad_LaunchDark2x>
+        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=fr;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=fr.gamolf.bidioo;CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.1;CFBundleShortVersionString=1.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSCameraUsageDescription=The reason for accessing the camera;NSFaceIDUsageDescription=The reason for accessing the face id;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing bluetooth;NSBluetoothPeripheralUsageDescription=The reason for accessing bluetooth peripherals;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSMotionUsageDescription=The reason for accessing the accelerometer;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple&apos;s speech recognition servers</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_iOSSimARM64)'!=''">
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -767,6 +771,11 @@
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="uBidiooConfig.pas"/>
+        <DCCReference Include="cMatch3Game.pas">
+            <Form>cadMatch3Game</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -823,6 +832,112 @@
                         <RemoteDir>.\</RemoteDir>
                         <Operation>0</Operation>
                         <RemoteName>sk4d.dll</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPad\FM_ApplicationIcon_152x152.png" Configuration="Release" Class="iPad_AppIcon152">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPad\FM_ApplicationIcon_167x167.png" Configuration="Release" Class="iPad_AppIcon167">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImageDark_2x.png" Configuration="Release" Class="iPad_LaunchDark2x">
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>FM_LaunchScreenImage_iPadDark@2x.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImage_2x.png" Configuration="Release" Class="iPad_Launch2x">
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>FM_LaunchScreenImage_iPad@2x.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPad\FM_NotificationIcon_40x40.png" Configuration="Release" Class="iPad_Notification40">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPad\FM_SettingIcon_58x58.png" Configuration="Release" Class="iPad_Setting58">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPad\FM_SpotlightSearchIcon_80x80.png" Configuration="Release" Class="iPad_SpotLight80">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_1024x1024.png" Configuration="Release" Class="iOS_AppStore1024">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_120x120.png" Configuration="Release" Class="iPhone_AppIcon120">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_180x180.png" Configuration="Release" Class="iPhone_AppIcon180">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImageDark_2x.png" Configuration="Release" Class="iPhone_LaunchDark2x">
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>FM_LaunchScreenImage_iPhoneDark@2x.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImageDark_3x.png" Configuration="Release" Class="iPhone_LaunchDark3x">
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>FM_LaunchScreenImage_iPhoneDark@3x.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImage_2x.png" Configuration="Release" Class="iPhone_Launch2x">
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>FM_LaunchScreenImage_iPhone@2x.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImage_3x.png" Configuration="Release" Class="iPhone_Launch3x">
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>FM_LaunchScreenImage_iPhone@3x.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_NotificationIcon_40x40.png" Configuration="Release" Class="iPhone_Notification40">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_NotificationIcon_60x60.png" Configuration="Release" Class="iPhone_Notification60">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_SettingIcon_58x58.png" Configuration="Release" Class="iPhone_Setting58">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_SettingIcon_87x87.png" Configuration="Release" Class="iPhone_Setting87">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_SpotlightSearchIcon_120x120.png" Configuration="Release" Class="iPhone_Spotlight120">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_SpotlightSearchIcon_80x80.png" Configuration="Release" Class="iPhone_Spotlight80">
+                    <Platform Name="iOSSimARM64">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -958,10 +1073,1008 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\GSP-500-Noises\16GUNDRY.WAV" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\GSP-500-Noises\16GUNDRY.WAV" Configuration="Release" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>16GUNDRY.WAV</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\BoxComplete.wav" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\BoxComplete.wav" Configuration="Release" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>BoxComplete.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\ExploMixLong.wav" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\ExploMixLong.wav" Configuration="Release" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>ExploMixLong.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\GameOverRobot.wav" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\GameOverRobot.wav" Configuration="Release" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>GameOverRobot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\IceCubeExploding.wav" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\IceCubeExploding.wav" Configuration="Release" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>IceCubeExploding.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\LaserShot.wav" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\LaserShot.wav" Configuration="Release" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>LaserShot.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\LoopAngryFlies.wav" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\LoopAngryFlies.wav" Configuration="Release" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>LoopAngryFlies.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\LoopInSpace.wav" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\LoopInSpace.wav" Configuration="Release" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>LoopInSpace.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\MagicStars.wav" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\MagicStars.wav" Configuration="Release" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>MagicStars.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\Moan.wav" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\Moan.wav" Configuration="Release" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>Moan.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\SparkleCave.wav" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_PRIVATE\sounds\TheGameCreators\SparkleCave.wav" Configuration="Release" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteName>SparkleCave.wav</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\assets\icons\bidioo-150x150.png" Configuration="Debug" Class="UWP_DelphiLogo150"/>
                 <DeployFile LocalName="..\assets\icons\bidioo-44x44.png" Configuration="Debug" Class="UWP_DelphiLogo44"/>
+                <DeployFile LocalName="..\assets\icons\bidioo.icns" Configuration="Release" Class="ProjectOSXResource">
+                    <Platform Name="OSX64">
+                        <RemoteName>Bidioo.icns</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\assets\icons\bidioo.icns" Configuration="Release" Class="ProjectOSXResource">
+                    <Platform Name="OSXARM64">
+                        <RemoteName>Bidioo.icns</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-1024x1024.png" Configuration="Debug" Class="iOS_AppStore1024">
+                    <Platform Name="iOSDevice64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-120x120.png" Configuration="Debug" Class="iPhone_Spotlight120">
+                    <Platform Name="iOSDevice64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-150x150.png" Configuration="Debug" Class="UWP_DelphiLogo150"/>
+                <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-152x152.png" Configuration="Debug" Class="iPad_AppIcon152">
+                    <Platform Name="iOSDevice64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-167x167.png" Configuration="Debug" Class="iPad_AppIcon167">
+                    <Platform Name="iOSDevice64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-180x180.png" Configuration="Debug" Class="iPhone_AppIcon180">
+                    <Platform Name="iOSDevice64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-256x256.png" Configuration="Debug" Class="iPhone_LaunchDark2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>FM_LaunchScreenImage_iPhoneDark@2x.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-40x40.png" Configuration="Debug" Class="iPad_Notification40">
+                    <Platform Name="iOSDevice64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-44x44.png" Configuration="Debug" Class="UWP_DelphiLogo44"/>
+                <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-512x512.png" Configuration="Debug" Class="iPad_LaunchDark2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>FM_LaunchScreenImage_iPadDark@2x.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-58x58.png" Configuration="Debug" Class="iPad_Setting58">
+                    <Platform Name="iOSDevice64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-60x60.png" Configuration="Debug" Class="iPhone_Notification60">
+                    <Platform Name="iOSDevice64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-80x80.png" Configuration="Debug" Class="iPad_SpotLight80">
+                    <Platform Name="iOSDevice64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-87x87.png" Configuration="Debug" Class="iPhone_Setting87">
+                    <Platform Name="iOSDevice64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon.icns" Configuration="Debug" Class="ProjectOSXResource"/>
                 <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon.icns" Configuration="Debug" Class="ProjectOSXResource">
                     <Platform Name="OSXARM64">
@@ -969,8 +2082,19 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="OSXARM64\Debug\Bidioo.dSYM" Configuration="Debug" Class="ProjectOSXDebug">
-                    <Platform Name="OSXARM64">
+                <DeployFile LocalName="OSX64\Release\Bidioo.entitlements" Configuration="Release" Class="ProjectOSXEntitlements">
+                    <Platform Name="OSX64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="OSX64\Release\Bidioo.info.plist" Configuration="Release" Class="ProjectOSXInfoPList">
+                    <Platform Name="OSX64">
+                        <RemoteName>Info.plist</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="OSX64\Release\Bidioo" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="OSX64">
                         <RemoteName>Bidioo</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
@@ -992,10 +2116,26 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="OSXARM64\Debug\GamolfFMXGameStarterKit.dSYM" Configuration="Debug" Class="ProjectOSXDebug"/>
                 <DeployFile LocalName="OSXARM64\Debug\GamolfFMXGameStarterKit.entitlements" Configuration="Debug" Class="ProjectOSXEntitlements"/>
                 <DeployFile LocalName="OSXARM64\Debug\GamolfFMXGameStarterKit.info.plist" Configuration="Debug" Class="ProjectOSXInfoPList"/>
                 <DeployFile LocalName="OSXARM64\Debug\GamolfFMXGameStarterKit" Configuration="Debug" Class="ProjectOutput"/>
+                <DeployFile LocalName="OSXARM64\Release\Bidioo.entitlements" Configuration="Release" Class="ProjectOSXEntitlements">
+                    <Platform Name="OSXARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="OSXARM64\Release\Bidioo.info.plist" Configuration="Release" Class="ProjectOSXInfoPList">
+                    <Platform Name="OSXARM64">
+                        <RemoteName>Info.plist</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="OSXARM64\Release\Bidioo" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="OSXARM64">
+                        <RemoteName>Bidioo</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Win32\Debug\Bidioo.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Bidioo.exe</RemoteName>
@@ -1003,6 +2143,70 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="Win32\Debug\GamolfFMXGameStarterKit.exe" Configuration="Debug" Class="ProjectOutput"/>
+                <DeployFile LocalName="Win32\Release\Bidioo.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>Bidioo.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win64\Release\Bidioo.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win64">
+                        <RemoteName>Bidioo.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="iOSDevice64\Debug\Bidioo.dSYM" Configuration="Debug" Class="ProjectiOSDeviceDebug">
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>Bidioo</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="iOSDevice64\Debug\Bidioo.entitlements" Configuration="Debug" Class="ProjectiOSEntitlements">
+                    <Platform Name="iOSDevice64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="iOSDevice64\Debug\Bidioo.info.plist" Configuration="Debug" Class="ProjectiOSInfoPList">
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>Info.plist</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="iOSDevice64\Debug\Bidioo.launchscreen" Configuration="Debug" Class="ProjectiOSLaunchScreen">
+                    <Platform Name="iOSDevice64">
+                        <Operation>64</Operation>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="iOSDevice64\Debug\Bidioo" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>Bidioo</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="iOSSimARM64\Release\Bidioo.entitlements" Configuration="Release" Class="ProjectiOSEntitlements">
+                    <Platform Name="iOSSimARM64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="iOSSimARM64\Release\Bidioo.info.plist" Configuration="Release" Class="ProjectiOSInfoPList">
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>Info.plist</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="iOSSimARM64\Release\Bidioo.launchscreen" Configuration="Release" Class="ProjectiOSLaunchScreen">
+                    <Platform Name="iOSSimARM64">
+                        <Operation>64</Operation>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="iOSSimARM64\Release\Bidioo" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="iOSSimARM64">
+                        <RemoteName>Bidioo</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>

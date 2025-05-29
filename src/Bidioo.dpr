@@ -1,34 +1,34 @@
-﻿/// <summary>
-/// ***************************************************************************
-///
-/// Bidioo
-///
-/// Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
-///
-/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-/// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-/// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-/// DEALINGS IN THE SOFTWARE.
-///
-/// ***************************************************************************
-///
-/// Author(s) :
-/// Patrick PREMARTIN
-///
-/// Site :
-/// https://bidioo.gamolf.fr
-///
-/// Project site :
-/// https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
-///
-/// ***************************************************************************
-/// File last update : 2025-05-10T18:34:20.000+02:00
-/// Signature : cdb085d83e35d1869c85eac5f43dc4002a07ff77
-/// ***************************************************************************
-/// </summary>
+﻿(* C2PP
+  ***************************************************************************
+
+  Bidioo
+
+  Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+  DEALINGS IN THE SOFTWARE.
+
+  ***************************************************************************
+
+  Author(s) :
+  Patrick PREMARTIN
+
+  Site :
+  https://bidioo.gamolf.fr
+
+  Project site :
+  https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
+
+  ***************************************************************************
+  File last update : 2025-05-29T17:58:14.000+02:00
+  Signature : e2e74a8f05a1d20c76ec35e6e7b213a11d4b4e80
+  ***************************************************************************
+*)
 
 program Bidioo;
 
@@ -95,13 +95,15 @@ uses
   udmAdobeStock_119308227Bidioo in '..\_PRIVATE\assets\AdobeStock\AdobeStock_119308227-Bidioo\udmAdobeStock_119308227Bidioo.pas' {dmAdobeStock_119308227Bidioo: TDataModule},
   udmAdobeStock_257147901 in '..\_PRIVATE\assets\AdobeStock\AdobeStock_257147901\udmAdobeStock_257147901.pas' {dmAdobeStock_257147901: TDataModule},
   udmAdobeStock_257148021 in '..\_PRIVATE\assets\AdobeStock\AdobeStock_257148021\udmAdobeStock_257148021.pas' {dmAdobeStock_257148021: TDataModule},
-  uBidiooConfig in 'uBidiooConfig.pas';
+  uBidiooConfig in 'uBidiooConfig.pas',
+  cMatch3Game in 'cMatch3Game.pas' {cadMatch3Game: TFrame};
 
 {$R *.res}
 
 begin
   GlobalUseSkia := True;
   Application.Initialize;
+  Application.FormFactor.Orientations := [TFormOrientation.Landscape, TFormOrientation.InvertedLandscape];
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMGameControllerCenter, DMGameControllerCenter);
   Application.CreateForm(TdmAdobeStock_119308227Bidioo, dmAdobeStock_119308227Bidioo);
