@@ -1,34 +1,34 @@
-/// <summary>
-/// ***************************************************************************
-///
-/// Bidioo
-///
-/// Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
-///
-/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-/// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-/// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-/// DEALINGS IN THE SOFTWARE.
-///
-/// ***************************************************************************
-///
-/// Author(s) :
-/// Patrick PREMARTIN
-///
-/// Site :
-/// https://bidioo.gamolf.fr
-///
-/// Project site :
-/// https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
-///
-/// ***************************************************************************
-/// File last update : 2025-05-10T18:56:18.000+02:00
-/// Signature : d5ef21f64c98cd99a99144dc39d63f7641f3014b
-/// ***************************************************************************
-/// </summary>
+(* C2PP
+  ***************************************************************************
+
+  Bidioo
+
+  Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+  DEALINGS IN THE SOFTWARE.
+
+  ***************************************************************************
+
+  Author(s) :
+  Patrick PREMARTIN
+
+  Site :
+  https://bidioo.gamolf.fr
+
+  Project site :
+  https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
+
+  ***************************************************************************
+  File last update : 2025-05-10T19:18:12.762+02:00
+  Signature : 73b6ff93c3c92e183c5102145fb1181a7adf6105
+  ***************************************************************************
+*)
 
 unit uSceneHallOfFame;
 
