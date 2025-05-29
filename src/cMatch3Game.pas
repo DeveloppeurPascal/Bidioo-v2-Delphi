@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-29T19:32:32.000+02:00
-  Signature : e35d925413cbf78b4b3faa0e7bef2bd460b2f1bb
+  File last update : 2025-05-29T20:35:42.000+02:00
+  Signature : 24b26d74882afa60a4e51c4b9f6fd33b55326744
   ***************************************************************************
 *)
 
@@ -137,7 +137,7 @@ implementation
 {$R *.fmx}
 
 uses
-  Olf.Skia.SVGToBitmap, uSoundEffects;
+  Olf.Skia.SVGToBitmap;
 
 { TcadMatch3Game }
 
