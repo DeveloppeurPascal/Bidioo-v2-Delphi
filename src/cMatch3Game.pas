@@ -1,9 +1,9 @@
 ﻿(* C2PP
   ***************************************************************************
 
-  Delphi FMX Game Snippets
+  Bidioo
 
-  Copyright 2021-2025 Patrick Prémartin under AGPL 3.0 license.
+  Copyright 2013-2025 Patrick PREMARTIN under AGPL 3.0 license.
 
   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -15,31 +15,18 @@
 
   ***************************************************************************
 
-  Examples of what is done when developing video games: sprite management,
-  background music, sound effects, animations, ...
-
-  Projects are developed under Delphi with its FireMonkey multiplatform
-  framework to run our projects under Windows, macOS, iOS, Android and Linux
-  from the same code base.
-
-  Not all images and musics used in this repository are free of charge.
-  Reuse them only if you have a license. They remain the property of their
-  respective authors and are only present in the programs for demo purposes.
-
-  ***************************************************************************
-
   Author(s) :
   Patrick PREMARTIN
 
   Site :
-  https://fmxgamesnippets.developpeur-pascal.fr
+  https://bidioo.gamolf.fr
 
   Project site :
-  https://github.com/DeveloppeurPascal/Delphi-FMX-Game-Snippets
+  https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-29T15:38:22.000+02:00
-  Signature : 3e18b7631bec5aea2c9c7660ac76d32f49100f33
+  File last update : 2025-05-29T19:32:32.000+02:00
+  Signature : e35d925413cbf78b4b3faa0e7bef2bd460b2f1bb
   ***************************************************************************
 *)
 
@@ -103,6 +90,8 @@ type
     procedure SetOnMatch3Proc(const Value: TOnMatch3Proc);
     procedure SetOnMoveButNoMatch3Event(const Value: TOnMoveButNoMatch3Event);
     procedure SetOnMoveButNoMatch3Proc(const Value: TOnMoveButNoMatch3Proc);
+    function GetGrid(Col, Row: byte): integer;
+    procedure SetGrid(Col, Row: byte; const Value: integer);
   protected
     FIsInitialized: boolean;
     FGrid: array of array of integer;
@@ -121,6 +110,7 @@ type
     property NbCol: integer read FNbCol write SetNbCol;
     property NbRow: integer read FNbRow write SetNbRow;
     property SVGItems[Index: integer]: string write SetItems;
+    property Grid[Col, Row: byte]: integer read GetGrid write SetGrid;
     property BackgroundColor: TAlphaColor read FBackgroundColor
       write SetBackgroundColor;
     property SelectedBackgroundColor: TAlphaColor read FSelectedBackgroundColor
@@ -147,8 +137,7 @@ implementation
 {$R *.fmx}
 
 uses
-  Olf.Skia.SVGToBitmap,
-  USVGMatch3Items;
+  Olf.Skia.SVGToBitmap, uSoundEffects;
 
 { TcadMatch3Game }
 
@@ -372,6 +361,11 @@ begin
   FIsMouseDown := false;
 end;
 
+function TcadMatch3Game.GetGrid(Col, Row: byte): integer;
+begin
+  result := FGrid[Col][Row];
+end;
+
 function TcadMatch3Game.HadAMatch3: boolean;
   function NbItems(const Col, Row: integer; const Item: integer): integer;
   begin
@@ -575,6 +569,11 @@ begin
   FBackgroundColor := Value;
 end;
 
+procedure TcadMatch3Game.SetGrid(Col, Row: byte; const Value: integer);
+begin
+  FGrid[Col][Row] := Value;
+end;
+
 procedure TcadMatch3Game.SetItems(Index: integer; const Value: string);
 begin
   TOlfSVGBitmapList.AddItemAt(FSVGListId, index, Value);
@@ -619,6 +618,7 @@ end;
 
 procedure TcadMatch3Game.StartGame;
 begin
+  FNeedARepaint := True;
   FStatus := TMatch3GamePhase.FillFirstLineAndMove;
   GameLoop.Enabled := True;
 end;
