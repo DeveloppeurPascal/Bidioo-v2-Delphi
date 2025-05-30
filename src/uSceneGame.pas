@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-30T15:47:50.000+02:00
-  Signature : 0a801ac18e79a34ec315fe62ab4dcb542fb41f2e
+  File last update : 2025-05-30T17:14:56.000+02:00
+  Signature : fdbb8a16454a0c5ebbf57612db68f3a833f334da
   ***************************************************************************
 *)
 
@@ -292,7 +292,7 @@ begin
   cadMatch3Game1.Initialize;
   cadMatch3Game1.OnMatch3Proc := procedure(const Nb, item: integer)
     begin
-      Score := Score + Nb * item;
+      Score := Score +trunc( Nb * item);
       TSoundEffects.Play(TSoundEffectType.CaseEnMoins);
     end;
   cadMatch3Game1.OnMoveButNoMatch3Proc := procedure
