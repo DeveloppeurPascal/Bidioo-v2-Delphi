@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-30T17:14:30.000+02:00
-  Signature : 4c00113b927fe9aeab4d50a67c4dd7169d67b84b
+  File last update : 2025-05-30T19:19:50.000+02:00
+  Signature : 6a755db95f98e776b5523185dd551cc6e1d51c61
   ***************************************************************************
 *)
 
@@ -52,6 +52,7 @@ uses
 const
   CEmptyItem = 255;
   CDestroyAnimationNbFrames = 4;
+  CMoveTilesAnimationNbFrames = 4;
 
 type
 {$SCOPEDENUMS ON}
@@ -97,18 +98,26 @@ type
     FCol: byte;
     FRow: byte;
     FCellType: integer;
+    FMoveNbFrames: integer;
+    FMoveCurrentFrame: integer;
     procedure SetCol(const Value: byte);
     procedure SetDestCol(const Value: byte);
     procedure SetDestRow(const Value: byte);
     procedure SetRow(const Value: byte);
     procedure SetCellType(const Value: integer);
+    procedure SetMoveNbFrames(const Value: integer);
+    procedure SetMoveCurrentFrame(const Value: integer);
   public
     property Col: byte read FCol write SetCol;
     property Row: byte read FRow write SetRow;
     property DestCol: byte read FDestCol write SetDestCol;
     property DestRow: byte read FDestRow write SetDestRow;
     property CellType: integer read FCellType write SetCellType;
+    property MoveNbFrames: integer read FMoveNbFrames write SetMoveNbFrames;
+    property MoveCurrentFrame: integer read FMoveCurrentFrame
+      write SetMoveCurrentFrame;
     procedure Initialize(const ACol, ARow: byte; const ACelltype: integer);
+    procedure GoToCell(const ADestCol, ADestRow: byte);
     function IsMoving: boolean;
   end;
 
@@ -344,7 +353,6 @@ begin
           begin
             FCheckMatch3AfterUserMove := false;
             FStatus := TMatch3GamePhase.CheckMatch3;
-            // TODO : add a "move" animation state
           end;
         end;
       TMatch3GamePhase.PlayerChoice:
@@ -592,58 +600,62 @@ begin
 end;
 
 function TcadMatch3Game.MoveItems: boolean;
+  function DoMoveCell(const Col, Row, VCol, VRow: integer): boolean;
+  begin
+    if (FGrid[Col][Row].CellType = CEmptyItem) then
+      result := false
+    else if (FGrid[Col][Row].IsMoving) then
+    begin
+      if (FGrid[Col][Row].MoveCurrentFrame >= FGrid[Col][Row].MoveNbFrames) then
+      begin
+        FGrid[Col + VCol][Row + VRow].CellType := FGrid[Col][Row].CellType;
+        FGrid[Col][Row].CellType := CEmptyItem;
+        FGrid[Col][Row].DestCol := Col;
+        FGrid[Col][Row].DestRow := Row;
+      end;
+      result := True;
+    end
+    else if (FGrid[Col + VCol][Row + VRow].CellType = CEmptyItem) or
+      FGrid[Col + VCol][Row + VRow].IsMoving then
+    begin
+      FGrid[Col][Row].GoToCell(Col + VCol, Row + VRow);
+      result := True;
+    end
+    else
+      result := false;
+  end;
+
 var
   Col, Row: integer;
 begin
   result := false;
-  // TODO : add a "move by pixels" animation
   case FMatch3Direction of
     TMatch3Direction.Up:
       for Col := 1 to FNbCol do
         for Row := 2 to FNbRow do
-          if (FGrid[Col][Row - 1].CellType = CEmptyItem) then
-          begin
-            FGrid[Col][Row - 1].CellType := FGrid[Col][Row].CellType;
-            FGrid[Col][Row].CellType := CEmptyItem;
-            result := True;
-          end;
+          result := DoMoveCell(Col, Row, 0, -1) or result;
     TMatch3Direction.Right:
-      for Col := FNbCol - 1 downto 1 do
-        for Row := 1 to FNbRow do
-          if (FGrid[Col + 1][Row].CellType = CEmptyItem) then
-          begin
-            FGrid[Col + 1][Row].CellType := FGrid[Col][Row].CellType;
-            FGrid[Col][Row].CellType := CEmptyItem;
-            result := True;
-          end;
+      for Row := 1 to FNbRow do
+        for Col := FNbCol - 1 downto 1 do
+          result := DoMoveCell(Col, Row, +1, 0) or result;
     TMatch3Direction.Down:
       for Col := 1 to FNbCol do
         for Row := FNbRow - 1 downto 1 do
-          if (FGrid[Col][Row + 1].CellType = CEmptyItem) then
-          begin
-            FGrid[Col][Row + 1].CellType := FGrid[Col][Row].CellType;
-            FGrid[Col][Row].CellType := CEmptyItem;
-            result := True;
-          end;
+          result := DoMoveCell(Col, Row, 0, +1) or result;
     TMatch3Direction.Left:
-      for Col := 2 to FNbCol do
-        for Row := 1 to FNbRow do
-          if (FGrid[Col - 1][Row].CellType = CEmptyItem) then
-          begin
-            FGrid[Col - 1][Row].CellType := FGrid[Col][Row].CellType;
-            FGrid[Col][Row].CellType := CEmptyItem;
-            result := True;
-          end;
+      for Row := 1 to FNbRow do
+        for Col := 2 to FNbCol do
+          result := DoMoveCell(Col, Row, -1, 0) or result;
   end;
 end;
 
 procedure TcadMatch3Game.Repaint(const Force: boolean);
 var
   Col, Row: integer;
-  X, Y: integer;
+  X, Y: Single;
   W, H: Single;
   BMPCanvas: TCanvas;
-  BackgroundBrush, SelectedBackgroundBrush: TBrush;
+  SelectedBackgroundBrush: TBrush;
   BMP: TBitmap;
   Dest: TRectF;
   i: integer;
@@ -655,93 +667,104 @@ begin
   begin
     FNeedARepaint := false;
 
-    BackgroundBrush := TBrush.Create(TBrushKind.Solid, FBackgroundColor);
+    SelectedBackgroundBrush := TBrush.Create(TBrushKind.Solid,
+      FSelectedBackgroundColor);
     try
-      SelectedBackgroundBrush := TBrush.Create(TBrushKind.Solid,
-        FSelectedBackgroundColor);
+      GameScene.BeginUpdate;
       try
-        GameScene.BeginUpdate;
-        try
-          // Calculate bitmap real size in pixels
-          // W := GameScene.Width * GameScene.Bitmap.BitmapScale / FNbCol;
-          // H := GameScene.Height * GameScene.Bitmap.BitmapScale / FNbRow;
-          W := GameScene.Width / FNbCol;
-          H := GameScene.Height / FNbRow;
-          if (W < H) then
-            FPaintedBlocSize := trunc(W)
-          else
-            FPaintedBlocSize := trunc(H);
-          GameScene.Bitmap.SetSize
-            (trunc(FPaintedBlocSize * FNbCol * GameScene.Bitmap.BitmapScale),
-            trunc(FPaintedBlocSize * FNbRow * GameScene.Bitmap.BitmapScale));
+        // Calculate bitmap real size in pixels
+        W := GameScene.Width / FNbCol;
+        H := GameScene.Height / FNbRow;
+        if (W < H) then
+          FPaintedBlocSize := trunc(W)
+        else
+          FPaintedBlocSize := trunc(H);
+        GameScene.Bitmap.SetSize
+          (trunc(FPaintedBlocSize * FNbCol * GameScene.Bitmap.BitmapScale),
+          trunc(FPaintedBlocSize * FNbRow * GameScene.Bitmap.BitmapScale));
 
-          // Draw the items on the bitmap
-          BMPCanvas := GameScene.Bitmap.Canvas;
-          BMPCanvas.BeginScene;
-          try
-            // Draw normal grid (fixed elements)
-            for Col := 1 to FNbCol do
+        // Draw the items on the bitmap
+        BMPCanvas := GameScene.Bitmap.Canvas;
+        BMPCanvas.BeginScene;
+        try
+          // Clear the game backgound
+          BMPCanvas.Clear(FBackgroundColor);
+
+          // Draw the elements in the grid
+          for Col := 1 to FNbCol do
+            for Row := 1 to FNbRow do
             begin
-              X := Col - 1;
-              for Row := 1 to FNbRow do
+              // change the coordinates for moving elements
+              if FGrid[Col][Row].IsMoving then
               begin
+                X := Col - 1 + (FGrid[Col][Row].DestCol - Col) * FGrid[Col][Row]
+                  .MoveCurrentFrame / FGrid[Col][Row].MoveNbFrames;
+                Y := Row - 1 + (FGrid[Col][Row].DestRow - Row) * FGrid[Col][Row]
+                  .MoveCurrentFrame / FGrid[Col][Row].MoveNbFrames;
+                FGrid[Col][Row].MoveCurrentFrame :=
+                  FGrid[Col][Row].MoveCurrentFrame + 1;
+              end
+              else
+              begin
+                X := Col - 1;
                 Y := Row - 1;
-                Dest := TRectF.Create(X * FPaintedBlocSize,
-                  Y * FPaintedBlocSize, X * FPaintedBlocSize + FPaintedBlocSize,
-                  Y * FPaintedBlocSize + FPaintedBlocSize);
-                if (Col = FSelectedCol) and (Row = FSelectedRow) then
-                  BMPCanvas.FillRect(Dest, 1, SelectedBackgroundBrush)
-                else
-                  BMPCanvas.FillRect(Dest, 1, BackgroundBrush);
-                if FGrid[Col][Row].CellType < TOlfSVGBitmapList.Count(FSVGListId)
-                then
-                begin
-                  BMP := TOlfSVGBitmapList.Bitmap(FSVGListId,
-                    FGrid[Col][Row].CellType, FPaintedBlocSize,
-                    FPaintedBlocSize, 3, 3, 3, 3, GameScene.Bitmap.BitmapScale);
-                  try
-                    BMPCanvas.DrawBitmap(BMP, BMP.BoundsF, Dest, 1);
-                  finally
-                  end;
+              end;
+
+              // calculate the element area
+              Dest := TRectF.Create(X * FPaintedBlocSize, Y * FPaintedBlocSize,
+                X * FPaintedBlocSize + FPaintedBlocSize,
+                Y * FPaintedBlocSize + FPaintedBlocSize);
+
+              // draw the background for the selected element
+              if (Col = FSelectedCol) and (Row = FSelectedRow) then
+                BMPCanvas.FillRect(Dest, 1, SelectedBackgroundBrush);
+
+              // draw the element image
+              if FGrid[Col][Row].CellType < TOlfSVGBitmapList.Count(FSVGListId)
+              then
+              begin
+                BMP := TOlfSVGBitmapList.Bitmap(FSVGListId,
+                  FGrid[Col][Row].CellType, FPaintedBlocSize, FPaintedBlocSize,
+                  3, 3, 3, 3, GameScene.Bitmap.BitmapScale);
+                try
+                  BMPCanvas.DrawBitmap(BMP, BMP.BoundsF, Dest, 1);
+                finally
                 end;
               end;
             end;
 
-            // Draw destroy elements and their animation
-            for i := FDestroyedCellsList.Count - 1 downto 0 do
-              if FDestroyedCellsList[i].NbFrames > 0 then
+          // Draw the animated destroyed elements
+          for i := FDestroyedCellsList.Count - 1 downto 0 do
+            if FDestroyedCellsList[i].NbFrames > 0 then
+            begin
+              FDestroyedCellsList[i].NbFrames := FDestroyedCellsList[i]
+                .NbFrames - 1;
+              if FDestroyedCellsList[i].NbFrames mod 2 = 0 then
               begin
-                FDestroyedCellsList[i].NbFrames := FDestroyedCellsList[i]
-                  .NbFrames - 1;
-                if FDestroyedCellsList[i].NbFrames mod 2 = 0 then
-                begin
-                  X := FDestroyedCellsList[i].Col - 1;
-                  Y := FDestroyedCellsList[i].Row - 1;
-                  Dest := TRectF.Create(X * FPaintedBlocSize,
-                    Y * FPaintedBlocSize, X * FPaintedBlocSize +
-                    FPaintedBlocSize, Y * FPaintedBlocSize + FPaintedBlocSize);
-                  BMP := TOlfSVGBitmapList.Bitmap(FSVGListId,
-                    FDestroyedCellsList[i].CellType, FPaintedBlocSize,
-                    FPaintedBlocSize, 3, 3, 3, 3, GameScene.Bitmap.BitmapScale);
-                  try
-                    BMPCanvas.DrawBitmap(BMP, BMP.BoundsF, Dest, 1);
-                  finally
-                  end;
+                X := FDestroyedCellsList[i].Col - 1;
+                Y := FDestroyedCellsList[i].Row - 1;
+                Dest := TRectF.Create(X * FPaintedBlocSize,
+                  Y * FPaintedBlocSize, X * FPaintedBlocSize + FPaintedBlocSize,
+                  Y * FPaintedBlocSize + FPaintedBlocSize);
+                BMP := TOlfSVGBitmapList.Bitmap(FSVGListId,
+                  FDestroyedCellsList[i].CellType, FPaintedBlocSize,
+                  FPaintedBlocSize, 3, 3, 3, 3, GameScene.Bitmap.BitmapScale);
+                try
+                  BMPCanvas.DrawBitmap(BMP, BMP.BoundsF, Dest, 1);
+                finally
                 end;
-              end
-              else
-                FDestroyedCellsList.Delete(i);
-          finally
-            BMPCanvas.EndScene;
-          end;
+              end;
+            end
+            else
+              FDestroyedCellsList.Delete(i);
         finally
-          GameScene.EndUpdate;
+          BMPCanvas.EndScene;
         end;
       finally
-        SelectedBackgroundBrush.Free;
+        GameScene.EndUpdate;
       end;
     finally
-      BackgroundBrush.Free;
+      SelectedBackgroundBrush.Free;
     end;
   end;
 end;
@@ -864,6 +887,14 @@ end;
 
 { TGridCell }
 
+procedure TGridCell.GoToCell(const ADestCol, ADestRow: byte);
+begin
+  FDestCol := ADestCol;
+  FDestRow := ADestRow;
+  FMoveNbFrames := CMoveTilesAnimationNbFrames;
+  FMoveCurrentFrame := 0;
+end;
+
 procedure TGridCell.Initialize(const ACol, ARow: byte;
   const ACelltype: integer);
 begin
@@ -872,6 +903,8 @@ begin
   FRow := ARow;
   FDestRow := FRow;
   FCellType := ACelltype;
+  FMoveNbFrames := 0;
+  FMoveCurrentFrame := 0;
 end;
 
 function TGridCell.IsMoving: boolean;
@@ -897,6 +930,16 @@ end;
 procedure TGridCell.SetDestRow(const Value: byte);
 begin
   FDestRow := Value;
+end;
+
+procedure TGridCell.SetMoveCurrentFrame(const Value: integer);
+begin
+  FMoveCurrentFrame := Value;
+end;
+
+procedure TGridCell.SetMoveNbFrames(const Value: integer);
+begin
+  FMoveNbFrames := Value;
 end;
 
 procedure TGridCell.SetRow(const Value: byte);
