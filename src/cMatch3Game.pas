@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-30T16:31:12.000+02:00
-  Signature : acf35f1df66a43b5dcd55a09311c139cacd6a05b
+  File last update : 2025-05-30T17:14:30.000+02:00
+  Signature : 4c00113b927fe9aeab4d50a67c4dd7169d67b84b
   ***************************************************************************
 *)
 
@@ -51,7 +51,7 @@ uses
 
 const
   CEmptyItem = 255;
-  CDestroyAnimationNbFrames = 10;
+  CDestroyAnimationNbFrames = 4;
 
 type
 {$SCOPEDENUMS ON}
@@ -90,6 +90,28 @@ type
       const ACelltype: integer);
   end;
 
+  TGridCell = record
+  private
+    FDestCol: byte;
+    FDestRow: byte;
+    FCol: byte;
+    FRow: byte;
+    FCellType: integer;
+    procedure SetCol(const Value: byte);
+    procedure SetDestCol(const Value: byte);
+    procedure SetDestRow(const Value: byte);
+    procedure SetRow(const Value: byte);
+    procedure SetCellType(const Value: integer);
+  public
+    property Col: byte read FCol write SetCol;
+    property Row: byte read FRow write SetRow;
+    property DestCol: byte read FDestCol write SetDestCol;
+    property DestRow: byte read FDestRow write SetDestRow;
+    property CellType: integer read FCellType write SetCellType;
+    procedure Initialize(const ACol, ARow: byte; const ACelltype: integer);
+    function IsMoving: boolean;
+  end;
+
   TcadMatch3Game = class(TFrame)
     GameLoop: TTimer;
     GameScene: TImage;
@@ -126,7 +148,7 @@ type
     procedure SetUseMatchDirection(const Value: boolean);
   protected
     FIsInitialized: boolean;
-    FGrid: array of array of integer;
+    FGrid: array of array of TGridCell;
     FStatus: TMatch3GamePhase;
     FNeedARepaint: boolean;
     FSelectedCol, FSelectedRow: integer;
@@ -144,6 +166,9 @@ type
     property NbCol: integer read FNbCol write SetNbCol;
     property NbRow: integer read FNbRow write SetNbRow;
     property SVGItems[Index: integer]: string write SetItems;
+    /// <summary>
+    /// Access to the CellType of grid cells
+    /// </summary>
     property Grid[Col, Row: byte]: integer read GetGrid write SetGrid;
     property UseMatchDirection: boolean read FUseMatchDirection
       write SetUseMatchDirection;
@@ -232,30 +257,32 @@ begin
   case FMatch3Direction of
     TMatch3Direction.Up:
       for Col := 1 to FNbCol do
-        if FGrid[Col][FNbRow] = CEmptyItem then
+        if FGrid[Col][FNbRow].CellType = CEmptyItem then
         begin
-          FGrid[Col][FNbRow] := random(TOlfSVGBitmapList.Count(FSVGListId));
+          FGrid[Col][FNbRow].CellType :=
+            random(TOlfSVGBitmapList.Count(FSVGListId));
           result := True;
         end;
     TMatch3Direction.Right:
       for Row := 1 to FNbRow do
-        if FGrid[1][Row] = CEmptyItem then
+        if FGrid[1][Row].CellType = CEmptyItem then
         begin
-          FGrid[1][Row] := random(TOlfSVGBitmapList.Count(FSVGListId));
+          FGrid[1][Row].CellType := random(TOlfSVGBitmapList.Count(FSVGListId));
           result := True;
         end;
     TMatch3Direction.Down:
       for Col := 1 to FNbCol do
-        if FGrid[Col][1] = CEmptyItem then
+        if FGrid[Col][1].CellType = CEmptyItem then
         begin
-          FGrid[Col][1] := random(TOlfSVGBitmapList.Count(FSVGListId));
+          FGrid[Col][1].CellType := random(TOlfSVGBitmapList.Count(FSVGListId));
           result := True;
         end;
     TMatch3Direction.Left:
       for Row := 1 to FNbRow do
-        if FGrid[FNbCol][Row] = CEmptyItem then
+        if FGrid[FNbCol][Row].CellType = CEmptyItem then
         begin
-          FGrid[FNbCol][Row] := random(TOlfSVGBitmapList.Count(FSVGListId));
+          FGrid[FNbCol][Row].CellType :=
+            random(TOlfSVGBitmapList.Count(FSVGListId));
           result := True;
         end;
   end;
@@ -302,7 +329,6 @@ end;
 procedure TcadMatch3Game.GameLoopTimer(Sender: TObject);
 var
   HasMoved, HasFilled: boolean;
-  i: integer;
 begin
   if FDestroyedCellsList.Count > 0 then
     FNeedARepaint := True
@@ -370,9 +396,9 @@ begin
     // TODO : test if the movement is allowed to have a classic behaviour
 
     // Move even if no match-3 is available
-    SwapItem := FGrid[Col][Row];
-    FGrid[Col][Row] := FGrid[FSelectedCol][FSelectedRow];
-    FGrid[FSelectedCol][FSelectedRow] := SwapItem;
+    SwapItem := FGrid[Col][Row].CellType;
+    FGrid[Col][Row].CellType := FGrid[FSelectedCol][FSelectedRow].CellType;
+    FGrid[FSelectedCol][FSelectedRow].CellType := SwapItem;
     if FUseMatchDirection then
     begin
       if Col = FSelectedCol - 1 then
@@ -427,9 +453,9 @@ begin
     // TODO : test if the movement is allowed to have a classic behaviour
 
     // Move even if no match-3 is available (manage a lives number)
-    SwapItem := FGrid[Col][Row];
-    FGrid[Col][Row] := FGrid[FSelectedCol][FSelectedRow];
-    FGrid[FSelectedCol][FSelectedRow] := SwapItem;
+    SwapItem := FGrid[Col][Row].CellType;
+    FGrid[Col][Row].CellType := FGrid[FSelectedCol][FSelectedRow].CellType;
+    FGrid[FSelectedCol][FSelectedRow].CellType := SwapItem;
     if FUseMatchDirection then
     begin
       if Col = FSelectedCol - 1 then
@@ -458,15 +484,16 @@ end;
 
 function TcadMatch3Game.GetGrid(Col, Row: byte): integer;
 begin
-  result := FGrid[Col][Row];
+  result := FGrid[Col][Row].CellType;
 end;
 
 function TcadMatch3Game.HadAMatch3: boolean;
   function NbItems(const Col, Row: integer; const Item: integer): integer;
   begin
-    if (FGrid[Col][Row] = Item) then
+    if (FGrid[Col][Row].CellType = Item) then
     begin
-      FGrid[Col][Row] := FGrid[Col][Row] + TOlfSVGBitmapList.Count(FSVGListId);
+      FGrid[Col][Row].CellType := FGrid[Col][Row].CellType +
+        TOlfSVGBitmapList.Count(FSVGListId);
       result := 1 + NbItems(Col - 1, Row, Item) + NbItems(Col + 1, Row, Item) +
         NbItems(Col, Row - 1, Item) + NbItems(Col, Row + 1, Item);
     end
@@ -475,10 +502,11 @@ function TcadMatch3Game.HadAMatch3: boolean;
   end;
   procedure ResetItems(const Col, Row: integer);
   begin
-    if (FGrid[Col][Row] <> CEmptyItem) and
-      (FGrid[Col][Row] >= TOlfSVGBitmapList.Count(FSVGListId)) then
+    if (FGrid[Col][Row].CellType <> CEmptyItem) and
+      (FGrid[Col][Row].CellType >= TOlfSVGBitmapList.Count(FSVGListId)) then
     begin
-      FGrid[Col][Row] := FGrid[Col][Row] - TOlfSVGBitmapList.Count(FSVGListId);
+      FGrid[Col][Row].CellType := FGrid[Col][Row].CellType -
+        TOlfSVGBitmapList.Count(FSVGListId);
       ResetItems(Col - 1, Row);
       ResetItems(Col + 1, Row);
       ResetItems(Col, Row - 1);
@@ -487,12 +515,12 @@ function TcadMatch3Game.HadAMatch3: boolean;
   end;
   procedure DestroyItems(const Col, Row: integer);
   begin
-    if (FGrid[Col][Row] <> CEmptyItem) and
-      (FGrid[Col][Row] >= TOlfSVGBitmapList.Count(FSVGListId)) then
+    if (FGrid[Col][Row].CellType <> CEmptyItem) and
+      (FGrid[Col][Row].CellType >= TOlfSVGBitmapList.Count(FSVGListId)) then
     begin
-      FDestroyedCellsList.AddCellToDestroy(Col, Row,
-        FGrid[Col][Row] - TOlfSVGBitmapList.Count(FSVGListId));
-      FGrid[Col][Row] := CEmptyItem;
+      FDestroyedCellsList.AddCellToDestroy(Col, Row, FGrid[Col][Row].CellType -
+        TOlfSVGBitmapList.Count(FSVGListId));
+      FGrid[Col][Row].CellType := CEmptyItem;
       DestroyItems(Col - 1, Row);
       DestroyItems(Col + 1, Row);
       DestroyItems(Col, Row - 1);
@@ -502,20 +530,20 @@ function TcadMatch3Game.HadAMatch3: boolean;
 
 var
   Col, Row: integer;
-  Item: integer;
+  CellType: integer;
   Nb: integer;
 begin
   result := false;
   for Col := 1 to NbCol do
     for Row := 1 to NbRow do
-      if (FGrid[Col][Row] < TOlfSVGBitmapList.Count(FSVGListId)) and
-        (((FGrid[Col + 1][Row] = FGrid[Col][Row]) and
-        (FGrid[Col + 2][Row] = FGrid[Col][Row])) or
-        ((FGrid[Col][Row + 1] = FGrid[Col][Row]) and
-        (FGrid[Col][Row + 2] = FGrid[Col][Row]))) then
+      if (FGrid[Col][Row].CellType < TOlfSVGBitmapList.Count(FSVGListId)) and
+        (((FGrid[Col + 1][Row].CellType = FGrid[Col][Row].CellType) and
+        (FGrid[Col + 2][Row].CellType = FGrid[Col][Row].CellType)) or
+        ((FGrid[Col][Row + 1].CellType = FGrid[Col][Row].CellType) and
+        (FGrid[Col][Row + 2].CellType = FGrid[Col][Row].CellType))) then
       begin
-        Item := FGrid[Col][Row];
-        Nb := NbItems(Col, Row, Item);
+        CellType := FGrid[Col][Row].CellType;
+        Nb := NbItems(Col, Row, CellType);
         if Nb < 3 then
           ResetItems(Col, Row)
         else
@@ -523,9 +551,9 @@ begin
           result := True;
           FNeedARepaint := True;
           if assigned(FOnMatch3Event) then
-            FOnMatch3Event(Nb, Item);
+            FOnMatch3Event(Nb, CellType);
           if assigned(FOnMatch3Proc) then
-            FOnMatch3Proc(Nb, Item);
+            FOnMatch3Proc(Nb, CellType);
           DestroyItems(Col, Row);
         end;
       end;
@@ -552,7 +580,7 @@ begin
     SetLength(FGrid[Col], FNbRow + 2);
     for Row := 0 to FNbRow + 1 do
       // TODO : use a different item value for borders and empty cell if needed
-      FGrid[Col][Row] := CEmptyItem;
+      FGrid[Col][Row].Initialize(Col, Row, CEmptyItem);
   end;
 
   FSelectedCol := 0;
@@ -573,37 +601,37 @@ begin
     TMatch3Direction.Up:
       for Col := 1 to FNbCol do
         for Row := 2 to FNbRow do
-          if (FGrid[Col][Row - 1] = CEmptyItem) then
+          if (FGrid[Col][Row - 1].CellType = CEmptyItem) then
           begin
-            FGrid[Col][Row - 1] := FGrid[Col][Row];
-            FGrid[Col][Row] := CEmptyItem;
+            FGrid[Col][Row - 1].CellType := FGrid[Col][Row].CellType;
+            FGrid[Col][Row].CellType := CEmptyItem;
             result := True;
           end;
     TMatch3Direction.Right:
       for Col := FNbCol - 1 downto 1 do
         for Row := 1 to FNbRow do
-          if (FGrid[Col + 1][Row] = CEmptyItem) then
+          if (FGrid[Col + 1][Row].CellType = CEmptyItem) then
           begin
-            FGrid[Col + 1][Row] := FGrid[Col][Row];
-            FGrid[Col][Row] := CEmptyItem;
+            FGrid[Col + 1][Row].CellType := FGrid[Col][Row].CellType;
+            FGrid[Col][Row].CellType := CEmptyItem;
             result := True;
           end;
     TMatch3Direction.Down:
       for Col := 1 to FNbCol do
         for Row := FNbRow - 1 downto 1 do
-          if (FGrid[Col][Row + 1] = CEmptyItem) then
+          if (FGrid[Col][Row + 1].CellType = CEmptyItem) then
           begin
-            FGrid[Col][Row + 1] := FGrid[Col][Row];
-            FGrid[Col][Row] := CEmptyItem;
+            FGrid[Col][Row + 1].CellType := FGrid[Col][Row].CellType;
+            FGrid[Col][Row].CellType := CEmptyItem;
             result := True;
           end;
     TMatch3Direction.Left:
       for Col := 2 to FNbCol do
         for Row := 1 to FNbRow do
-          if (FGrid[Col - 1][Row] = CEmptyItem) then
+          if (FGrid[Col - 1][Row].CellType = CEmptyItem) then
           begin
-            FGrid[Col - 1][Row] := FGrid[Col][Row];
-            FGrid[Col][Row] := CEmptyItem;
+            FGrid[Col - 1][Row].CellType := FGrid[Col][Row].CellType;
+            FGrid[Col][Row].CellType := CEmptyItem;
             result := True;
           end;
   end;
@@ -651,7 +679,7 @@ begin
           BMPCanvas := GameScene.Bitmap.Canvas;
           BMPCanvas.BeginScene;
           try
-          // Draw normal grid (fixed elements)
+            // Draw normal grid (fixed elements)
             for Col := 1 to FNbCol do
             begin
               X := Col - 1;
@@ -665,11 +693,12 @@ begin
                   BMPCanvas.FillRect(Dest, 1, SelectedBackgroundBrush)
                 else
                   BMPCanvas.FillRect(Dest, 1, BackgroundBrush);
-                if FGrid[Col][Row] < TOlfSVGBitmapList.Count(FSVGListId) then
+                if FGrid[Col][Row].CellType < TOlfSVGBitmapList.Count(FSVGListId)
+                then
                 begin
-                  BMP := TOlfSVGBitmapList.Bitmap(FSVGListId, FGrid[Col][Row],
-                    FPaintedBlocSize, FPaintedBlocSize, 3, 3, 3, 3,
-                    GameScene.Bitmap.BitmapScale);
+                  BMP := TOlfSVGBitmapList.Bitmap(FSVGListId,
+                    FGrid[Col][Row].CellType, FPaintedBlocSize,
+                    FPaintedBlocSize, 3, 3, 3, 3, GameScene.Bitmap.BitmapScale);
                   try
                     BMPCanvas.DrawBitmap(BMP, BMP.BoundsF, Dest, 1);
                   finally
@@ -724,7 +753,7 @@ end;
 
 procedure TcadMatch3Game.SetGrid(Col, Row: byte; const Value: integer);
 begin
-  FGrid[Col][Row] := Value;
+  FGrid[Col][Row].CellType := Value;
 end;
 
 procedure TcadMatch3Game.SetItems(Index: integer; const Value: string);
@@ -831,6 +860,48 @@ begin
   Cell.Row := ARow;
   Cell.CellType := ACelltype;
   add(Cell);
+end;
+
+{ TGridCell }
+
+procedure TGridCell.Initialize(const ACol, ARow: byte;
+  const ACelltype: integer);
+begin
+  FCol := ACol;
+  FDestCol := FCol;
+  FRow := ARow;
+  FDestRow := FRow;
+  FCellType := ACelltype;
+end;
+
+function TGridCell.IsMoving: boolean;
+begin
+  result := (FCol <> FDestCol) or (FRow <> FDestRow);
+end;
+
+procedure TGridCell.SetCellType(const Value: integer);
+begin
+  FCellType := Value;
+end;
+
+procedure TGridCell.SetCol(const Value: byte);
+begin
+  FCol := Value;
+end;
+
+procedure TGridCell.SetDestCol(const Value: byte);
+begin
+  FDestCol := Value;
+end;
+
+procedure TGridCell.SetDestRow(const Value: byte);
+begin
+  FDestRow := Value;
+end;
+
+procedure TGridCell.SetRow(const Value: byte);
+begin
+  FRow := Value;
 end;
 
 end.
