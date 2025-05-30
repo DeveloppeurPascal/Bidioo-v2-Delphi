@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-29T19:40:54.000+02:00
-  Signature : 7faf1dfe7e8ef88bd5b8bd506b8c3502f0f09607
+  File last update : 2025-05-30T15:47:50.000+02:00
+  Signature : 0a801ac18e79a34ec315fe62ab4dcb542fb41f2e
   ***************************************************************************
 *)
 
@@ -279,6 +279,7 @@ begin
   item.TagObject := self;
 
   cadMatch3Game1.Clear;
+  cadMatch3Game1.UseMatchDirection := true;
   cadMatch3Game1.NbCol := TBidiooGameData.Current.ColCount;
   cadMatch3Game1.NbRow := TBidiooGameData.Current.RowCount;
   cadMatch3Game1.BackgroundColor := TAlphaColors.Darkcyan;
