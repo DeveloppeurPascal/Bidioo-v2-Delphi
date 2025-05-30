@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-29T20:35:42.000+02:00
-  Signature : 24b26d74882afa60a4e51c4b9f6fd33b55326744
+  File last update : 2025-05-30T15:47:52.000+02:00
+  Signature : 5d4b07e5a51035e3b42ca9770d8fac9b8c2ab3a4
   ***************************************************************************
 *)
 
@@ -54,6 +54,7 @@ const
 type
 {$SCOPEDENUMS ON}
   TMatch3GamePhase = (None, FillFirstLineAndMove, PlayerChoice, CheckMatch3);
+  TMatch3Direction = (Up, Right, Down, Left);
 
   TOnMatch3Event = procedure(const Nb, Item: integer) of object;
   TOnMatch3Proc = reference to procedure(const Nb, Item: integer);
@@ -81,6 +82,7 @@ type
     FOnMatch3Event: TOnMatch3Event;
     FOnMoveButNoMatch3Proc: TOnMoveButNoMatch3Proc;
     FOnMatch3Proc: TOnMatch3Proc;
+    FUseMatchDirection: boolean;
     procedure SetItems(Index: integer; const Value: string);
     procedure SetNbCol(const Value: integer);
     procedure SetNbRow(const Value: integer);
@@ -92,6 +94,7 @@ type
     procedure SetOnMoveButNoMatch3Proc(const Value: TOnMoveButNoMatch3Proc);
     function GetGrid(Col, Row: byte): integer;
     procedure SetGrid(Col, Row: byte; const Value: integer);
+    procedure SetUseMatchDirection(const Value: boolean);
   protected
     FIsInitialized: boolean;
     FGrid: array of array of integer;
@@ -102,6 +105,7 @@ type
     FIsMouseDown: boolean;
     FCheckMatch3AfterUserMove: boolean;
     FSVGListId: integer;
+    FMatch3Direction: TMatch3Direction;
     procedure Repaint(const Force: boolean = false);
     function MoveItems: boolean;
     function FillFirstLine: boolean;
@@ -111,6 +115,8 @@ type
     property NbRow: integer read FNbRow write SetNbRow;
     property SVGItems[Index: integer]: string write SetItems;
     property Grid[Col, Row: byte]: integer read GetGrid write SetGrid;
+    property UseMatchDirection: boolean read FUseMatchDirection
+      write SetUseMatchDirection;
     property BackgroundColor: TAlphaColor read FBackgroundColor
       write SetBackgroundColor;
     property SelectedBackgroundColor: TAlphaColor read FSelectedBackgroundColor
@@ -165,6 +171,7 @@ begin
   FPaintedBlocSize := 0;
   FIsMouseDown := false;
   FCheckMatch3AfterUserMove := false;
+  FMatch3Direction := TMatch3Direction.Down; // from top to bottom by default
 end;
 
 constructor TcadMatch3Game.Create(AOwner: TComponent);
@@ -175,20 +182,45 @@ begin
   FOnMatch3Event := nil;
   FOnMatch3Proc := nil;
   FSVGListId := -1;
+  FUseMatchDirection := false;
   Clear;
 end;
 
 function TcadMatch3Game.FillFirstLine: boolean;
 var
-  Col: integer;
+  Col, Row: integer;
 begin
   result := false;
-  for Col := 1 to FNbCol do
-    if FGrid[Col][1] = CEmptyItem then
-    begin
-      FGrid[Col][1] := random(TOlfSVGBitmapList.Count(FSVGListId));
-      result := True;
-    end;
+  case FMatch3Direction of
+    TMatch3Direction.Up:
+      for Col := 1 to FNbCol do
+        if FGrid[Col][FNbRow] = CEmptyItem then
+        begin
+          FGrid[Col][FNbRow] := random(TOlfSVGBitmapList.Count(FSVGListId));
+          result := True;
+        end;
+    TMatch3Direction.Right:
+      for Row := 1 to FNbRow do
+        if FGrid[1][Row] = CEmptyItem then
+        begin
+          FGrid[1][Row] := random(TOlfSVGBitmapList.Count(FSVGListId));
+          result := True;
+        end;
+    TMatch3Direction.Down:
+      for Col := 1 to FNbCol do
+        if FGrid[Col][1] = CEmptyItem then
+        begin
+          FGrid[Col][1] := random(TOlfSVGBitmapList.Count(FSVGListId));
+          result := True;
+        end;
+    TMatch3Direction.Left:
+      for Row := 1 to FNbRow do
+        if FGrid[FNbCol][Row] = CEmptyItem then
+        begin
+          FGrid[FNbCol][Row] := random(TOlfSVGBitmapList.Count(FSVGListId));
+          result := True;
+        end;
+  end;
 end;
 
 procedure TcadMatch3Game.FitInParent;
@@ -300,6 +332,17 @@ begin
     SwapItem := FGrid[Col][Row];
     FGrid[Col][Row] := FGrid[FSelectedCol][FSelectedRow];
     FGrid[FSelectedCol][FSelectedRow] := SwapItem;
+    if FUseMatchDirection then
+    begin
+      if Col = FSelectedCol - 1 then
+        FMatch3Direction := TMatch3Direction.Left
+      else if Col = FSelectedCol + 1 then
+        FMatch3Direction := TMatch3Direction.Right
+      else if Row = FSelectedRow - 1 then
+        FMatch3Direction := TMatch3Direction.Up
+      else
+        FMatch3Direction := TMatch3Direction.Down;
+    end;
     FSelectedCol := 0;
     FSelectedRow := 0;
     FNeedARepaint := True;
@@ -346,6 +389,17 @@ begin
     SwapItem := FGrid[Col][Row];
     FGrid[Col][Row] := FGrid[FSelectedCol][FSelectedRow];
     FGrid[FSelectedCol][FSelectedRow] := SwapItem;
+    if FUseMatchDirection then
+    begin
+      if Col = FSelectedCol - 1 then
+        FMatch3Direction := TMatch3Direction.Left
+      else if Col = FSelectedCol + 1 then
+        FMatch3Direction := TMatch3Direction.Right
+      else if Row = FSelectedRow - 1 then
+        FMatch3Direction := TMatch3Direction.Up
+      else
+        FMatch3Direction := TMatch3Direction.Down;
+    end;
     FSelectedCol := 0;
     FSelectedRow := 0;
     FNeedARepaint := True;
@@ -473,14 +527,44 @@ var
 begin
   result := false;
   // TODO : add a "move by pixels" animation
-  for Col := 1 to FNbCol do
-    for Row := FNbRow - 1 downto 1 do
-      if (FGrid[Col][Row + 1] = CEmptyItem) then
-      begin
-        FGrid[Col][Row + 1] := FGrid[Col][Row];
-        FGrid[Col][Row] := CEmptyItem;
-        result := True;
-      end;
+  case FMatch3Direction of
+    TMatch3Direction.Up:
+      for Col := 1 to FNbCol do
+        for Row := 2 to FNbRow do
+          if (FGrid[Col][Row - 1] = CEmptyItem) then
+          begin
+            FGrid[Col][Row - 1] := FGrid[Col][Row];
+            FGrid[Col][Row] := CEmptyItem;
+            result := True;
+          end;
+    TMatch3Direction.Right:
+      for Col := FNbCol - 1 downto 1 do
+        for Row := 1 to FNbRow do
+          if (FGrid[Col + 1][Row] = CEmptyItem) then
+          begin
+            FGrid[Col + 1][Row] := FGrid[Col][Row];
+            FGrid[Col][Row] := CEmptyItem;
+            result := True;
+          end;
+    TMatch3Direction.Down:
+      for Col := 1 to FNbCol do
+        for Row := FNbRow - 1 downto 1 do
+          if (FGrid[Col][Row + 1] = CEmptyItem) then
+          begin
+            FGrid[Col][Row + 1] := FGrid[Col][Row];
+            FGrid[Col][Row] := CEmptyItem;
+            result := True;
+          end;
+    TMatch3Direction.Left:
+      for Col := 2 to FNbCol do
+        for Row := 1 to FNbRow do
+          if (FGrid[Col - 1][Row] = CEmptyItem) then
+          begin
+            FGrid[Col - 1][Row] := FGrid[Col][Row];
+            FGrid[Col][Row] := CEmptyItem;
+            result := True;
+          end;
+  end;
 end;
 
 procedure TcadMatch3Game.Repaint(const Force: boolean);
@@ -614,6 +698,11 @@ end;
 procedure TcadMatch3Game.SetSelectedBackgroundColor(const Value: TAlphaColor);
 begin
   FSelectedBackgroundColor := Value;
+end;
+
+procedure TcadMatch3Game.SetUseMatchDirection(const Value: boolean);
+begin
+  FUseMatchDirection := Value;
 end;
 
 procedure TcadMatch3Game.StartGame;
