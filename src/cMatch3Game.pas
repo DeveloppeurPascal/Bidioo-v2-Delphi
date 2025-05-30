@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-30T15:47:52.000+02:00
-  Signature : 5d4b07e5a51035e3b42ca9770d8fac9b8c2ab3a4
+  File last update : 2025-05-30T16:31:12.000+02:00
+  Signature : acf35f1df66a43b5dcd55a09311c139cacd6a05b
   ***************************************************************************
 *)
 
@@ -35,6 +35,7 @@ unit cMatch3Game;
 interface
 
 uses
+  System.Generics.Collections,
   System.SysUtils,
   System.Types,
   System.UITypes,
@@ -50,6 +51,7 @@ uses
 
 const
   CEmptyItem = 255;
+  CDestroyAnimationNbFrames = 10;
 
 type
 {$SCOPEDENUMS ON}
@@ -60,6 +62,33 @@ type
   TOnMatch3Proc = reference to procedure(const Nb, Item: integer);
   TOnMoveButNoMatch3Event = procedure of object;
   TOnMoveButNoMatch3Proc = reference to procedure;
+
+  TDestroyedCell = class
+  private
+    FCol: byte;
+    FCellType: integer;
+    FRow: byte;
+    FNbFrames: integer;
+    procedure SetCellType(const Value: integer);
+    procedure SetCol(const Value: byte);
+    procedure SetRow(const Value: byte);
+    procedure SetNbFrames(const Value: integer);
+  protected
+  public
+    property Col: byte read FCol write SetCol;
+    property Row: byte read FRow write SetRow;
+    property CellType: integer read FCellType write SetCellType;
+    property NbFrames: integer read FNbFrames write SetNbFrames;
+    constructor Create;
+  end;
+
+  TDestroyedCellsList = class(TObjectList<TDestroyedCell>)
+  private
+  protected
+  public
+    procedure AddCellToDestroy(const ACol, ARow: byte;
+      const ACelltype: integer);
+  end;
 
   TcadMatch3Game = class(TFrame)
     GameLoop: TTimer;
@@ -106,6 +135,7 @@ type
     FCheckMatch3AfterUserMove: boolean;
     FSVGListId: integer;
     FMatch3Direction: TMatch3Direction;
+    FDestroyedCellsList: TDestroyedCellsList;
     procedure Repaint(const Force: boolean = false);
     function MoveItems: boolean;
     function FillFirstLine: boolean;
@@ -134,6 +164,7 @@ type
     procedure StartGame;
     procedure StopGame;
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     procedure AfterConstruction; override;
     procedure FitInParent;
   end;
@@ -177,6 +208,7 @@ end;
 constructor TcadMatch3Game.Create(AOwner: TComponent);
 begin
   inherited;
+  FDestroyedCellsList := TDestroyedCellsList.Create;
   FOnMoveButNoMatch3Event := nil;
   FOnMoveButNoMatch3Proc := nil;
   FOnMatch3Event := nil;
@@ -184,6 +216,12 @@ begin
   FSVGListId := -1;
   FUseMatchDirection := false;
   Clear;
+end;
+
+destructor TcadMatch3Game.Destroy;
+begin
+  FDestroyedCellsList.Free;
+  inherited;
 end;
 
 function TcadMatch3Game.FillFirstLine: boolean;
@@ -264,39 +302,42 @@ end;
 procedure TcadMatch3Game.GameLoopTimer(Sender: TObject);
 var
   HasMoved, HasFilled: boolean;
+  i: integer;
 begin
-  case FStatus of
-    TMatch3GamePhase.FillFirstLineAndMove:
-      begin
-        HasMoved := MoveItems;
-        HasFilled := FillFirstLine;
-        if HasMoved or HasFilled then
-          FNeedARepaint := True
+  if FDestroyedCellsList.Count > 0 then
+    FNeedARepaint := True
+  else
+    case FStatus of
+      TMatch3GamePhase.FillFirstLineAndMove:
+        begin
+          HasMoved := MoveItems;
+          HasFilled := FillFirstLine;
+          if HasMoved or HasFilled then
+            FNeedARepaint := True
+          else
+          begin
+            FCheckMatch3AfterUserMove := false;
+            FStatus := TMatch3GamePhase.CheckMatch3;
+            // TODO : add a "move" animation state
+          end;
+        end;
+      TMatch3GamePhase.PlayerChoice:
+        ;
+      TMatch3GamePhase.CheckMatch3:
+        if HadAMatch3 then
+          FStatus := TMatch3GamePhase.FillFirstLineAndMove
         else
         begin
-          FCheckMatch3AfterUserMove := false;
-          FStatus := TMatch3GamePhase.CheckMatch3;
-          // TODO : add a "move" animation state
+          if FCheckMatch3AfterUserMove then
+          begin
+            if assigned(FOnMoveButNoMatch3Event) then
+              FOnMoveButNoMatch3Event;
+            if assigned(FOnMoveButNoMatch3Proc) then
+              FOnMoveButNoMatch3Proc;
+          end;
+          FStatus := TMatch3GamePhase.PlayerChoice;
         end;
-      end;
-    TMatch3GamePhase.PlayerChoice:
-      ;
-    TMatch3GamePhase.CheckMatch3:
-      if HadAMatch3 then
-        FStatus := TMatch3GamePhase.FillFirstLineAndMove
-        // TODO : add a "match" animation state
-      else
-      begin
-        if FCheckMatch3AfterUserMove then
-        begin
-          if assigned(FOnMoveButNoMatch3Event) then
-            FOnMoveButNoMatch3Event;
-          if assigned(FOnMoveButNoMatch3Proc) then
-            FOnMoveButNoMatch3Proc;
-        end;
-        FStatus := TMatch3GamePhase.PlayerChoice;
-      end;
-  end;
+    end;
   Repaint;
 end;
 
@@ -449,8 +490,9 @@ function TcadMatch3Game.HadAMatch3: boolean;
     if (FGrid[Col][Row] <> CEmptyItem) and
       (FGrid[Col][Row] >= TOlfSVGBitmapList.Count(FSVGListId)) then
     begin
+      FDestroyedCellsList.AddCellToDestroy(Col, Row,
+        FGrid[Col][Row] - TOlfSVGBitmapList.Count(FSVGListId));
       FGrid[Col][Row] := CEmptyItem;
-      // TODO : add a "destroy" animation somewhere
       DestroyItems(Col - 1, Row);
       DestroyItems(Col + 1, Row);
       DestroyItems(Col, Row - 1);
@@ -576,6 +618,7 @@ var
   BackgroundBrush, SelectedBackgroundBrush: TBrush;
   BMP: TBitmap;
   Dest: TRectF;
+  i: integer;
 begin
   if not FIsInitialized then
     exit;
@@ -608,6 +651,7 @@ begin
           BMPCanvas := GameScene.Bitmap.Canvas;
           BMPCanvas.BeginScene;
           try
+          // Draw normal grid (fixed elements)
             for Col := 1 to FNbCol do
             begin
               X := Col - 1;
@@ -633,6 +677,31 @@ begin
                 end;
               end;
             end;
+
+            // Draw destroy elements and their animation
+            for i := FDestroyedCellsList.Count - 1 downto 0 do
+              if FDestroyedCellsList[i].NbFrames > 0 then
+              begin
+                FDestroyedCellsList[i].NbFrames := FDestroyedCellsList[i]
+                  .NbFrames - 1;
+                if FDestroyedCellsList[i].NbFrames mod 2 = 0 then
+                begin
+                  X := FDestroyedCellsList[i].Col - 1;
+                  Y := FDestroyedCellsList[i].Row - 1;
+                  Dest := TRectF.Create(X * FPaintedBlocSize,
+                    Y * FPaintedBlocSize, X * FPaintedBlocSize +
+                    FPaintedBlocSize, Y * FPaintedBlocSize + FPaintedBlocSize);
+                  BMP := TOlfSVGBitmapList.Bitmap(FSVGListId,
+                    FDestroyedCellsList[i].CellType, FPaintedBlocSize,
+                    FPaintedBlocSize, 3, 3, 3, 3, GameScene.Bitmap.BitmapScale);
+                  try
+                    BMPCanvas.DrawBitmap(BMP, BMP.BoundsF, Dest, 1);
+                  finally
+                  end;
+                end;
+              end
+              else
+                FDestroyedCellsList.Delete(i);
           finally
             BMPCanvas.EndScene;
           end;
@@ -716,6 +785,52 @@ procedure TcadMatch3Game.StopGame;
 begin
   FStatus := TMatch3GamePhase.None;
   GameLoop.Enabled := false;
+end;
+
+{ TDestroyedCell }
+
+constructor TDestroyedCell.Create;
+begin
+  inherited;
+  FCol := 0;
+  FRow := 0;
+  FCellType := -1;
+  FNbFrames := CDestroyAnimationNbFrames;
+end;
+
+procedure TDestroyedCell.SetCellType(const Value: integer);
+begin
+  FCellType := Value;
+  // TODO : change NbFrames depending on the destroy animation for this CellType
+end;
+
+procedure TDestroyedCell.SetCol(const Value: byte);
+begin
+  FCol := Value;
+end;
+
+procedure TDestroyedCell.SetNbFrames(const Value: integer);
+begin
+  FNbFrames := Value;
+end;
+
+procedure TDestroyedCell.SetRow(const Value: byte);
+begin
+  FRow := Value;
+end;
+
+{ TDestroyedCellsList }
+
+procedure TDestroyedCellsList.AddCellToDestroy(const ACol, ARow: byte;
+  const ACelltype: integer);
+var
+  Cell: TDestroyedCell;
+begin
+  Cell := TDestroyedCell.Create;
+  Cell.Col := ACol;
+  Cell.Row := ARow;
+  Cell.CellType := ACelltype;
+  add(Cell);
 end;
 
 end.
