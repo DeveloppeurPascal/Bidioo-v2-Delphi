@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-29T19:30:54.000+02:00
-  Signature : b8bddca7b4f876de37cc89278b6ccc92b40c32a7
+  File last update : 2025-05-30T17:15:24.000+02:00
+  Signature : fbd29a46fcdf7d3e0665fb3fd0710e00fd90cd25
   ***************************************************************************
 *)
 
@@ -69,9 +69,7 @@ type
     procedure SetIsPressedButton(const Value: boolean);
     procedure SetNumber(const Value: integer);
     procedure SetShowNumber(const Value: boolean);
-
   protected
-    procedure Click; override;
   public
     property Number: integer read FNumber write SetNumber;
     property ShowNumber: boolean read FShowNumber write SetShowNumber;
@@ -82,6 +80,7 @@ type
     constructor Create(AOwner: TComponent); override;
     procedure Repaint; override;
     procedure AfterConstruction; override;
+    procedure Click; override;
   end;
 
 implementation
