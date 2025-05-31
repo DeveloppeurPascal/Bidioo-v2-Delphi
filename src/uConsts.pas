@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-30T15:21:28.000+02:00
-  Signature : a9415c93c6d79fc070835af9e3dd79357694d2a2
+  File last update : 2025-05-31T16:05:10.000+02:00
+  Signature : 409328923b89f84b6c2dfa96bc4c9d054e304572
   ***************************************************************************
 *)
 
@@ -192,6 +192,28 @@ Const
   /// Change it to an other scene, like a game intro or a splashscreen
   /// </remarks>
   CDefaultSceneOnStartup = TSceneType.Home;
+
+  /// <summary>
+  /// Max number of different tiles in the game screen by default
+  /// </summary>
+  /// <remarks>
+  /// In Bidioo, this value is added to the current game level to increase the
+  /// difficulty level.
+  /// </remarks>
+  CDefaultNbMaxDifferentTiles = 4;
+
+  /// <summary>
+  /// Minimal score to increase the game level
+  /// </summary>
+  /// <remarks>
+  /// 0 points needed for leval 1
+  /// 100 points needed for level 2
+  /// 300 points needed for level 3
+  /// ...
+  /// 5500 points needed for level 10
+  /// </remarks>
+  CMinScoreForLevel: array of integer = [0, 100, 300, 600, 1000, 1500, 2100,
+    2800, 3600, 4500, 5500];
 
 {$IF Defined(RELEASE)}
 

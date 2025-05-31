@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-30T17:14:56.000+02:00
-  Signature : fdbb8a16454a0c5ebbf57612db68f3a833f334da
+  File last update : 2025-05-31T16:22:04.000+02:00
+  Signature : b0f6b29be5d8a061e5efe558fd5a03e9f10a968d
   ***************************************************************************
 *)
 
@@ -68,6 +68,8 @@ type
     procedure SetScore(const Value: cardinal);
     function GetNbLives: cardinal;
     function GetScore: cardinal;
+    procedure SetGameLevel(const Value: cardinal);
+    function GetGameLevel: cardinal;
   protected
     procedure ClearBonusLayout;
     function AddBonus(const BonusType: TSVGIconesKolopachIndex)
@@ -82,6 +84,7 @@ type
     procedure AfterConstruction; override;
     property Score: cardinal read GetScore write SetScore;
     property NbLives: cardinal read GetNbLives write SetNbLives;
+    property GameLevel: cardinal read GetGameLevel write SetGameLevel;
     procedure ShowScene; override;
     procedure HideScene; override;
   end;
@@ -180,6 +183,11 @@ begin
     end;
 end;
 
+function TGameScene.GetGameLevel: cardinal;
+begin
+  result := TBidiooGameData.Current.Level;
+end;
+
 function TGameScene.GetNbLives: cardinal;
 begin
   result := TBidiooGameData.Current.NbLives;
@@ -237,6 +245,18 @@ begin
     btn.free;
 end;
 
+procedure TGameScene.SetGameLevel(const Value: cardinal);
+begin
+  if (Value < 1) then
+    exit;
+
+  TBidiooGameData.Current.Level := Value;
+  cadMatch3Game1.NbMaxDifferentTiles := CDefaultNbMaxDifferentTiles +
+    TBidiooGameData.Current.Level;
+  // TODO : jouer un son pour signaler le changement de niveau de jeu
+  // TODO : afficher une info lors du premier passage à ce nouveau niveau (gain d'un badge ou autre)
+end;
+
 procedure TGameScene.SetNbLives(const Value: cardinal);
 begin
   if (Value <> TBidiooGameData.Current.NbLives) then
@@ -256,6 +276,10 @@ procedure TGameScene.SetScore(const Value: cardinal);
 begin
   TBidiooGameData.Current.Score := Value;
   txtScore.Text := Score.ToString;
+
+  if (GameLevel < length(CMinScoreForLevel)) and
+    (TBidiooGameData.Current.Score > CMinScoreForLevel[GameLevel]) then
+    GameLevel := GameLevel + 1;
 end;
 
 procedure TGameScene.ShowScene;
@@ -279,6 +303,8 @@ begin
   item.TagObject := self;
 
   cadMatch3Game1.Clear;
+  cadMatch3Game1.NbMaxDifferentTiles := CDefaultNbMaxDifferentTiles +
+    TBidiooGameData.Current.Level;
   cadMatch3Game1.UseMatchDirection := true;
   cadMatch3Game1.NbCol := TBidiooGameData.Current.ColCount;
   cadMatch3Game1.NbRow := TBidiooGameData.Current.RowCount;
@@ -292,7 +318,7 @@ begin
   cadMatch3Game1.Initialize;
   cadMatch3Game1.OnMatch3Proc := procedure(const Nb, item: integer)
     begin
-      Score := Score +trunc( Nb * item);
+      Score := Score + trunc(Nb * item) + (TBidiooGameData.Current.Level - 1);
       TSoundEffects.Play(TSoundEffectType.CaseEnMoins);
     end;
   cadMatch3Game1.OnMoveButNoMatch3Proc := procedure
