@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T15:40:02.000+02:00
-  Signature : 341fe7bc210f73e6ab13778411df258522569c31
+  File last update : 2025-05-31T15:42:22.000+02:00
+  Signature : 4e1d7af06985f0889b7deefd97fc82e9a9c60c14
   ***************************************************************************
 *)
 
@@ -105,6 +105,9 @@ begin
   GlobalUseSkia := True;
   {$IF Defined(OSX) or Defined(IOS)}
   GlobalUseMetal := true;
+  {$ENDIF}
+  {$IFDEF ANDROID}
+  GlobalUseVulkan := true;
   {$ENDIF}
   Application.Initialize;
   Application.FormFactor.Orientations := [TFormOrientation.Landscape, TFormOrientation.InvertedLandscape];
