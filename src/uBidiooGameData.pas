@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T16:46:58.000+02:00
-  Signature : 3528466e35ec9dc94201a9ea1df1c0b7385e0973
+  File last update : 2025-05-31T17:40:18.000+02:00
+  Signature : 61b8f5e50dc7ab1d6367c9897ce0d9b12b0d56f2
   ***************************************************************************
 *)
 
@@ -142,7 +142,8 @@ begin
   if tfile.Exists(GetFilePath) then
     try
       LoadFromFile(GetFilePath);
-      FIsPaused := NbLives > 0;
+      // If a game data exists, a game is paused.
+      FIsPaused := True;
     except
       Clear;
     end
