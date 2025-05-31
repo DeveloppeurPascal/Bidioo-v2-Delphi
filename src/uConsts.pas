@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T16:46:28.000+02:00
-  Signature : ad9b54f47b7427f5529e67d1387b6f9fc5608b8c
+  File last update : 2025-05-31T17:30:28.000+02:00
+  Signature : 791b60c18e6bbc88d81ced1dae72032684ff54c0
   ***************************************************************************
 *)
 
@@ -117,7 +117,7 @@ const
   /// sound effects file when you execute the program in DEBUG on Windows
   /// (without deployment)
   /// </summary>
-  CDefaultSoundEffectsPath = '..\..\..\_PRIVATE\sounds\';
+  CDefaultSoundEffectsPath = '..\..\..\_PRIVATE\sounds\TheGameCreators\';
 
   /// <summary>
   /// Used as a folder name to store your game settings
