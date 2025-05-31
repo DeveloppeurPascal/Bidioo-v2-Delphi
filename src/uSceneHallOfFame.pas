@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T15:28:32.000+02:00
-  Signature : 1bb7bae84afe406b9e18a58d331cf7c47886773b
+  File last update : 2025-05-31T15:33:10.000+02:00
+  Signature : af3252886a83d8dfcb51666191cdbb92af5c8125
   ***************************************************************************
 *)
 
@@ -73,8 +73,7 @@ implementation
 uses
   uScene,
   uConsts,
-  uBidiooScores,
-  udmAdobeStock_257148021;
+  uBidiooScores;
 
 procedure THallOfFameScene.btnOkClick(Sender: TObject);
 begin

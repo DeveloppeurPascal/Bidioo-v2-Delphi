@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T15:28:08.000+02:00
-  Signature : 2e281e30103f027f5999ed4750405186add91edc
+  File last update : 2025-05-31T15:33:08.000+02:00
+  Signature : 1b282e67dc2a2e293f6bcfcca873f15763514eec
   ***************************************************************************
 *)
 
@@ -83,7 +83,6 @@ implementation
 uses
   uScene,
   uConsts,
-  udmAdobeStock_257148021,
   uConfig,
   uBidiooConfig,
   uBackgroundMusic,

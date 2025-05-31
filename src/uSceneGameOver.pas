@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T15:28:00.000+02:00
-  Signature : e045cd4861bfa3039d1af113106abdc4ec1dcc05
+  File last update : 2025-05-31T15:33:12.000+02:00
+  Signature : 98767d3c8cec731db215c7cd1fb8c2655f3bcba1
   ***************************************************************************
 *)
 
@@ -75,7 +75,6 @@ uses
   uConsts,
   uBidiooGameData,
   uBidiooScores,
-  udmAdobeStock_257148021,
   uSoundEffects;
 
 procedure TGameOverScene.btnOkClick(Sender: TObject);
