@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T17:30:28.000+02:00
-  Signature : 791b60c18e6bbc88d81ced1dae72032684ff54c0
+  File last update : 2025-05-31T20:04:44.000+02:00
+  Signature : 9a31e2d48b86aa5619144adb8f198132a2af796b
   ***************************************************************************
 *)
 
@@ -42,12 +42,12 @@ const
   /// Version number of your game, don't forget to update the
   /// Project/Options/Versions infos before compiling a public RELEASE
   /// </summary>
-  CAboutVersionNumber = '2.0a';
+  CAboutVersionNumber = '2.0b';
 
   /// <summary>
   /// Version date of your game, change it when you publish a new public release
   /// </summary>
-  CAboutVersionDate = '20250530';
+  CAboutVersionDate = '20250531';
 
   /// <summary>
   /// Title of your game used in the About box and as the main form caption
