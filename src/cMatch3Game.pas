@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T17:57:42.000+02:00
-  Signature : 2e26a50ca39b4375acf03aaa5d70009c57fc438c
+  File last update : 2025-05-31T19:55:32.000+02:00
+  Signature : 03af06194edb15c792aaebe8a471d4c64d724222
   ***************************************************************************
 *)
 
@@ -50,20 +50,67 @@ uses
   FMX.Objects;
 
 const
+  /// <summary>
+  /// ID for the "empty" item used in the game grid
+  /// </summary>
   CEmptyItem = 255;
+  /// <summary>
+  /// Frames number for the tiles destroy animation
+  /// </summary>
+  /// <remarks>
+  /// The frames number is based on a ideal 60 FPS execution of the game.
+  /// </remarks>
+{$IF Defined(DEBUG) and Defined(MSWINDOWS)}
+  CDestroyAnimationNbFrames = 4;
+{$ELSE}
   CDestroyAnimationNbFrames = 30;
+{$ENDIF}
+  /// <summary>
+  /// Frames number for the tiles move when we fill the screen after having a
+  /// math-3.
+  /// </summary>
+  /// <remarks>
+  /// The frames number is based on a ideal 60 FPS execution of the game.
+  /// </remarks>
+{$IF Defined(DEBUG) and Defined(MSWINDOWS)}
+  CMoveTilesAnimationNbFrames = 4;
+{$ELSE}
   CMoveTilesAnimationNbFrames = 10;
+{$ENDIF}
 
 type
 {$SCOPEDENUMS ON}
+  /// <summary>
+  /// States of the game loop
+  /// </summary>
   TMatch3GamePhase = (None, FillFirstLineAndMove, PlayerChoice, CheckMatch3);
+  /// <summary>
+  /// Directions used to fill the screen after a match-3
+  /// </summary>
   TMatch3Direction = (Up, Right, Down, Left);
 
+  /// <summary>
+  /// Event used to inform the program about having a match-3
+  /// </summary>
   TOnMatch3Event = procedure(const Nb, Item: integer) of object;
+  /// <summary>
+  /// Anonymous code used to inform the program about having a match-3
+  /// </summary>
   TOnMatch3Proc = reference to procedure(const Nb, Item: integer);
+  /// <summary>
+  /// Event used to inform the program about moving a tile or line without
+  /// having a match-3.
+  /// </summary>
   TOnMoveButNoMatch3Event = procedure of object;
+  /// <summary>
+  /// Anonymous code used to inform the program about moving a tile or line
+  /// without having a match-3.
+  /// </summary>
   TOnMoveButNoMatch3Proc = reference to procedure;
 
+  /// <summary>
+  /// Classe representing a destroyed cell
+  /// </summary>
   TDestroyedCell = class
   private
     FCol: byte;
@@ -76,21 +123,47 @@ type
     procedure SetNbFrames(const Value: integer);
   protected
   public
+    /// <summary>
+    /// Column number of this cell
+    /// </summary>
     property Col: byte read FCol write SetCol;
+    /// <summary>
+    /// Row number of this cell
+    /// </summary>
     property Row: byte read FRow write SetRow;
+    /// <summary>
+    /// Cell type = index of the SVG image used for this cell
+    /// </summary>
     property CellType: integer read FCellType write SetCellType;
+    /// <summary>
+    /// Current frame number used to show the destroy animation step
+    /// </summary>
     property NbFrames: integer read FNbFrames write SetNbFrames;
+    /// <summary>
+    /// Constructor of an instance of this class
+    /// </summary>
     constructor Create;
   end;
 
+  /// <summary>
+  /// List of current destroyed cells
+  /// </summary>
   TDestroyedCellsList = class(TObjectList<TDestroyedCell>)
   private
   protected
   public
+    /// <summary>
+    /// Create an instance of a destroyed cell and add it to this list
+    /// </summary>
     procedure AddCellToDestroy(const ACol, ARow: byte;
       const ACelltype: integer);
   end;
 
+  // TODO : finish adding XMLDoc comments
+
+  /// <summary>
+  /// Structure of a cell used in the game grid
+  /// </summary>
   TGridCell = record
   private
     FDestCol: byte;
@@ -121,6 +194,8 @@ type
     function IsMoving: boolean;
   end;
 
+  TSelectedLineType = (None, Col, Row);
+
   TcadMatch3Game = class(TFrame)
     GameLoop: TTimer;
     GameScene: TImage;
@@ -144,6 +219,8 @@ type
     FOnMatch3Proc: TOnMatch3Proc;
     FUseMatchDirection: boolean;
     FNbMaxDifferentTiles: integer;
+    FEnableSwapTiles: boolean;
+    FEnableMoveLines: boolean;
     procedure SetItems(Index: integer; const Value: string);
     procedure SetNbCol(const Value: integer);
     procedure SetNbRow(const Value: integer);
@@ -157,18 +234,22 @@ type
     procedure SetGrid(Col, Row: byte; const Value: integer);
     procedure SetUseMatchDirection(const Value: boolean);
     procedure SetNbMaxDifferentTiles(const Value: integer);
+    procedure SetEnableMoveLines(const Value: boolean);
+    procedure SetEnableSwapTiles(const Value: boolean);
   protected
     FIsInitialized: boolean;
     FGrid: array of array of TGridCell;
     FStatus: TMatch3GamePhase;
     FNeedARepaint: boolean;
     FSelectedCol, FSelectedRow: integer;
+    FSelectedLineType: TSelectedLineType;
     FPaintedBlocSize: integer;
     FIsMouseDown: boolean;
     FCheckMatch3AfterUserMove: boolean;
     FSVGListId: integer;
     FMatch3Direction: TMatch3Direction;
     FDestroyedCellsList: TDestroyedCellsList;
+    FNextCellType: integer;
     procedure Repaint(const Force: boolean = false);
     function MoveItems: boolean;
     function FillFirstLine: boolean;
@@ -181,27 +262,104 @@ type
     /// Access to the CellType of grid cells
     /// </summary>
     property Grid[Col, Row: byte]: integer read GetGrid write SetGrid;
+    /// <summary>
+    /// Contains the direction used to move the cells and fill the grid after a
+    /// match-3
+    /// </summary>
+    /// <remarks>
+    /// Understand "Left" value as "from right to left"...
+    /// Default value is "Down".
+    /// </remarks>
     property UseMatchDirection: boolean read FUseMatchDirection
       write SetUseMatchDirection;
+    /// <summary>
+    /// Used to choice what tiles can be added to the game grid
+    /// </summary>
+    /// <remarks>
+    /// The random() call use this value as a max value if the number of tiles
+    /// available is higher.
+    /// This property can be fixed from the start of a game or changed during a
+    /// game depending on score or level (for example).
+    /// Default value is 5.
+    /// </remarks>
     property NbMaxDifferentTiles: integer read FNbMaxDifferentTiles
       write SetNbMaxDifferentTiles;
+    /// <summary>
+    /// Enable the exchange of two adjacent cells : clic on first and move to
+    /// the other or clic on both.
+    /// </summary>
+    /// <remarks>
+    /// It's the default behaviour of match-3 game.
+    /// Default value is "True".
+    /// </remarks>
+    property EnableSwapTiles: boolean read FEnableSwapTiles
+      write SetEnableSwapTiles;
+    /// <summary>
+    /// Enable to move a column or row instead of swapping two adjacent cells.
+    /// </summary>
+    /// <remarks>
+    /// This game mode is dedicated to Bidioo. Never seen it in other match-3
+    /// games.
+    /// Default value is "False".
+    /// </remarks>
+    property EnableMoveLines: boolean read FEnableMoveLines
+      write SetEnableMoveLines;
+    /// <summary>
+    /// Color of the game layout background
+    /// </summary>
     property BackgroundColor: TAlphaColor read FBackgroundColor
       write SetBackgroundColor;
+    /// <summary>
+    /// Color of the background for selected tiles or lines (depending on the
+    /// game mode and what will be moved)
+    /// </summary>
     property SelectedBackgroundColor: TAlphaColor read FSelectedBackgroundColor
       write SetSelectedBackgroundColor;
+    /// <summary>
+    /// Event called if a match-3 happened and if it's assigned.
+    /// </summary>
+    /// <remarks>
+    /// Use it to change the player score, calculate if a bonus has been won, ...
+    /// </remarks>
     property OnMatch3Event: TOnMatch3Event read FOnMatch3Event
       write SetOnMatch3Event;
+    /// <summary>
+    /// Anonymous code called if a match-3 happened and if it's assigned.
+    /// </summary>
+    /// <remarks>
+    /// Use it to change the player score, calculate if a bonus has been won, ...
+    /// </remarks>
     property OnMatch3Proc: TOnMatch3Proc read FOnMatch3Proc
       write SetOnMatch3Proc;
+    /// <summary>
+    /// Event called if the player moved but no match-3 happened and if it's
+    /// assigned.
+    /// </summary>
+    /// <remarks>
+    /// Use it to change the player lifes number or other malus
+    /// </remarks>
     property OnMoveButNoMatch3Event: TOnMoveButNoMatch3Event
       read FOnMoveButNoMatch3Event write SetOnMoveButNoMatch3Event;
+    /// <summary>
+    /// Anonymous code called if the player moved but no match-3 happened and
+    /// if it's assigned.
+    /// </summary>
+    /// <remarks>
+    /// Use it to change the player lifes number or other malus
+    /// </remarks>
     property OnMoveButNoMatch3Proc: TOnMoveButNoMatch3Proc
       read FOnMoveButNoMatch3Proc write SetOnMoveButNoMatch3Proc;
     procedure Clear;
     procedure Initialize;
     procedure StartGame;
     procedure StopGame;
+    /// <summary>
+    /// Constructor of an instance of this class
+    /// </summary>
     constructor Create(AOwner: TComponent); override;
+    /// <summary>
+    /// Destructor of current instance
+    /// </summary>
     destructor Destroy; override;
     procedure AfterConstruction; override;
     procedure FitInParent;
@@ -225,6 +383,9 @@ end;
 
 procedure TcadMatch3Game.Clear;
 begin
+  FNextCellType := CEmptyItem;
+  FEnableSwapTiles := True;
+  FEnableMoveLines := false;
   FNbMaxDifferentTiles := 5;
   FIsInitialized := false;
   FNbCol := 7;
@@ -239,6 +400,7 @@ begin
   FSelectedBackgroundColor := TAlphaColors.Lightslategrey;
   FSelectedCol := 0;
   FSelectedRow := 0;
+  FSelectedLineType := TSelectedLineType.None;
   FPaintedBlocSize := 0;
   FIsMouseDown := false;
   FCheckMatch3AfterUserMove := false;
@@ -269,41 +431,66 @@ var
   Col, Row: integer;
 begin
   result := false;
+
   case FMatch3Direction of
     TMatch3Direction.Up:
       for Col := 1 to FNbCol do
         if FGrid[Col][FNbRow].CellType = CEmptyItem then
         begin
-          FGrid[Col][FNbRow].CellType :=
-            random(min(FNbMaxDifferentTiles,
-            TOlfSVGBitmapList.Count(FSVGListId)));
+          if FNextCellType <> CEmptyItem then
+          begin
+            FGrid[Col][FNbRow].CellType := FNextCellType;
+            FNextCellType := CEmptyItem;
+          end
+          else
+            FGrid[Col][FNbRow].CellType :=
+              random(min(FNbMaxDifferentTiles,
+              TOlfSVGBitmapList.Count(FSVGListId)));
           result := True;
         end;
     TMatch3Direction.Right:
       for Row := 1 to FNbRow do
         if FGrid[1][Row].CellType = CEmptyItem then
         begin
-          FGrid[1][Row].CellType :=
-            random(min(FNbMaxDifferentTiles,
-            TOlfSVGBitmapList.Count(FSVGListId)));
+          if FNextCellType <> CEmptyItem then
+          begin
+            FGrid[1][Row].CellType := FNextCellType;
+            FNextCellType := CEmptyItem;
+          end
+          else
+            FGrid[1][Row].CellType :=
+              random(min(FNbMaxDifferentTiles,
+              TOlfSVGBitmapList.Count(FSVGListId)));
           result := True;
         end;
     TMatch3Direction.Down:
       for Col := 1 to FNbCol do
         if FGrid[Col][1].CellType = CEmptyItem then
         begin
-          FGrid[Col][1].CellType :=
-            random(min(FNbMaxDifferentTiles,
-            TOlfSVGBitmapList.Count(FSVGListId)));
+          if FNextCellType <> CEmptyItem then
+          begin
+            FGrid[Col][1].CellType := FNextCellType;
+            FNextCellType := CEmptyItem;
+          end
+          else
+            FGrid[Col][1].CellType :=
+              random(min(FNbMaxDifferentTiles,
+              TOlfSVGBitmapList.Count(FSVGListId)));
           result := True;
         end;
     TMatch3Direction.Left:
       for Row := 1 to FNbRow do
         if FGrid[FNbCol][Row].CellType = CEmptyItem then
         begin
-          FGrid[FNbCol][Row].CellType :=
-            random(min(FNbMaxDifferentTiles,
-            TOlfSVGBitmapList.Count(FSVGListId)));
+          if FNextCellType <> CEmptyItem then
+          begin
+            FGrid[FNbCol][Row].CellType := FNextCellType;
+            FNextCellType := CEmptyItem;
+          end
+          else
+            FGrid[FNbCol][Row].CellType :=
+              random(min(FNbMaxDifferentTiles,
+              TOlfSVGBitmapList.Count(FSVGListId)));
           result := True;
         end;
   end;
@@ -362,20 +549,21 @@ begin
           if HasMoved or HasFilled then
             FNeedARepaint := True
           else
-          begin
-            FCheckMatch3AfterUserMove := false;
             FStatus := TMatch3GamePhase.CheckMatch3;
-          end;
         end;
       TMatch3GamePhase.PlayerChoice:
         ;
       TMatch3GamePhase.CheckMatch3:
         if HadAMatch3 then
-          FStatus := TMatch3GamePhase.FillFirstLineAndMove
+        begin
+          FCheckMatch3AfterUserMove := false;
+          FStatus := TMatch3GamePhase.FillFirstLineAndMove;
+        end
         else
         begin
           if FCheckMatch3AfterUserMove then
           begin
+            FCheckMatch3AfterUserMove := false;
             if assigned(FOnMoveButNoMatch3Event) then
               FOnMoveButNoMatch3Event;
             if assigned(FOnMoveButNoMatch3Proc) then
@@ -405,13 +593,14 @@ begin
   begin // Unselect current selected item
     FSelectedCol := 0;
     FSelectedRow := 0;
+    FSelectedLineType := TSelectedLineType.None;
     FNeedARepaint := True;
   end
-  else if (FSelectedCol > 0) and (FSelectedRow > 0) and
+  else if EnableSwapTiles and (FSelectedCol > 0) and (FSelectedRow > 0) and
     (((Col in [FSelectedCol - 1, FSelectedCol + 1]) and (Row = FSelectedRow)) or
     ((Row in [FSelectedRow - 1, FSelectedRow + 1]) and (Col = FSelectedCol)))
   then
-  begin // Clicked on an adjacent item, try to swap them
+  begin // Clicked on an adjacent item, try to swap them (if swap is enabled)
 
     // TODO : test if the movement is allowed to have a classic behaviour
 
@@ -432,6 +621,7 @@ begin
     end;
     FSelectedCol := 0;
     FSelectedRow := 0;
+    FSelectedLineType := TSelectedLineType.None;
     FNeedARepaint := True;
     FCheckMatch3AfterUserMove := True;
     FStatus := TMatch3GamePhase.CheckMatch3;
@@ -440,6 +630,7 @@ begin
   begin // Select a new item
     FSelectedCol := Col;
     FSelectedRow := Row;
+    FSelectedLineType := TSelectedLineType.None;
     FNeedARepaint := True;
   end;
 end;
@@ -447,12 +638,21 @@ end;
 procedure TcadMatch3Game.GameSceneMouseLeave(Sender: TObject);
 begin
   FIsMouseDown := false;
+  if (not EnableSwapTiles) then
+  begin
+    FNeedARepaint := FNeedARepaint or (FSelectedCol <> 0) or (FSelectedRow <> 0)
+      or (FSelectedLineType <> TSelectedLineType.None);
+    FSelectedCol := 0;
+    FSelectedRow := 0;
+    FSelectedLineType := TSelectedLineType.None;
+  end;
 end;
 
 procedure TcadMatch3Game.GameSceneMouseMove(Sender: TObject; Shift: TShiftState;
   X, Y: Single);
 var
   Col, Row: integer;
+  Col2, Row2: integer;
   SwapItem: integer;
 begin
   if not FIsMouseDown then
@@ -468,31 +668,114 @@ begin
     (((Col in [FSelectedCol - 1, FSelectedCol + 1]) and (Row = FSelectedRow)) or
     ((Row in [FSelectedRow - 1, FSelectedRow + 1]) and (Col = FSelectedCol)))
   then
-  begin // Clicked on an adjacent item, try to swap them
+  begin // Moved to an adjacent item
+    if EnableMoveLines then
+    begin // Lines move enabled, we select the line and move it depending on the finger/cursor position
+      if (Col in [FSelectedCol - 1, FSelectedCol + 1]) and (Row = FSelectedRow)
+      then
+      begin
+        Col2 := round(X / FPaintedBlocSize) + 1;
+        if (Col <> Col2) then
+        begin // Moved to the second part of current tile
+          // TODO : Stocker FUseMatchDirection pour le restaurer en fin de déplacement
+          FUseMatchDirection := True;
 
-    // TODO : test if the movement is allowed to have a classic behaviour
+          // Define the direction to move the line
+          if Col = FSelectedCol - 1 then
+          begin
+            FMatch3Direction := TMatch3Direction.Left;
+            FNextCellType := FGrid[1][Row].CellType;
+            FGrid[1][Row].CellType := CEmptyItem;
+          end
+          else if Col = FSelectedCol + 1 then
+          begin
+            FMatch3Direction := TMatch3Direction.Right;
+            FNextCellType := FGrid[FNbCol][Row].CellType;
+            FGrid[FNbCol][Row].CellType := CEmptyItem;
+          end;
 
-    // Move even if no match-3 is available (manage a lives number)
-    SwapItem := FGrid[Col][Row].CellType;
-    FGrid[Col][Row].CellType := FGrid[FSelectedCol][FSelectedRow].CellType;
-    FGrid[FSelectedCol][FSelectedRow].CellType := SwapItem;
-    if FUseMatchDirection then
-    begin
-      if Col = FSelectedCol - 1 then
-        FMatch3Direction := TMatch3Direction.Left
-      else if Col = FSelectedCol + 1 then
-        FMatch3Direction := TMatch3Direction.Right
-      else if Row = FSelectedRow - 1 then
-        FMatch3Direction := TMatch3Direction.Up
-      else
-        FMatch3Direction := TMatch3Direction.Down;
+          // Clear current selected line and cell
+          FSelectedCol := 0;
+          FSelectedRow := 0;
+          FSelectedLineType := TSelectedLineType.None;
+
+          // Animate the line move
+          FCheckMatch3AfterUserMove := True;
+          FStatus := TMatch3GamePhase.FillFirstLineAndMove;
+        end
+        else if not(FSelectedLineType = TSelectedLineType.Row) then
+        begin // Select the line
+          FSelectedLineType := TSelectedLineType.Row;
+          FNeedARepaint := True;
+        end;
+      end
+      else if (Row in [FSelectedRow - 1, FSelectedRow + 1]) and
+        (Col = FSelectedCol) then
+      begin
+        Row2 := round(Y / FPaintedBlocSize) + 1;
+        if (Row <> Row2) then
+        begin // Moved to the second part of current tile
+          // TODO : Stocker FUseMatchDirection pour le restaurer en fin de déplacement
+          FUseMatchDirection := True;
+
+          // Define the direction to move the line
+          if Row = FSelectedRow - 1 then
+          begin
+            FMatch3Direction := TMatch3Direction.Up;
+            FNextCellType := FGrid[Col][1].CellType;
+            FGrid[Col][1].CellType := CEmptyItem;
+          end
+          else if Row = FSelectedRow + 1 then
+          begin
+            FMatch3Direction := TMatch3Direction.Down;
+            FNextCellType := FGrid[Col][FNbRow].CellType;
+            FGrid[Col][FNbRow].CellType := CEmptyItem;
+          end;
+
+          // Clear current selected line and cell
+          FSelectedCol := 0;
+          FSelectedRow := 0;
+          FSelectedLineType := TSelectedLineType.None;
+
+          // Animate the line move
+          FCheckMatch3AfterUserMove := True;
+          FStatus := TMatch3GamePhase.FillFirstLineAndMove;
+        end
+        else if not(FSelectedLineType = TSelectedLineType.Col) then
+        begin // Select the column
+          FSelectedLineType := TSelectedLineType.Col;
+          FNeedARepaint := True;
+        end;
+      end;
+    end
+    else if EnableSwapTiles then
+    begin // Swap enabled, we exchange the two tiles
+
+      // TODO : test if the movement is allowed to have a classic behaviour
+
+      // Move even if no match-3 is available (manage a lives number)
+      SwapItem := FGrid[Col][Row].CellType;
+      FGrid[Col][Row].CellType := FGrid[FSelectedCol][FSelectedRow].CellType;
+      FGrid[FSelectedCol][FSelectedRow].CellType := SwapItem;
+      if FUseMatchDirection then
+      begin
+        if Col = FSelectedCol - 1 then
+          FMatch3Direction := TMatch3Direction.Left
+        else if Col = FSelectedCol + 1 then
+          FMatch3Direction := TMatch3Direction.Right
+        else if Row = FSelectedRow - 1 then
+          FMatch3Direction := TMatch3Direction.Up
+        else
+          FMatch3Direction := TMatch3Direction.Down;
+      end;
+      FSelectedCol := 0;
+      FSelectedRow := 0;
+      FSelectedLineType := TSelectedLineType.None;
+      FNeedARepaint := True;
+      FCheckMatch3AfterUserMove := True;
+      FStatus := TMatch3GamePhase.CheckMatch3;
+      FIsMouseDown := false;
     end;
-    FSelectedCol := 0;
-    FSelectedRow := 0;
-    FNeedARepaint := True;
-    FCheckMatch3AfterUserMove := True;
-    FStatus := TMatch3GamePhase.CheckMatch3;
-    FIsMouseDown := false;
   end;
 end;
 
@@ -500,6 +783,14 @@ procedure TcadMatch3Game.GameSceneMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Single);
 begin
   FIsMouseDown := false;
+  if (not EnableSwapTiles) then
+  begin
+    FNeedARepaint := FNeedARepaint or (FSelectedCol <> 0) or (FSelectedRow <> 0)
+      or (FSelectedLineType <> TSelectedLineType.None);
+    FSelectedCol := 0;
+    FSelectedRow := 0;
+    FSelectedLineType := TSelectedLineType.None;
+  end;
 end;
 
 function TcadMatch3Game.GetGrid(Col, Row: byte): integer;
@@ -605,6 +896,7 @@ begin
 
   FSelectedCol := 0;
   FSelectedRow := 0;
+  FSelectedLineType := TSelectedLineType.None;
 
   FNeedARepaint := True;
   FStatus := TMatch3GamePhase.None;
@@ -728,7 +1020,11 @@ begin
                 Y * FPaintedBlocSize + FPaintedBlocSize);
 
               // draw the background for the selected element
-              if (Col = FSelectedCol) and (Row = FSelectedRow) then
+              if ((Col = FSelectedCol) and (Row = FSelectedRow)) or
+                ((Col = FSelectedCol) and
+                (FSelectedLineType = TSelectedLineType.Col)) or
+                ((Row = FSelectedRow) and
+                (FSelectedLineType = TSelectedLineType.Row)) then
                 BMPCanvas.FillRect(Dest, 1, SelectedBackgroundBrush);
 
               // draw the element image
@@ -784,6 +1080,16 @@ end;
 procedure TcadMatch3Game.SetBackgroundColor(const Value: TAlphaColor);
 begin
   FBackgroundColor := Value;
+end;
+
+procedure TcadMatch3Game.SetEnableMoveLines(const Value: boolean);
+begin
+  FEnableMoveLines := Value;
+end;
+
+procedure TcadMatch3Game.SetEnableSwapTiles(const Value: boolean);
+begin
+  FEnableSwapTiles := Value;
 end;
 
 procedure TcadMatch3Game.SetGrid(Col, Row: byte; const Value: integer);
