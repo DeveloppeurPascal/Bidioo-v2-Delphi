@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-10T19:18:12.774+02:00
-  Signature : 130ca95e0d1ca3dbce706d4863b93629b4ff9c7a
+  File last update : 2025-05-31T15:21:30.000+02:00
+  Signature : 0ec79016159bb54d6df6806ae8e23f4235c3896e
   ***************************************************************************
 *)
 
@@ -48,7 +48,7 @@ uses
 
 const
   CTxtEN = '''
-Bidioo was developed during live coding sessions on Twitch with FireMonkey under Delphi.
+Bidioo is a match-3 game. Match at least 3 identical symbols on the same row or column to score points and make them disappear from the screen.
 
 You can play with a mouse or your fingers depending on your device (computer, smartphone or tablet).
 
@@ -60,7 +60,7 @@ This application was developed by Patrick Prémartin.
 Background music by Ginny Culp.
 Sound effects by Mark Sheeky (The Game Creators).
 
-Graphics from Kolopach (Fotolia), Laz'e-Pete (Fotolia), Patrick Prémartin, Adobe Stock.
+Graphics from Kolopach (Fotolia), Laz'e-Pete (Fotolia), Patrick Prémartin, Kenney (Kenney.nl), Adobe Stock.
 
 The game has been developed in Delphi. It's based on Gamolf FMX Game Starter Kit and Delphi Game Engine to handle the classic functionalities (music, sounds, parameters, scores, screen sequencing and user interface interactivity).
 
@@ -89,7 +89,7 @@ To find out more, visit https://bidioo.gamolf.fr
 
 ''';
    CTxtFR = '''
-Bidioo a été développé lors de sessions de codage en direct sur Twitch avec FireMonkey sous Delphi.
+Bidioo est un jeu de type match-3. Associez au moins 3 symboles identiques sur la même ligne ou colonne pour marquer des points et les faire disparaître de l'écran.
 
 Vous pouvez y jouer avec une souris ou vos doigts selon votre appareil (ordinateur, smartphone ou tablette).
 
@@ -101,7 +101,7 @@ Cette application a été développée par Patrick Prémartin.
 La musique d'ambiance est de Ginny Culp.
 Les effets sonores sont de Mark Sheeky (The Game Creators).
 
-Les graphismes proviennent de Kolopach (Fotolia), Laz'e-Pete (Fotolia), Patrick Prémartin, Adobe Stock.
+Les graphismes proviennent de Kolopach (Fotolia), Laz'e-Pete (Fotolia), Patrick Prémartin, Kenney (Kenney.nl), Adobe Stock.
 
 Ce jeu est développé sous Delphi. Il est basé sur Gamolf FMX Game Starter Kit et Delphi Game Engine pour gérer les fonctionnalités classiques (musiques, sons, paramétres, scores, enchaînement des écrans et interctions avec l'interface utilisateur).
 
