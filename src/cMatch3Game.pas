@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T15:50:40.000+02:00
-  Signature : c1334d718252806d540dd86acfc0783100982d92
+  File last update : 2025-05-31T17:57:42.000+02:00
+  Signature : 2e26a50ca39b4375acf03aaa5d70009c57fc438c
   ***************************************************************************
 *)
 
@@ -51,8 +51,8 @@ uses
 
 const
   CEmptyItem = 255;
-  CDestroyAnimationNbFrames = 4;
-  CMoveTilesAnimationNbFrames = 4;
+  CDestroyAnimationNbFrames = 30;
+  CMoveTilesAnimationNbFrames = 10;
 
 type
 {$SCOPEDENUMS ON}
