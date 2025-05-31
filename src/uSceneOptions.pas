@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T15:33:08.000+02:00
-  Signature : 1b282e67dc2a2e293f6bcfcca873f15763514eec
+  File last update : 2025-05-31T17:27:40.000+02:00
+  Signature : 3e40e408e7c4e27e041bb7fc52bf30e367f318d2
   ***************************************************************************
 *)
 
@@ -161,10 +161,10 @@ begin
   if not(Sender is TbtnImageButton) then
     exit;
   tconfig.Current.SoundEffectsOnOff := (Sender as TbtnImageButton).IsPressed;
-  if tconfig.Current.SoundEffectsOnOff then
-    // TODO : si son actif, jouer un son pour le confirmer
+  if not tconfig.Current.SoundEffectsOnOff then
+    TSoundEffects.Current.StopAll
   else
-    TSoundEffects.Current.StopAll;
+    TSoundEffects.Current.Play(TSoundEffectType.ClicOption);
 end;
 
 constructor TOptionsScene.Create(AOwner: TComponent);

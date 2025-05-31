@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T16:39:12.000+02:00
-  Signature : 20c5947f5eb3bf4af8f2edeaeed266ea59a00a19
+  File last update : 2025-05-31T17:27:34.000+02:00
+  Signature : 496beb43dbfa8f94b7309ce688097b89ec4eac11
   ***************************************************************************
 *)
 
@@ -110,10 +110,14 @@ begin
   if IsPressedButton then
     IsPressed := not IsPressed;
   inherited;
-  if IsPressedButton then
-    TSoundEffects.Current.Play(TSoundEffectType.ClicOption)
-  else
-    TSoundEffects.Current.Play(TSoundEffectType.Clic);
+  // Don't play any sound on the "Sound On/Off" button, it has to be played
+  // after changing the "Sound On/Off" value in the settings. Play the sound
+  // in the "Sound On/Off" click event.
+  if not(Kind = TSVGIconesKolopachIndex.Micro) then
+    if IsPressedButton then
+      TSoundEffects.Current.Play(TSoundEffectType.ClicOption)
+    else
+      TSoundEffects.Current.Play(TSoundEffectType.Clic);
 end;
 
 constructor TbtnImageButton.Create(AOwner: TComponent);
