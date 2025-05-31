@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-29T17:58:14.000+02:00
-  Signature : e2e74a8f05a1d20c76ec35e6e7b213a11d4b4e80
+  File last update : 2025-05-31T15:40:02.000+02:00
+  Signature : 341fe7bc210f73e6ab13778411df258522569c31
   ***************************************************************************
 *)
 
@@ -35,6 +35,7 @@ program Bidioo;
 uses
   System.StartUpCopy,
   FMX.Forms,
+  FMX.Types,
   FMX.Skia,
   fMain in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\fMain.pas' {frmMain},
   Olf.FMX.AboutDialog in '..\lib-externes\AboutDialog-Delphi-Component\src\Olf.FMX.AboutDialog.pas',
@@ -102,6 +103,9 @@ uses
 
 begin
   GlobalUseSkia := True;
+  {$IF Defined(OSX) or Defined(IOS)}
+  GlobalUseMetal := true;
+  {$ENDIF}
   Application.Initialize;
   Application.FormFactor.Orientations := [TFormOrientation.Landscape, TFormOrientation.InvertedLandscape];
   Application.CreateForm(TfrmMain, frmMain);
