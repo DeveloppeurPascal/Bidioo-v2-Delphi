@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-30T17:15:24.000+02:00
-  Signature : fbd29a46fcdf7d3e0665fb3fd0710e00fd90cd25
+  File last update : 2025-05-31T16:39:12.000+02:00
+  Signature : 20c5947f5eb3bf4af8f2edeaeed266ea59a00a19
   ***************************************************************************
 *)
 
@@ -144,13 +144,13 @@ begin
   end;
   rImage.Fill.Bitmap.Bitmap.Assign(getBitmapFromSVG(FKind, rImage.Width,
     rImage.Height, rImage.Fill.Bitmap.Bitmap.BitmapScale));
-  if FShowNumber then
+  if not FShowNumber then
+    rExposant.Visible := false
+  else
   begin
     rExposant.Visible := true;
     txtExposant.Text := FNumber.ToString;
-  end
-  else
-    rExposant.Visible := false;
+  end;
 end;
 
 procedure TbtnImageButton.SetIsPressed(const Value: boolean);
@@ -174,6 +174,8 @@ end;
 procedure TbtnImageButton.SetNumber(const Value: integer);
 begin
   FNumber := Value;
+  if FShowNumber then
+    Visible := FNumber > 0;
   Repaint;
 end;
 
