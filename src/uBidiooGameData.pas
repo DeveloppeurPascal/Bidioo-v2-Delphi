@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-29T17:32:06.000+02:00
-  Signature : e0999ac570115480cd68c33e4b0cd3c58f6f79c8
+  File last update : 2025-05-31T16:46:58.000+02:00
+  Signature : 3528466e35ec9dc94201a9ea1df1c0b7385e0973
   ***************************************************************************
 *)
 
@@ -38,10 +38,6 @@ uses
   System.Classes,
   uGameData,
   cMatch3Game;
-
-Const
-  CDefaultColCount = 8;
-  CDefaultRowCount = 7;
 
 Type
   TBidiooGridCell = integer;
@@ -91,7 +87,8 @@ uses
   System.IOUtils,
   System.SysUtils,
   uBidiooConfig,
-  uConfig;
+  uConfig,
+  uConsts;
 
 procedure TBidiooGameData.Clear;
 begin

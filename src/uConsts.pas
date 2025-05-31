@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T16:05:10.000+02:00
-  Signature : 409328923b89f84b6c2dfa96bc4c9d054e304572
+  File last update : 2025-05-31T16:46:28.000+02:00
+  Signature : ad9b54f47b7427f5529e67d1387b6f9fc5608b8c
   ***************************************************************************
 *)
 
@@ -214,6 +214,16 @@ Const
   /// </remarks>
   CMinScoreForLevel: array of integer = [0, 100, 300, 600, 1000, 1500, 2100,
     2800, 3600, 4500, 5500];
+
+  /// <summary>
+  /// Default number of columns for the game grid
+  /// </summary>
+  CDefaultColCount = 8;
+
+  /// <summary>
+  /// Default number of rows for the game grid
+  /// </summary>
+  CDefaultRowCount = 7;
 
 {$IF Defined(RELEASE)}
 
