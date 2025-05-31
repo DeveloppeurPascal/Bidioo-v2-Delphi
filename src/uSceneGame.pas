@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T17:27:46.000+02:00
-  Signature : 5b4e034f7333df7943a2a85ccbd3263a939efa8e
+  File last update : 2025-05-31T18:12:14.000+02:00
+  Signature : 9deb4bac76075253c280b55ee22f11c018e0917f
   ***************************************************************************
 *)
 
@@ -104,7 +104,8 @@ uses
   udmAdobeStock_257148021,
   uSoundEffects,
   uConfig,
-  uBackgroundMusic;
+  uBackgroundMusic,
+  uBidiooConfig;
 
 { TGameScene }
 
@@ -297,6 +298,10 @@ begin
   item.TagObject := self;
 
   cadMatch3Game1.Clear;
+  cadMatch3Game1.EnableSwapTiles := TConfig.Current.PlayMode
+    in [TBidiooPlayMode.Classic, TBidiooPlayMode.Mixte];
+  cadMatch3Game1.EnableMoveLines := TConfig.Current.PlayMode
+    in [TBidiooPlayMode.Mixte, TBidiooPlayMode.Master];
   cadMatch3Game1.NbMaxDifferentTiles := CDefaultNbMaxDifferentTiles +
     TBidiooGameData.Current.Level;
   cadMatch3Game1.UseMatchDirection := true;
