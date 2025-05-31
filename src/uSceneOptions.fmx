@@ -3,16 +3,6 @@ inherited OptionsScene: TOptionsScene
     inherited vsContent: TVertScrollBox
       Viewport.Width = 400.000000000000000000
       Viewport.Height = 348.000000000000000000
-      object FlowLayout1: TFlowLayout
-        Align = Top
-        Size.Width = 400.000000000000000000
-        Size.Height = 50.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 0
-        Justify = Center
-        JustifyLastLine = Center
-        FlowDirection = LeftToRight
-      end
     end
     inherited lFooter: TLayout
       inherited flFooter: TFlowLayout

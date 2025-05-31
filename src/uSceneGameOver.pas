@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-29T20:35:20.000+02:00
-  Signature : 4fbed82a65fd6d3b5e7a105995e136cc54d96ccb
+  File last update : 2025-05-31T15:28:00.000+02:00
+  Signature : e045cd4861bfa3039d1af113106abdc4ec1dcc05
   ***************************************************************************
 *)
 
@@ -59,13 +59,11 @@ uses
 
 type
   TGameOverScene = class(TcadDialogBox)
-    FlowLayout1: TFlowLayout;
     procedure btnOkClick(Sender: TObject);
   private
   public
     procedure TranslateTexts(const Language: string); override;
     procedure ShowScene; override;
-    procedure AddText(const Text: String);
   end;
 
 implementation
@@ -79,23 +77,6 @@ uses
   uBidiooScores,
   udmAdobeStock_257148021,
   uSoundEffects;
-
-procedure TGameOverScene.AddText(const Text: String);
-var
-  txt: TOlfFMXTextImageFrame;
-begin
-  txt := TOlfFMXTextImageFrame.Create(self);
-  txt.Parent := FlowLayout1;
-  txt.height := 40;
-  txt.margins.Bottom := 10;
-  txt.Font := dmAdobeStock_257148021.ImageList;
-  txt.Text := Text;
-
-  TFlowLayoutBreak.Create(self).Parent := FlowLayout1;
-
-  if FlowLayout1.height < txt.position.y + txt.height + txt.margins.Bottom then
-    FlowLayout1.height := FlowLayout1.height + txt.height + txt.margins.Bottom;
-end;
 
 procedure TGameOverScene.btnOkClick(Sender: TObject);
 begin

@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-29T17:10:14.000+02:00
-  Signature : 3cf4249ac6c91726ed505c4b3bc1e1e3cccde473
+  File last update : 2025-05-31T15:28:08.000+02:00
+  Signature : 2e281e30103f027f5999ed4750405186add91edc
   ***************************************************************************
 *)
 
@@ -60,7 +60,6 @@ uses
 
 type
   TOptionsScene = class(TcadDialogBox)
-    FlowLayout1: TFlowLayout;
     procedure btnOkClick(Sender: TObject);
   private
   protected
@@ -74,10 +73,6 @@ type
     procedure btnShowTutorialClick(Sender: TObject);
   public
     procedure TranslateTexts(const Language: string); override;
-    procedure AddText(const Text: String);
-    function AddButton(const ButtonType: TSVGIconesKolopachIndex;
-      const Value: boolean; const OnClick: TNotifyEvent;
-      const AddLineBreak: boolean = false): TbtnImageButton;
     constructor Create(AOwner: TComponent); override;
   end;
 
@@ -94,47 +89,6 @@ uses
   uBackgroundMusic,
   uSoundEffects,
   uBidiooGameData;
-
-function TOptionsScene.AddButton(const ButtonType: TSVGIconesKolopachIndex;
-  const Value: boolean; const OnClick: TNotifyEvent;
-  const AddLineBreak: boolean): TbtnImageButton;
-begin
-  result := TbtnImageButton.Create(Self);
-  result.Parent := FlowLayout1;
-  result.Margins.Right := 10;
-  result.Margins.bottom := 10;
-  result.Kind := ButtonType;
-  result.IsPressedButton := true;
-  result.IsPressed := Value;
-  result.OnClick := OnClick;
-
-  if AddLineBreak then
-  begin
-    TFlowLayoutBreak.Create(Self).Parent := FlowLayout1;
-
-    if FlowLayout1.height < result.position.y + result.height + result.Margins.bottom
-    then
-      FlowLayout1.height := FlowLayout1.height + result.height +
-        result.Margins.bottom;
-  end;
-end;
-
-procedure TOptionsScene.AddText(const Text: String);
-var
-  txt: TOlfFMXTextImageFrame;
-begin
-  txt := TOlfFMXTextImageFrame.Create(Self);
-  txt.Parent := FlowLayout1;
-  txt.height := 40;
-  txt.Margins.bottom := 10;
-  txt.Font := dmAdobeStock_257148021.ImageList;
-  txt.Text := Text;
-
-  TFlowLayoutBreak.Create(Self).Parent := FlowLayout1;
-
-  if FlowLayout1.height < txt.position.y + txt.height + txt.Margins.bottom then
-    FlowLayout1.height := FlowLayout1.height + txt.height + txt.Margins.bottom;
-end;
 
 procedure TOptionsScene.btnClassicClick(Sender: TObject);
 begin

@@ -3,17 +3,6 @@ inherited GameOverScene: TGameOverScene
     inherited vsContent: TVertScrollBox
       Viewport.Width = 400.000000000000000000
       Viewport.Height = 348.000000000000000000
-      object FlowLayout1: TFlowLayout
-        Align = VertCenter
-        Position.Y = 149.000000000000000000
-        Size.Width = 400.000000000000000000
-        Size.Height = 50.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 0
-        Justify = Center
-        JustifyLastLine = Center
-        FlowDirection = LeftToRight
-      end
     end
     inherited lFooter: TLayout
       inherited flFooter: TFlowLayout
@@ -29,7 +18,7 @@ inherited GameOverScene: TGameOverScene
           OnClick = btnOkClick
         end
         inherited btnCancel: TbtnImageButton
-          Position.X = 177.500000000000000000
+          Position.X = 187.500000000000000000
           Visible = False
         end
       end
