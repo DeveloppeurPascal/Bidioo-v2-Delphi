@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T16:22:04.000+02:00
-  Signature : b0f6b29be5d8a061e5efe558fd5a03e9f10a968d
+  File last update : 2025-05-31T16:29:40.000+02:00
+  Signature : 42b0f5da31be3f7f8e0731a497beaefe800eed6a
   ***************************************************************************
 *)
 
@@ -259,15 +259,8 @@ end;
 
 procedure TGameScene.SetNbLives(const Value: cardinal);
 begin
-  if (Value <> TBidiooGameData.Current.NbLives) then
-  begin
-    TBidiooGameData.Current.NbLives := Value;
-    if TBidiooGameData.Current.NbLives < 1 then
-    begin
-      TBidiooGameData.Current.StopGame;
-      TScene.Current := TSceneType.GameOver;
-    end;
-  end;
+  TBidiooGameData.Current.NbLives := Value;
+
   AddBonus(TSVGIconesKolopachIndex.Coeur).Number :=
     TBidiooGameData.Current.NbLives;
 end;
@@ -323,8 +316,16 @@ begin
     end;
   cadMatch3Game1.OnMoveButNoMatch3Proc := procedure
     begin
-      NbLives := NbLives - 1;
-      TSoundEffects.Play(TSoundEffectType.PerteDUneVie);
+      if TBidiooGameData.Current.NbLives < 1 then
+      begin // No more lives available
+        TBidiooGameData.Current.StopGame;
+        TScene.Current := TSceneType.GameOver;
+      end
+      else
+      begin // Lost a live
+        NbLives := NbLives - 1;
+        TSoundEffects.Play(TSoundEffectType.PerteDUneVie);
+      end;
     end;
 
   ClearBonusLayout;
@@ -351,7 +352,11 @@ begin
     OnClick := DoSoundsOnOff;
   end;
   // Nb Lives
-  AddBonus(TSVGIconesKolopachIndex.Coeur).OnClick := nil;
+  with AddBonus(TSVGIconesKolopachIndex.Coeur) do
+  begin
+    OnClick := nil;
+    HitTest := false;
+  end;
   // TODO : charger les boutons des bonus disponibles dans la partie en cours
 
   Score := TBidiooGameData.Current.Score;
