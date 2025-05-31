@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T16:29:40.000+02:00
-  Signature : 42b0f5da31be3f7f8e0731a497beaefe800eed6a
+  File last update : 2025-05-31T17:27:46.000+02:00
+  Signature : 5b4e034f7333df7943a2a85ccbd3263a939efa8e
   ***************************************************************************
 *)
 
@@ -102,9 +102,9 @@ uses
   Gamolf.RTL.UIElements,
   Gamolf.RTL.Joystick,
   udmAdobeStock_257148021,
-  Gamolf.FMX.MusicLoop,
   uSoundEffects,
-  uConfig;
+  uConfig,
+  uBackgroundMusic;
 
 { TGameScene }
 
@@ -199,13 +199,12 @@ begin
 end;
 
 procedure TGameScene.DoMusicOnOff(Sender: TObject);
+var
+  btn: TbtnImageButton;
 begin
-  if TMusicLoop.Current.IsPlaying then
-    TMusicLoop.Current.Stop
-  else
-    TMusicLoop.Current.Play;
-  GetBonus(TSVGIconesKolopachIndex.Music).IsPressed :=
-    TMusicLoop.Current.IsPlaying;
+  btn := GetBonus(TSVGIconesKolopachIndex.Music);
+  TBackgroundMusic.Current.OnOff(not TBackgroundMusic.Current.IsOn);
+  btn.IsPressed := TBackgroundMusic.Current.IsOn;
 end;
 
 procedure TGameScene.DoPause(Sender: TObject);
@@ -220,7 +219,9 @@ procedure TGameScene.DoSoundsOnOff(Sender: TObject);
 begin
   TConfig.Current.SoundEffectsOnOff := not TConfig.Current.SoundEffectsOnOff;
   if not TConfig.Current.SoundEffectsOnOff then
-    TSoundEffects.Current.StopAll;
+    TSoundEffects.Current.StopAll
+  else
+    TSoundEffects.Current.Play(TSoundEffectType.ClicOption);
   GetBonus(TSVGIconesKolopachIndex.Micro).IsPressed :=
     TConfig.Current.SoundEffectsOnOff;
 end;
@@ -339,7 +340,7 @@ begin
   with AddBonus(TSVGIconesKolopachIndex.Music) do
   begin
     IsPressedButton := true;
-    IsPressed := TMusicLoop.Current.IsPlaying;
+    IsPressed := TBackgroundMusic.Current.IsOn;
     ShowNumber := false;
     OnClick := DoMusicOnOff;
   end;
