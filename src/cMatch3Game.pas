@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-30T19:19:50.000+02:00
-  Signature : 6a755db95f98e776b5523185dd551cc6e1d51c61
+  File last update : 2025-05-31T15:50:40.000+02:00
+  Signature : c1334d718252806d540dd86acfc0783100982d92
   ***************************************************************************
 *)
 
@@ -143,6 +143,7 @@ type
     FOnMoveButNoMatch3Proc: TOnMoveButNoMatch3Proc;
     FOnMatch3Proc: TOnMatch3Proc;
     FUseMatchDirection: boolean;
+    FNbMaxDifferentTiles: integer;
     procedure SetItems(Index: integer; const Value: string);
     procedure SetNbCol(const Value: integer);
     procedure SetNbRow(const Value: integer);
@@ -155,6 +156,7 @@ type
     function GetGrid(Col, Row: byte): integer;
     procedure SetGrid(Col, Row: byte; const Value: integer);
     procedure SetUseMatchDirection(const Value: boolean);
+    procedure SetNbMaxDifferentTiles(const Value: integer);
   protected
     FIsInitialized: boolean;
     FGrid: array of array of TGridCell;
@@ -181,6 +183,8 @@ type
     property Grid[Col, Row: byte]: integer read GetGrid write SetGrid;
     property UseMatchDirection: boolean read FUseMatchDirection
       write SetUseMatchDirection;
+    property NbMaxDifferentTiles: integer read FNbMaxDifferentTiles
+      write SetNbMaxDifferentTiles;
     property BackgroundColor: TAlphaColor read FBackgroundColor
       write SetBackgroundColor;
     property SelectedBackgroundColor: TAlphaColor read FSelectedBackgroundColor
@@ -208,6 +212,7 @@ implementation
 {$R *.fmx}
 
 uses
+  System.Math,
   Olf.Skia.SVGToBitmap;
 
 { TcadMatch3Game }
@@ -220,6 +225,7 @@ end;
 
 procedure TcadMatch3Game.Clear;
 begin
+  FNbMaxDifferentTiles := 5;
   FIsInitialized := false;
   FNbCol := 7;
   FNbRow := 5;
@@ -269,21 +275,26 @@ begin
         if FGrid[Col][FNbRow].CellType = CEmptyItem then
         begin
           FGrid[Col][FNbRow].CellType :=
-            random(TOlfSVGBitmapList.Count(FSVGListId));
+            random(min(FNbMaxDifferentTiles,
+            TOlfSVGBitmapList.Count(FSVGListId)));
           result := True;
         end;
     TMatch3Direction.Right:
       for Row := 1 to FNbRow do
         if FGrid[1][Row].CellType = CEmptyItem then
         begin
-          FGrid[1][Row].CellType := random(TOlfSVGBitmapList.Count(FSVGListId));
+          FGrid[1][Row].CellType :=
+            random(min(FNbMaxDifferentTiles,
+            TOlfSVGBitmapList.Count(FSVGListId)));
           result := True;
         end;
     TMatch3Direction.Down:
       for Col := 1 to FNbCol do
         if FGrid[Col][1].CellType = CEmptyItem then
         begin
-          FGrid[Col][1].CellType := random(TOlfSVGBitmapList.Count(FSVGListId));
+          FGrid[Col][1].CellType :=
+            random(min(FNbMaxDifferentTiles,
+            TOlfSVGBitmapList.Count(FSVGListId)));
           result := True;
         end;
     TMatch3Direction.Left:
@@ -291,7 +302,8 @@ begin
         if FGrid[FNbCol][Row].CellType = CEmptyItem then
         begin
           FGrid[FNbCol][Row].CellType :=
-            random(TOlfSVGBitmapList.Count(FSVGListId));
+            random(min(FNbMaxDifferentTiles,
+            TOlfSVGBitmapList.Count(FSVGListId)));
           result := True;
         end;
   end;
@@ -787,6 +799,11 @@ end;
 procedure TcadMatch3Game.SetNbCol(const Value: integer);
 begin
   FNbCol := Value;
+end;
+
+procedure TcadMatch3Game.SetNbMaxDifferentTiles(const Value: integer);
+begin
+  FNbMaxDifferentTiles := Value;
 end;
 
 procedure TcadMatch3Game.SetNbRow(const Value: integer);
