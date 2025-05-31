@@ -483,8 +483,8 @@
         <Icns_MainIcns>..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon.icns</Icns_MainIcns>
         <UWP_DelphiLogo44>..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-44x44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon-150x150.png</UWP_DelphiLogo150>
-        <VerInfo_Build>14</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.14;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=fr.gamolf.bidioo;ProductName=$(MSBuildProjectName);ProductVersion=1.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>15</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.15;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=fr.gamolf.bidioo;ProductName=$(MSBuildProjectName);ProductVersion=1.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -557,7 +557,7 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
-        <VerInfo_BundleId>gamolf.fmxgametemplate.$(ModuleName)</VerInfo_BundleId>
+        <VerInfo_BundleId>fr.gamolf.bidioo</VerInfo_BundleId>
         <iPhone_AppIcon120>..\assets\icons\bidioo-120x120.png</iPhone_AppIcon120>
         <iPhone_AppIcon180>..\assets\icons\bidioo-180x180.png</iPhone_AppIcon180>
         <iOS_AppStore1024>..\assets\icons\bidioo-1024x1024.png</iOS_AppStore1024>
@@ -578,6 +578,7 @@
         <iPad_Notification40>..\assets\icons\bidioo-40x40.png</iPad_Notification40>
         <iPad_Launch2x>..\assets\icons\bidioo-512x512.png</iPad_Launch2x>
         <iPad_LaunchDark2x>..\assets\icons\bidioo-512x512.png</iPad_LaunchDark2x>
+        <VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=fr;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=fr.gamolf.bidioo;CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSCameraUsageDescription=The reason for accessing the camera;NSFaceIDUsageDescription=The reason for accessing the face id;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing bluetooth;NSBluetoothPeripheralUsageDescription=The reason for accessing bluetooth peripherals;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSMotionUsageDescription=The reason for accessing the accelerometer;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple&apos;s speech recognition servers;UIRequiresFullScreen=True</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_iOSSimARM64)'!=''">
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -2467,10 +2468,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Toutes les plates-formes\Release\Bidioo" Configuration="Release" Class="ProjectOutput">
-                    <RemoteName>Bidioo</RemoteName>
-                    <Overwrite>true</Overwrite>
-                </DeployFile>
+                <DeployFile LocalName="Toutes les plates-formes\Release\Bidioo" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile LocalName="Win32\Debug\Bidioo.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Bidioo.exe</RemoteName>
