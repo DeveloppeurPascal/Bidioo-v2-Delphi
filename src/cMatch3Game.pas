@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T19:55:32.000+02:00
-  Signature : 03af06194edb15c792aaebe8a471d4c64d724222
+  File last update : 2025-06-01T18:10:40.000+02:00
+  Signature : f0f3c724cedd8e55faf7a248fc78596c512b8108
   ***************************************************************************
 *)
 
@@ -599,6 +599,7 @@ begin
   else if EnableSwapTiles and (FSelectedCol > 0) and (FSelectedRow > 0) and
     (((Col in [FSelectedCol - 1, FSelectedCol + 1]) and (Row = FSelectedRow)) or
     ((Row in [FSelectedRow - 1, FSelectedRow + 1]) and (Col = FSelectedCol)))
+    and (FGrid[Col][Row].CellType <> FGrid[FSelectedCol][FSelectedRow].CellType)
   then
   begin // Clicked on an adjacent item, try to swap them (if swap is enabled)
 
@@ -749,32 +750,36 @@ begin
       end;
     end
     else if EnableSwapTiles then
-    begin // Swap enabled, we exchange the two tiles
+    begin
+      if (FGrid[Col][Row].CellType <> FGrid[FSelectedCol][FSelectedRow].CellType)
+      then
+      begin // Swap enabled, we exchange the two tiles
 
-      // TODO : test if the movement is allowed to have a classic behaviour
+        // TODO : test if the movement is allowed to have a classic behaviour
 
-      // Move even if no match-3 is available (manage a lives number)
-      SwapItem := FGrid[Col][Row].CellType;
-      FGrid[Col][Row].CellType := FGrid[FSelectedCol][FSelectedRow].CellType;
-      FGrid[FSelectedCol][FSelectedRow].CellType := SwapItem;
-      if FUseMatchDirection then
-      begin
-        if Col = FSelectedCol - 1 then
-          FMatch3Direction := TMatch3Direction.Left
-        else if Col = FSelectedCol + 1 then
-          FMatch3Direction := TMatch3Direction.Right
-        else if Row = FSelectedRow - 1 then
-          FMatch3Direction := TMatch3Direction.Up
-        else
-          FMatch3Direction := TMatch3Direction.Down;
+        // Move even if no match-3 is available (manage a lives number)
+        SwapItem := FGrid[Col][Row].CellType;
+        FGrid[Col][Row].CellType := FGrid[FSelectedCol][FSelectedRow].CellType;
+        FGrid[FSelectedCol][FSelectedRow].CellType := SwapItem;
+        if FUseMatchDirection then
+        begin
+          if Col = FSelectedCol - 1 then
+            FMatch3Direction := TMatch3Direction.Left
+          else if Col = FSelectedCol + 1 then
+            FMatch3Direction := TMatch3Direction.Right
+          else if Row = FSelectedRow - 1 then
+            FMatch3Direction := TMatch3Direction.Up
+          else
+            FMatch3Direction := TMatch3Direction.Down;
+        end;
+        FSelectedCol := 0;
+        FSelectedRow := 0;
+        FSelectedLineType := TSelectedLineType.None;
+        FNeedARepaint := True;
+        FCheckMatch3AfterUserMove := True;
+        FStatus := TMatch3GamePhase.CheckMatch3;
+        FIsMouseDown := false;
       end;
-      FSelectedCol := 0;
-      FSelectedRow := 0;
-      FSelectedLineType := TSelectedLineType.None;
-      FNeedARepaint := True;
-      FCheckMatch3AfterUserMove := True;
-      FStatus := TMatch3GamePhase.CheckMatch3;
-      FIsMouseDown := false;
     end;
   end;
 end;
