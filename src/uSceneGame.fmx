@@ -4,12 +4,12 @@ inherited GameScene: TGameScene
   OnResized = FrameResized
   object lGameZone: TLayout
     Align = Client
-    Margins.Left = 20.000000000000000000
-    Margins.Top = 20.000000000000000000
-    Margins.Right = 20.000000000000000000
-    Margins.Bottom = 20.000000000000000000
-    Size.Width = 676.000000000000000000
-    Size.Height = 508.000000000000000000
+    Margins.Left = 10.000000000000000000
+    Margins.Top = 10.000000000000000000
+    Margins.Right = 10.000000000000000000
+    Margins.Bottom = 10.000000000000000000
+    Size.Width = 711.000000000000000000
+    Size.Height = 528.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     OnResized = lGameZoneResized
@@ -24,21 +24,28 @@ inherited GameScene: TGameScene
   object lScoreAndBonus: TLayout
     Align = Left
     Margins.Left = 20.000000000000000000
-    Margins.Top = 20.000000000000000000
-    Margins.Right = 20.000000000000000000
-    Margins.Bottom = 20.000000000000000000
+    Margins.Top = 5.000000000000000000
+    Margins.Right = 5.000000000000000000
+    Margins.Bottom = 5.000000000000000000
     Position.X = 20.000000000000000000
-    Position.Y = 20.000000000000000000
+    Position.Y = 5.000000000000000000
     Size.Width = 200.000000000000000000
-    Size.Height = 508.000000000000000000
+    Size.Height = 538.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 2
     object lScore: TLayout
       Align = Top
-      Size.Width = 200.000000000000000000
+      Margins.Left = 5.000000000000000000
+      Margins.Top = 5.000000000000000000
+      Margins.Right = 5.000000000000000000
+      Margins.Bottom = 5.000000000000000000
+      Position.X = 5.000000000000000000
+      Position.Y = 5.000000000000000000
+      Size.Width = 190.000000000000000000
       Size.Height = 100.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
+      OnResized = lScoreResized
       inline txtScore: TOlfFMXTextImageFrame
         Align = Center
         HitTest = False
@@ -47,18 +54,32 @@ inherited GameScene: TGameScene
         Size.PlatformDefault = False
       end
     end
-    object flBonus: TFlowLayout
+    object vsBonus: TVertScrollBox
       Align = Client
-      Margins.Top = 20.000000000000000000
-      Size.Width = 200.000000000000000000
-      Size.Height = 388.000000000000000000
+      Margins.Left = 5.000000000000000000
+      Margins.Top = 5.000000000000000000
+      Margins.Right = 5.000000000000000000
+      Margins.Bottom = 5.000000000000000000
+      Size.Width = 190.000000000000000000
+      Size.Height = 418.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 1
-      Justify = Center
-      JustifyLastLine = Center
-      FlowDirection = LeftToRight
-      HorizontalGap = 10.000000000000000000
-      VerticalGap = 10.000000000000000000
+      OnResized = vsBonusResized
+      Viewport.Width = 190.000000000000000000
+      Viewport.Height = 418.000000000000000000
+      object flBonus: TFlowLayout
+        Align = Top
+        Margins.Right = 10.000000000000000000
+        Size.Width = 180.000000000000000000
+        Size.Height = 418.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        Justify = Center
+        JustifyLastLine = Center
+        FlowDirection = LeftToRight
+        HorizontalGap = 10.000000000000000000
+        VerticalGap = 10.000000000000000000
+      end
     end
   end
 end

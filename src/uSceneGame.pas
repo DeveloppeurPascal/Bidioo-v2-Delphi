@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T18:12:14.000+02:00
-  Signature : 9deb4bac76075253c280b55ee22f11c018e0917f
+  File last update : 2025-06-01T17:58:26.000+02:00
+  Signature : 9fa57e19dd9525371a0ee6149be9466b34cd4164
   ***************************************************************************
 *)
 
@@ -60,9 +60,12 @@ type
     lScoreAndBonus: TLayout;
     txtScore: TOlfFMXTextImageFrame;
     lScore: TLayout;
+    vsBonus: TVertScrollBox;
     flBonus: TFlowLayout;
     procedure lGameZoneResized(Sender: TObject);
     procedure FrameResized(Sender: TObject);
+    procedure lScoreResized(Sender: TObject);
+    procedure vsBonusResized(Sender: TObject);
   private
     procedure SetNbLives(const Value: cardinal);
     procedure SetScore(const Value: cardinal);
@@ -72,6 +75,7 @@ type
     function GetGameLevel: cardinal;
   protected
     procedure ClearBonusLayout;
+    procedure RepaintBonusLayout;
     function AddBonus(const BonusType: TSVGIconesKolopachIndex)
       : TbtnImageButton;
     procedure RemoveBonus(const BonusType: TSVGIconesKolopachIndex);
@@ -94,6 +98,7 @@ implementation
 {$R *.fmx}
 
 uses
+  System.Math,
   uScene,
   uConsts,
   USVGFruitsKolopach,
@@ -148,9 +153,7 @@ begin
     lScoreAndBonus.BeginUpdate;
     try
       lScoreAndBonus.Align := TAlignLayout.Left;
-      lScoreAndBonus.width := 350;
-      if lScoreAndBonus.width > width / 5 then
-        lScoreAndBonus.width := width / 5;
+      lScoreAndBonus.width := min(4 * CMaximalHeightForBonusButtons, width / 5);
     finally
       lScoreAndBonus.EndUpdate;
     end;
@@ -160,11 +163,12 @@ begin
     lScoreAndBonus.BeginUpdate;
     try
       lScoreAndBonus.Align := TAlignLayout.bottom;
-      lScoreAndBonus.height := 200;
-      if lScoreAndBonus.height > height / 5 then
-        lScoreAndBonus.height := height / 5;
+      lScoreAndBonus.height := min(3 * CMaximalHeightForBonusButtons,
+        height / 5);
     finally
       lScoreAndBonus.EndUpdate;
+      lScore.height := min(CMaximalHeightForBonusButtons,
+        lScoreAndBonus.height / 2 - lScore.Margins.Top - lScore.Margins.bottom);
     end;
   end;
 end;
@@ -238,6 +242,11 @@ begin
   cadMatch3Game1.FitInParent;
 end;
 
+procedure TGameScene.lScoreResized(Sender: TObject);
+begin
+  txtScore.Refresh;
+end;
+
 procedure TGameScene.RemoveBonus(const BonusType: TSVGIconesKolopachIndex);
 var
   btn: TbtnImageButton;
@@ -245,6 +254,42 @@ begin
   btn := GetBonus(BonusType);
   if assigned(btn) then
     btn.free;
+end;
+
+procedure TGameScene.RepaintBonusLayout;
+var
+  i: integer;
+  h, NewH: single;
+  btn: TbtnImageButton;
+begin
+  // Resize the images buttons in this area (FlowLayout in VertScroll)
+  h := min(vsBonus.height, CMaximalHeightForBonusButtons);
+  for i := 0 to flBonus.ChildrenCount - 1 do
+    if (flBonus.Children[i] is TbtnImageButton) and
+      ((flBonus.Children[i] as TbtnImageButton).height <> h) then
+      with (flBonus.Children[i] as TbtnImageButton) do
+      begin
+        BeginUpdate;
+        try
+          width := h;
+          height := h;
+        finally
+          EndUpdate;
+          Repaint;
+        end;
+      end;
+
+  // Resize the FlowLayout to enable or disable the scroll bar of its parent
+  NewH := 0;
+  for i := 0 to flBonus.ChildrenCount - 1 do
+    if (flBonus.Children[i] is TbtnImageButton) then
+    begin
+      btn := flBonus.Children[i] as TbtnImageButton;
+      h := btn.position.y + btn.height + btn.Margins.bottom;
+      if NewH < h then
+        NewH := h;
+    end;
+  flBonus.height := NewH;
 end;
 
 procedure TGameScene.SetGameLevel(const Value: cardinal);
@@ -364,12 +409,18 @@ begin
     HitTest := false;
   end;
   // TODO : charger les boutons des bonus disponibles dans la partie en cours
+  RepaintBonusLayout;
 
   Score := TBidiooGameData.Current.Score;
   NbLives := TBidiooGameData.Current.NbLives;
   TBidiooGameData.Current.GameGridToScreenGrid(cadMatch3Game1);
 
   cadMatch3Game1.StartGame;
+end;
+
+procedure TGameScene.vsBonusResized(Sender: TObject);
+begin
+  RepaintBonusLayout;
 end;
 
 initialization
