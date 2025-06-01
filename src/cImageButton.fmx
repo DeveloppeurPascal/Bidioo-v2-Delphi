@@ -1,14 +1,15 @@
 inherited btnImageButton: TbtnImageButton
   Size.Width = 100.000000000000000000
   Size.Height = 100.000000000000000000
+  OnResized = FrameResized
   object rImage: TRectangle
-    Align = Client
+    Align = Contents
     Fill.Bitmap.WrapMode = TileStretch
     Fill.Kind = Bitmap
     Locked = True
     HitTest = False
     Size.Width = 100.000000000000000000
-    Size.Height = 76.000000000000000000
+    Size.Height = 100.000000000000000000
     Size.PlatformDefault = False
     Stroke.Kind = None
     object ShadowEffect1: TShadowEffect
@@ -19,32 +20,28 @@ inherited btnImageButton: TbtnImageButton
       ShadowColor = claBlack
     end
   end
-  object rExposant: TRectangle
-    Align = Bottom
-    Fill.Color = claMidnightblue
-    Padding.Left = 2.000000000000000000
-    Padding.Top = 2.000000000000000000
-    Padding.Right = 2.000000000000000000
-    Padding.Bottom = 2.000000000000000000
-    Margins.Left = 2.000000000000000000
-    Margins.Top = 2.000000000000000000
-    Margins.Right = 2.000000000000000000
-    Margins.Bottom = 2.000000000000000000
-    Position.X = 2.000000000000000000
-    Position.Y = 78.000000000000000000
-    Size.Width = 96.000000000000000000
-    Size.Height = 20.000000000000000000
+  object lExposant: TLayout
+    Align = Contents
+    Margins.Left = 10.000000000000000000
+    Margins.Top = 10.000000000000000000
+    Margins.Right = 10.000000000000000000
+    Margins.Bottom = 10.000000000000000000
+    Size.Width = 80.000000000000000000
+    Size.Height = 80.000000000000000000
     Size.PlatformDefault = False
-    Stroke.Kind = None
-    Stroke.Thickness = 2.000000000000000000
-    XRadius = 5.000000000000000000
-    YRadius = 5.000000000000000000
+    TabOrder = 0
+    OnResized = lExposantResized
     inline txtExposant: TOlfFMXTextImageFrame
       Align = Center
       HitTest = False
       Size.Width = 320.000000000000000000
       Size.Height = 240.000000000000000000
       Size.PlatformDefault = False
+      object GlowEffect1: TGlowEffect
+        Softness = 0.400000005960464400
+        GlowColor = claGold
+        Opacity = 0.899999976158142100
+      end
     end
   end
 end

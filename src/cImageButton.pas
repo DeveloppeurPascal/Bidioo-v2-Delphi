@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T17:27:34.000+02:00
-  Signature : 496beb43dbfa8f94b7309ce688097b89ec4eac11
+  File last update : 2025-06-01T17:20:10.000+02:00
+  Signature : be2c02b9b3e33771295081fcd30248bc13425940
   ***************************************************************************
 *)
 
@@ -50,14 +50,18 @@ uses
   FMX.Objects,
   USVGIconesKolopach,
   FMX.Effects,
-  Olf.FMX.TextImageFrame;
+  Olf.FMX.TextImageFrame,
+  FMX.Layouts;
 
 type
   TbtnImageButton = class(T__ButtonAncestor)
     rImage: TRectangle;
     ShadowEffect1: TShadowEffect;
-    rExposant: TRectangle;
     txtExposant: TOlfFMXTextImageFrame;
+    GlowEffect1: TGlowEffect;
+    lExposant: TLayout;
+    procedure FrameResized(Sender: TObject);
+    procedure lExposantResized(Sender: TObject);
   private
     FKind: TSVGIconesKolopachIndex;
     FIsPressed: boolean;
@@ -130,6 +134,25 @@ begin
   FShowNumber := false;
 end;
 
+procedure TbtnImageButton.FrameResized(Sender: TObject);
+begin
+  lExposant.BeginUpdate;
+  try
+    lExposant.margins.top := height * 35 / 100;
+    lExposant.margins.bottom := height * 35 / 100;
+    lExposant.margins.left := width * 5 / 100;
+    lExposant.margins.right := width * 5 / 100;
+  finally
+    lExposant.EndUpdate;
+  end;
+end;
+
+procedure TbtnImageButton.lExposantResized(Sender: TObject);
+begin
+  if lExposant.visible then
+    txtExposant.Refresh;
+end;
+
 procedure TbtnImageButton.Repaint;
 begin
   if IsPressedButton then
@@ -146,13 +169,13 @@ begin
     else
       rImage.Opacity := 1;
   end;
-  rImage.Fill.Bitmap.Bitmap.Assign(getBitmapFromSVG(FKind, rImage.Width,
-    rImage.Height, rImage.Fill.Bitmap.Bitmap.BitmapScale));
+  rImage.Fill.Bitmap.Bitmap.Assign(getBitmapFromSVG(FKind, rImage.width,
+    rImage.height, rImage.Fill.Bitmap.Bitmap.BitmapScale));
   if not FShowNumber then
-    rExposant.Visible := false
+    lExposant.visible := false
   else
   begin
-    rExposant.Visible := true;
+    lExposant.visible := true;
     txtExposant.Text := FNumber.ToString;
   end;
 end;
@@ -179,7 +202,7 @@ procedure TbtnImageButton.SetNumber(const Value: integer);
 begin
   FNumber := Value;
   if FShowNumber then
-    Visible := FNumber > 0;
+    visible := FNumber > 0;
   Repaint;
 end;
 
