@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-06-01T15:44:30.000+02:00
-  Signature : 856f809c022ee0e4c29212a82aee5ba582c7b2a6
+  File last update : 2025-06-01T16:56:46.000+02:00
+  Signature : 051d6b283940eca7c1f92af67b63f38d30cf79ff
   ***************************************************************************
 *)
 
@@ -110,7 +110,6 @@ begin
   GlobalUseVulkan := true;
   {$ENDIF}
   Application.Initialize;
-  Application.FormFactor.Orientations := [TFormOrientation.Landscape, TFormOrientation.InvertedLandscape];
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMGameControllerCenter, DMGameControllerCenter);
   Application.CreateForm(TdmAdobeStock_257147901, dmAdobeStock_257147901);
