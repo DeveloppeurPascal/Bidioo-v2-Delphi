@@ -1,4 +1,4 @@
-(* C2PP
+ï»¿(* C2PP
   ***************************************************************************
 
   Bidioo
@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-29T16:47:30.000+02:00
-  Signature : cecbb2cd76c4cbd270fac5ba6f684ff4f0747cf4
+  File last update : 2025-06-01T18:28:08.000+02:00
+  Signature : 74b14a813c3fdcd1a537b14dba9f599793f2248c
   ***************************************************************************
 *)
 
@@ -34,8 +34,6 @@ unit uSceneHome;
 
 interface
 
-// TODO : agrandir le titre du jeu si la taille de l'écran le permet
-// TODO : augmenter la marge entre les boutons de menu si la taille de l'écran le permet (et adapter la taille de leur conteneur)
 uses
   System.SysUtils,
   System.Types,

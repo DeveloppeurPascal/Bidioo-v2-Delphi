@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T17:27:40.000+02:00
-  Signature : 3e40e408e7c4e27e041bb7fc52bf30e367f318d2
+  File last update : 2025-06-01T18:29:24.000+02:00
+  Signature : 88a8e65c6518cd7b7397408a1817553855a1550c
   ***************************************************************************
 *)
 
@@ -234,9 +234,10 @@ begin
     btnSoundEffectClick, true);
   // TODO : ajouter la gestion du volume des effets sonores
 
-  AddText(sTutorial);
-  AddButton(TSVGIconesKolopachIndex.Help, tconfig.Current.ShowTutorial,
-    btnShowTutorialClick, true);
+  // TODO : afficher le bouton d'activation des tutoriels quand ils seront opérationnels
+  // AddText(sTutorial);
+  // AddButton(TSVGIconesKolopachIndex.Help, tconfig.Current.ShowTutorial,
+  // btnShowTutorialClick, true);
 end;
 
 initialization
