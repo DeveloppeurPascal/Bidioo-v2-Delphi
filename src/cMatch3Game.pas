@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-06-01T18:10:40.000+02:00
-  Signature : f0f3c724cedd8e55faf7a248fc78596c512b8108
+  File last update : 2025-06-01T18:57:50.000+02:00
+  Signature : 5d5d9197b2287a95dd40757fb90878bf085437e3
   ***************************************************************************
 *)
 
@@ -62,6 +62,9 @@ const
   /// </remarks>
 {$IF Defined(DEBUG) and Defined(MSWINDOWS)}
   CDestroyAnimationNbFrames = 4;
+{$ELSE IF Defined(ANDROID)}
+  CDestroyAnimationNbFrames = 4;
+  // TODO : trouver une autre solution pour avoir des temps de réponse acceptables que de bidouiller les frames
 {$ELSE}
   CDestroyAnimationNbFrames = 30;
 {$ENDIF}
@@ -74,6 +77,9 @@ const
   /// </remarks>
 {$IF Defined(DEBUG) and Defined(MSWINDOWS)}
   CMoveTilesAnimationNbFrames = 4;
+{$ELSE IF Defined(ANDROID)}
+  CMoveTilesAnimationNbFrames = 4;
+  // TODO : trouver une autre solution pour avoir des temps de réponse acceptables que de bidouiller les frames
 {$ELSE}
   CMoveTilesAnimationNbFrames = 10;
 {$ENDIF}
@@ -602,9 +608,6 @@ begin
     and (FGrid[Col][Row].CellType <> FGrid[FSelectedCol][FSelectedRow].CellType)
   then
   begin // Clicked on an adjacent item, try to swap them (if swap is enabled)
-
-    // TODO : test if the movement is allowed to have a classic behaviour
-
     // Move even if no match-3 is available
     SwapItem := FGrid[Col][Row].CellType;
     FGrid[Col][Row].CellType := FGrid[FSelectedCol][FSelectedRow].CellType;
@@ -754,9 +757,6 @@ begin
       if (FGrid[Col][Row].CellType <> FGrid[FSelectedCol][FSelectedRow].CellType)
       then
       begin // Swap enabled, we exchange the two tiles
-
-        // TODO : test if the movement is allowed to have a classic behaviour
-
         // Move even if no match-3 is available (manage a lives number)
         SwapItem := FGrid[Col][Row].CellType;
         FGrid[Col][Row].CellType := FGrid[FSelectedCol][FSelectedRow].CellType;
@@ -895,7 +895,6 @@ begin
   begin
     SetLength(FGrid[Col], FNbRow + 2);
     for Row := 0 to FNbRow + 1 do
-      // TODO : use a different item value for borders and empty cell if needed
       FGrid[Col][Row].Initialize(Col, Row, CEmptyItem);
   end;
 
@@ -1181,7 +1180,6 @@ end;
 procedure TDestroyedCell.SetCellType(const Value: integer);
 begin
   FCellType := Value;
-  // TODO : change NbFrames depending on the destroy animation for this CellType
 end;
 
 procedure TDestroyedCell.SetCol(const Value: byte);
