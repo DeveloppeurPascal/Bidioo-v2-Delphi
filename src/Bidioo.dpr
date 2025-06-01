@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-06-01T16:56:46.000+02:00
-  Signature : 051d6b283940eca7c1f92af67b63f38d30cf79ff
+  File last update : 2025-06-01T19:07:20.000+02:00
+  Signature : c8ea08a6d8d52c2c49257db2412336234719cdb8
   ***************************************************************************
 *)
 
@@ -108,6 +108,10 @@ begin
   {$ENDIF}
   {$IFDEF ANDROID}
   GlobalUseVulkan := true;
+  GlobalUseSkiaRasterWhenAvailable:=false;
+  {$ENDIF}
+  {$IFDEF MSWINDOWS}
+  GlobalUseSkiaRasterWhenAvailable:=false;
   {$ENDIF}
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);
