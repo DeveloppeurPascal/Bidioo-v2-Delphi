@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T20:04:44.000+02:00
-  Signature : 9a31e2d48b86aa5619144adb8f198132a2af796b
+  File last update : 2025-06-01T18:26:52.000+02:00
+  Signature : c3c445200050819dd45558c736c9e8c3ef93b2df
   ***************************************************************************
 *)
 
@@ -42,12 +42,12 @@ const
   /// Version number of your game, don't forget to update the
   /// Project/Options/Versions infos before compiling a public RELEASE
   /// </summary>
-  CAboutVersionNumber = '2.0b';
+  CAboutVersionNumber = '2.0';
 
   /// <summary>
   /// Version date of your game, change it when you publish a new public release
   /// </summary>
-  CAboutVersionDate = '20250531';
+  CAboutVersionDate = '20250601';
 
   /// <summary>
   /// Title of your game used in the About box and as the main form caption
@@ -224,6 +224,11 @@ Const
   /// Default number of rows for the game grid
   /// </summary>
   CDefaultRowCount = 7;
+
+  /// <summary>
+  /// Maximal height to use for image buttons in the bonus area during a game
+  /// </summary>
+  CMaximalHeightForBonusButtons = 60;
 
 {$IF Defined(RELEASE)}
 
