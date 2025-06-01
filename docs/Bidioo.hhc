@@ -5657,8 +5657,16 @@
                                                   <param name="Local" value="cImageButton.TbtnImageButton.Click.html">
                                                   </OBJECT>
                                               <LI> <OBJECT type="text/sitemap">
+                                                  <param name="Name" value="FrameResized">
+                                                  <param name="Local" value="cImageButton.TbtnImageButton.FrameResized.html">
+                                                  </OBJECT>
+                                              <LI> <OBJECT type="text/sitemap">
                                                   <param name="Name" value="Repaint">
                                                   <param name="Local" value="cImageButton.TbtnImageButton.Repaint.html">
+                                                  </OBJECT>
+                                              <LI> <OBJECT type="text/sitemap">
+                                                  <param name="Name" value="lExposantResized">
+                                                  <param name="Local" value="cImageButton.TbtnImageButton.lExposantResized.html">
                                                   </OBJECT>
                                           </UL>
                                       <LI> <OBJECT type="text/sitemap">
@@ -5666,12 +5674,16 @@
                                           </OBJECT>
                                           <UL>
                                               <LI> <OBJECT type="text/sitemap">
+                                                  <param name="Name" value="GlowEffect1">
+                                                  <param name="Local" value="cImageButton.TbtnImageButton.GlowEffect1.html">
+                                                  </OBJECT>
+                                              <LI> <OBJECT type="text/sitemap">
                                                   <param name="Name" value="ShadowEffect1">
                                                   <param name="Local" value="cImageButton.TbtnImageButton.ShadowEffect1.html">
                                                   </OBJECT>
                                               <LI> <OBJECT type="text/sitemap">
-                                                  <param name="Name" value="rExposant">
-                                                  <param name="Local" value="cImageButton.TbtnImageButton.rExposant.html">
+                                                  <param name="Name" value="lExposant">
+                                                  <param name="Local" value="cImageButton.TbtnImageButton.lExposant.html">
                                                   </OBJECT>
                                               <LI> <OBJECT type="text/sitemap">
                                                   <param name="Name" value="rImage">
@@ -6784,6 +6796,10 @@
                                   <param name="Local" value="uConsts.CGameGUID.html">
                                   </OBJECT>
                               <LI> <OBJECT type="text/sitemap">
+                                  <param name="Name" value="CMaximalHeightForBonusButtons">
+                                  <param name="Local" value="uConsts.CMaximalHeightForBonusButtons.html">
+                                  </OBJECT>
+                              <LI> <OBJECT type="text/sitemap">
                                   <param name="Name" value="CMinScoreForLevel">
                                   <param name="Local" value="uConsts.CMinScoreForLevel.html">
                                   </OBJECT>
@@ -7544,12 +7560,24 @@
                                                   <param name="Local" value="uSceneGame.TGameScene.RemoveBonus.html">
                                                   </OBJECT>
                                               <LI> <OBJECT type="text/sitemap">
+                                                  <param name="Name" value="RepaintBonusLayout">
+                                                  <param name="Local" value="uSceneGame.TGameScene.RepaintBonusLayout.html">
+                                                  </OBJECT>
+                                              <LI> <OBJECT type="text/sitemap">
                                                   <param name="Name" value="ShowScene">
                                                   <param name="Local" value="uSceneGame.TGameScene.ShowScene.html">
                                                   </OBJECT>
                                               <LI> <OBJECT type="text/sitemap">
                                                   <param name="Name" value="lGameZoneResized">
                                                   <param name="Local" value="uSceneGame.TGameScene.lGameZoneResized.html">
+                                                  </OBJECT>
+                                              <LI> <OBJECT type="text/sitemap">
+                                                  <param name="Name" value="lScoreResized">
+                                                  <param name="Local" value="uSceneGame.TGameScene.lScoreResized.html">
+                                                  </OBJECT>
+                                              <LI> <OBJECT type="text/sitemap">
+                                                  <param name="Name" value="vsBonusResized">
+                                                  <param name="Local" value="uSceneGame.TGameScene.vsBonusResized.html">
                                                   </OBJECT>
                                           </UL>
                                       <LI> <OBJECT type="text/sitemap">
@@ -7579,6 +7607,10 @@
                                               <LI> <OBJECT type="text/sitemap">
                                                   <param name="Name" value="txtScore">
                                                   <param name="Local" value="uSceneGame.TGameScene.txtScore.html">
+                                                  </OBJECT>
+                                              <LI> <OBJECT type="text/sitemap">
+                                                  <param name="Name" value="vsBonus">
+                                                  <param name="Local" value="uSceneGame.TGameScene.vsBonus.html">
                                                   </OBJECT>
                                           </UL>
                                   </UL>
@@ -8136,41 +8168,6 @@
                           </UL>
                   </UL>
               <LI> <OBJECT type="text/sitemap">
-                  <param name="Name" value="udmAdobeStock_119308227Bidioo">
-                  <param name="Local" value="udmAdobeStock_119308227Bidioo.html">
-                  </OBJECT>
-                  <UL>
-                      <LI> <OBJECT type="text/sitemap">
-                          <param name="Name" value="Classes">
-                          </OBJECT>
-                          <UL>
-                              <LI> <OBJECT type="text/sitemap">
-                                  <param name="Name" value="TdmAdobeStock_119308227Bidioo">
-                                  <param name="Local" value="udmAdobeStock_119308227Bidioo.TdmAdobeStock_119308227Bidioo.html">
-                                  </OBJECT>
-                                  <UL>
-                                      <LI> <OBJECT type="text/sitemap">
-                                          <param name="Name" value="Fields">
-                                          </OBJECT>
-                                          <UL>
-                                              <LI> <OBJECT type="text/sitemap">
-                                                  <param name="Name" value="ImageList">
-                                                  <param name="Local" value="udmAdobeStock_119308227Bidioo.TdmAdobeStock_119308227Bidioo.ImageList.html">
-                                                  </OBJECT>
-                                          </UL>
-                                  </UL>
-                          </UL>
-                      <LI> <OBJECT type="text/sitemap">
-                          <param name="Name" value="Variables">
-                          </OBJECT>
-                          <UL>
-                              <LI> <OBJECT type="text/sitemap">
-                                  <param name="Name" value="dmAdobeStock_119308227Bidioo">
-                                  <param name="Local" value="udmAdobeStock_119308227Bidioo.dmAdobeStock_119308227Bidioo.html">
-                                  </OBJECT>
-                          </UL>
-                  </UL>
-              <LI> <OBJECT type="text/sitemap">
                   <param name="Name" value="udmAdobeStock_257147901">
                   <param name="Local" value="udmAdobeStock_257147901.html">
                   </OBJECT>
@@ -8237,6 +8234,41 @@
                               <LI> <OBJECT type="text/sitemap">
                                   <param name="Name" value="dmAdobeStock_257148021">
                                   <param name="Local" value="udmAdobeStock_257148021.dmAdobeStock_257148021.html">
+                                  </OBJECT>
+                          </UL>
+                  </UL>
+              <LI> <OBJECT type="text/sitemap">
+                  <param name="Name" value="udmAdobeStock_443346276Bidioo">
+                  <param name="Local" value="udmAdobeStock_443346276Bidioo.html">
+                  </OBJECT>
+                  <UL>
+                      <LI> <OBJECT type="text/sitemap">
+                          <param name="Name" value="Classes">
+                          </OBJECT>
+                          <UL>
+                              <LI> <OBJECT type="text/sitemap">
+                                  <param name="Name" value="TdmAdobeStock_443346276Bidioo">
+                                  <param name="Local" value="udmAdobeStock_443346276Bidioo.TdmAdobeStock_443346276Bidioo.html">
+                                  </OBJECT>
+                                  <UL>
+                                      <LI> <OBJECT type="text/sitemap">
+                                          <param name="Name" value="Fields">
+                                          </OBJECT>
+                                          <UL>
+                                              <LI> <OBJECT type="text/sitemap">
+                                                  <param name="Name" value="ImageList">
+                                                  <param name="Local" value="udmAdobeStock_443346276Bidioo.TdmAdobeStock_443346276Bidioo.ImageList.html">
+                                                  </OBJECT>
+                                          </UL>
+                                  </UL>
+                          </UL>
+                      <LI> <OBJECT type="text/sitemap">
+                          <param name="Name" value="Variables">
+                          </OBJECT>
+                          <UL>
+                              <LI> <OBJECT type="text/sitemap">
+                                  <param name="Name" value="dmAdobeStock_443346276Bidioo">
+                                  <param name="Local" value="udmAdobeStock_443346276Bidioo.dmAdobeStock_443346276Bidioo.html">
                                   </OBJECT>
                           </UL>
                   </UL>
