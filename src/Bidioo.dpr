@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-31T15:42:22.000+02:00
-  Signature : 4e1d7af06985f0889b7deefd97fc82e9a9c60c14
+  File last update : 2025-06-01T15:44:30.000+02:00
+  Signature : 856f809c022ee0e4c29212a82aee5ba582c7b2a6
   ***************************************************************************
 *)
 
@@ -93,11 +93,11 @@ uses
   uSceneCredits in 'uSceneCredits.pas' {CreditsScene: TFrame},
   uBidiooGameData in 'uBidiooGameData.pas',
   uBidiooScores in 'uBidiooScores.pas',
-  udmAdobeStock_119308227Bidioo in '..\_PRIVATE\assets\AdobeStock\AdobeStock_119308227-Bidioo\udmAdobeStock_119308227Bidioo.pas' {dmAdobeStock_119308227Bidioo: TDataModule},
   udmAdobeStock_257147901 in '..\_PRIVATE\assets\AdobeStock\AdobeStock_257147901\udmAdobeStock_257147901.pas' {dmAdobeStock_257147901: TDataModule},
   udmAdobeStock_257148021 in '..\_PRIVATE\assets\AdobeStock\AdobeStock_257148021\udmAdobeStock_257148021.pas' {dmAdobeStock_257148021: TDataModule},
   uBidiooConfig in 'uBidiooConfig.pas',
-  cMatch3Game in 'cMatch3Game.pas' {cadMatch3Game: TFrame};
+  cMatch3Game in 'cMatch3Game.pas' {cadMatch3Game: TFrame},
+  udmAdobeStock_443346276Bidioo in '..\_PRIVATE\assets\AdobeStock\AdobeStock_443346276-Bidioo\udmAdobeStock_443346276Bidioo.pas' {dmAdobeStock_443346276Bidioo: TDataModule};
 
 {$R *.res}
 
@@ -113,8 +113,8 @@ begin
   Application.FormFactor.Orientations := [TFormOrientation.Landscape, TFormOrientation.InvertedLandscape];
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMGameControllerCenter, DMGameControllerCenter);
-  Application.CreateForm(TdmAdobeStock_119308227Bidioo, dmAdobeStock_119308227Bidioo);
   Application.CreateForm(TdmAdobeStock_257147901, dmAdobeStock_257147901);
   Application.CreateForm(TdmAdobeStock_257148021, dmAdobeStock_257148021);
+  Application.CreateForm(TdmAdobeStock_443346276Bidioo, dmAdobeStock_443346276Bidioo);
   Application.Run;
 end.

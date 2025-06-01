@@ -750,10 +750,6 @@
         </DCCReference>
         <DCCReference Include="uBidiooGameData.pas"/>
         <DCCReference Include="uBidiooScores.pas"/>
-        <DCCReference Include="..\_PRIVATE\assets\AdobeStock\AdobeStock_119308227-Bidioo\udmAdobeStock_119308227Bidioo.pas">
-            <Form>dmAdobeStock_119308227Bidioo</Form>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
         <DCCReference Include="..\_PRIVATE\assets\AdobeStock\AdobeStock_257147901\udmAdobeStock_257147901.pas">
             <Form>dmAdobeStock_257147901</Form>
             <DesignClass>TDataModule</DesignClass>
@@ -766,6 +762,11 @@
         <DCCReference Include="cMatch3Game.pas">
             <Form>cadMatch3Game</Form>
             <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\_PRIVATE\assets\AdobeStock\AdobeStock_443346276-Bidioo\udmAdobeStock_443346276Bidioo.pas">
+            <Form>dmAdobeStock_443346276Bidioo</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
@@ -2466,6 +2467,12 @@
                 <DeployFile LocalName="Win64\Release\Bidioo.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win64">
                         <RemoteName>Bidioo.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="iOSDevice64\Debug\Bidioo.dSYM" Configuration="Debug" Class="ProjectiOSDeviceDebug">
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>Bidioo</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-05-10T19:18:12.734+02:00
-  Signature : bd9e8b7f59253fb9da67e9d4205235a225e5620d
+  File last update : 2025-06-01T15:45:00.000+02:00
+  Signature : 34f781d412e7def4d1441f15f450186f80f6d4fe
   ***************************************************************************
 *)
 
@@ -65,14 +65,14 @@ implementation
 
 uses
   uConsts,
-  udmAdobeStock_119308227Bidioo;
+  udmAdobeStock_443346276Bidioo;
 
 procedure TcadGameTitle.AfterConstruction;
 begin
   inherited;
   txtGameTitle.BeginUpdate;
   try
-    txtGameTitle.Font := dmAdobeStock_119308227Bidioo.ImageList;
+    txtGameTitle.Font := dmAdobeStock_443346276Bidioo.ImageList;
     txtGameTitle.AutoSize := true;
     txtGameTitle.Text := CAboutGameTitle;
   finally
