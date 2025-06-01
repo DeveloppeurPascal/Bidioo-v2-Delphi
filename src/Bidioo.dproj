@@ -590,8 +590,8 @@
     <PropertyGroup Condition="'$(Cfg_2_OSX64)'!=''">
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <Icon_MainIcon>..\assets\icons\bidioo.ico</Icon_MainIcon>
-        <Icns_MainIcns>..\assets\icons\bidioo.icns</Icns_MainIcns>
+        <Icon_MainIcon>..\assets\icons\bidioo-NoBackground.ico</Icon_MainIcon>
+        <Icns_MainIcns>..\assets\icons\bidioo-NoBackground.icns</Icns_MainIcns>
         <VerInfo_Build>2</VerInfo_Build>
         <VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=fr.gamolf.bidioo;CFBundleVersion=2.0.2;CFBundleShortVersionString=2.0;CFBundlePackageType=APPL;CFBundleSignature=????;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);NSHighResolutionCapable=true;LSApplicationCategoryType=public.app-category.utilities;NSLocationUsageDescription=The reason for accessing the location information of the user;NSContactsUsageDescription=The reason for accessing the contacts;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSCameraUsageDescription=The reason for accessing the camera;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSMotionUsageDescription=The reason for accessing the accelerometer;NSDesktopFolderUsageDescription=The reason for accessing the Desktop folder;NSDocumentsFolderUsageDescription=The reason for accessing the Documents folder;NSDownloadsFolderUsageDescription=The reason for accessing the Downloads folder;NSNetworkVolumesUsageDescription=The reason for accessing files on a network volume;NSRemovableVolumesUsageDescription=The reason for accessing files on a removable volume;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple&apos;s speech recognition servers;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing the Bluetooth interface</VerInfo_Keys>
         <VerInfo_MajorVer>2</VerInfo_MajorVer>
@@ -601,8 +601,8 @@
         <Debugger_Launcher>/usr/X11/bin/xterm -e &quot;%debuggee%&quot;</Debugger_Launcher>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <Icon_MainIcon>..\assets\icons\bidioo.ico</Icon_MainIcon>
-        <Icns_MainIcns>..\assets\icons\bidioo.icns</Icns_MainIcns>
+        <Icon_MainIcon>..\assets\icons\bidioo-NoBackground.ico</Icon_MainIcon>
+        <Icns_MainIcns>..\assets\icons\bidioo-NoBackground.icns</Icns_MainIcns>
         <VerInfo_MajorVer>2</VerInfo_MajorVer>
         <VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=fr.gamolf.bidioo;CFBundleVersion=2.0.2;CFBundleShortVersionString=2.0;CFBundlePackageType=APPL;CFBundleSignature=????;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);NSHighResolutionCapable=true;LSApplicationCategoryType=public.app-category.utilities;NSLocationUsageDescription=The reason for accessing the location information of the user;NSContactsUsageDescription=The reason for accessing the contacts;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSCameraUsageDescription=The reason for accessing the camera;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSMotionUsageDescription=The reason for accessing the accelerometer;NSDesktopFolderUsageDescription=The reason for accessing the Desktop folder;NSDocumentsFolderUsageDescription=The reason for accessing the Documents folder;NSDownloadsFolderUsageDescription=The reason for accessing the Downloads folder;NSNetworkVolumesUsageDescription=The reason for accessing files on a network volume;NSRemovableVolumesUsageDescription=The reason for accessing files on a removable volume;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple&apos;s speech recognition servers;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing the Bluetooth interface</VerInfo_Keys>
         <BT_BuildType>DeveloperID</BT_BuildType>
@@ -612,10 +612,10 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <Icon_MainIcon>..\assets\icons\bidioo.ico</Icon_MainIcon>
-        <Icns_MainIcns>..\assets\icons\bidioo.icns</Icns_MainIcns>
-        <UWP_DelphiLogo44>..\assets\icons\bidioo-44x44.png</UWP_DelphiLogo44>
-        <UWP_DelphiLogo150>..\assets\icons\bidioo-150x150.png</UWP_DelphiLogo150>
+        <Icon_MainIcon>..\assets\icons\bidioo-NoBackground.ico</Icon_MainIcon>
+        <Icns_MainIcns>..\assets\icons\bidioo-NoBackground.icns</Icns_MainIcns>
+        <UWP_DelphiLogo44>..\assets\icons\bidioo-NoBackground-44x44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>..\assets\icons\bidioo-NoBackground-150x150.png</UWP_DelphiLogo150>
         <VerInfo_MajorVer>2</VerInfo_MajorVer>
         <VerInfo_PreRelease>true</VerInfo_PreRelease>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=2.0.0.0;InternalName=;LegalCopyright=(c) 2013-2025 Patrick PREMARTIN;LegalTrademarks=;OriginalFilename=;ProgramID=fr.gamolf.bidioo;ProductName=$(MSBuildProjectName);ProductVersion=2.0;Comments=</VerInfo_Keys>
@@ -624,10 +624,10 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <Icon_MainIcon>..\assets\icons\bidioo.ico</Icon_MainIcon>
-        <Icns_MainIcns>..\assets\icons\bidioo.icns</Icns_MainIcns>
-        <UWP_DelphiLogo44>..\assets\icons\bidioo-44x44.png</UWP_DelphiLogo44>
-        <UWP_DelphiLogo150>..\assets\icons\bidioo-150x150.png</UWP_DelphiLogo150>
+        <Icon_MainIcon>..\assets\icons\bidioo-NoBackground.ico</Icon_MainIcon>
+        <Icns_MainIcns>..\assets\icons\bidioo-NoBackground.icns</Icns_MainIcns>
+        <UWP_DelphiLogo44>..\assets\icons\bidioo-NoBackground-44x44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>..\assets\icons\bidioo-NoBackground-150x150.png</UWP_DelphiLogo150>
         <VerInfo_MajorVer>2</VerInfo_MajorVer>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=2.0.0.0;InternalName=;LegalCopyright=(c) 2013-2025 Patrick PREMARTIN;LegalTrademarks=;OriginalFilename=;ProgramID=fr.gamolf.bidioo;ProductName=$(MSBuildProjectName);ProductVersion=2.0;Comments=</VerInfo_Keys>
         <VerInfo_PreRelease>true</VerInfo_PreRelease>
@@ -2215,15 +2215,15 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\assets\icons\bidioo.icns" Configuration="Release" Class="ProjectOSXResource">
+                <DeployFile LocalName="..\assets\icons\bidioo-NoBackground.icns" Configuration="Release" Class="ProjectOSXResource">
                     <Platform Name="OSX64">
-                        <RemoteName>Bidioo.icns</RemoteName>
+                        <RemoteName>bidioo-NoBackground.icns</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\assets\icons\bidioo.icns" Configuration="Release" Class="ProjectOSXResource">
+                <DeployFile LocalName="..\assets\icons\bidioo-NoBackground.icns" Configuration="Release" Class="ProjectOSXResource">
                     <Platform Name="OSXARM64">
-                        <RemoteName>Bidioo.icns</RemoteName>
+                        <RemoteName>bidioo-NoBackground.icns</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -2294,7 +2294,7 @@
                 <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon.icns" Configuration="Debug" Class="ProjectOSXResource"/>
                 <DeployFile LocalName="..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\icons\debuggameicon.icns" Configuration="Debug" Class="ProjectOSXResource">
                     <Platform Name="OSXARM64">
-                        <RemoteName>Bidioo.icns</RemoteName>
+                        <RemoteName>bidioo-NoBackground.icns</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
