@@ -8,8 +8,6 @@ The first version was developed in 2013 with [App Game Kit](https://www.appgamek
 
 Versions 2.x are a reworking of the original game, coded in Object Pascal under Delphi, based on the [Gamolf FMX Game Starter Kit](http://fmxgamestarterkit.developpeur-pascal.fr) to simplify support for user interface elements in the form of images and game controllers.
 
-Translated with DeepL.com (free version)
-
 This code repository contains a project developed in Object Pascal language under Delphi. You don't know what Delphi is and where to download it ? You'll learn more [on this web site](https://delphi-resources.developpeur-pascal.fr/).
 
 ## Using this video game
