@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-06-01T17:20:10.000+02:00
-  Signature : be2c02b9b3e33771295081fcd30248bc13425940
+  File last update : 2025-07-13T16:31:28.000+02:00
+  Signature : 0acdd6ea5946f880cb1c5e079874df5579bcf9e9
   ***************************************************************************
 *)
 
@@ -92,7 +92,6 @@ implementation
 {$R *.fmx}
 
 uses
-  uSVGBitmapManager_InputPrompts,
   udmAdobeStock_257147901,
   uSoundEffects;
 

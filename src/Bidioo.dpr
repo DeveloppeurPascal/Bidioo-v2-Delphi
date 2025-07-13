@@ -25,8 +25,8 @@
   https://github.com/DeveloppeurPascal/Bidioo-v2-Delphi
 
   ***************************************************************************
-  File last update : 2025-06-01T19:07:20.000+02:00
-  Signature : c8ea08a6d8d52c2c49257db2412336234719cdb8
+  File last update : 2025-07-13T16:29:10.000+02:00
+  Signature : 35970daf13a415dfc3e62e2c9a4ac3f8272a398d
   ***************************************************************************
 *)
 
@@ -74,7 +74,6 @@ uses
   uSoundEffects in 'uSoundEffects.pas',
   USVGInputPrompts in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\assets\kenney_nl\InputPrompts\USVGInputPrompts.pas',
   uDMGameControllerCenter in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uDMGameControllerCenter.pas' {DMGameControllerCenter: TDataModule},
-  uSVGBitmapManager_InputPrompts in 'uSVGBitmapManager_InputPrompts.pas',
   uDMHelpBarManager in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\uDMHelpBarManager.pas' {HelpBarManager: TDataModule},
   _ButtonsAncestor in '..\lib-externes\Gamolf-FMX-Game-Starter-Kit\src\_ButtonsAncestor.pas' {__ButtonAncestor: TFrame},
   uSceneBackground in '..\_PRIVATE\assets\Fotolia\fond-de-page.fotolia\uSceneBackground.pas' {SceneBackground: TFrame},
