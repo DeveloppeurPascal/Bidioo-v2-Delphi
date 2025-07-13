@@ -4259,6 +4259,10 @@
                                           </OBJECT>
                                           <UL>
                                               <LI> <OBJECT type="text/sitemap">
+                                                  <param name="Name" value="Bitmap">
+                                                  <param name="Local" value="USVGFruitsKolopach.TSVGFruitsKolopach.Bitmap.html">
+                                                  </OBJECT>
+                                              <LI> <OBJECT type="text/sitemap">
                                                   <param name="Name" value="Count">
                                                   <param name="Local" value="USVGFruitsKolopach.TSVGFruitsKolopach.Count.html">
                                                   </OBJECT>
@@ -4374,6 +4378,20 @@
                                   <param name="Name" value="CSVGPomme">
                                   <param name="Local" value="USVGFruitsKolopach.CSVGPomme.html">
                                   </OBJECT>
+                          </UL>
+                      <LI> <OBJECT type="text/sitemap">
+                          <param name="Name" value="Routines">
+                          </OBJECT>
+                          <UL>
+                              <LI> <OBJECT type="text/sitemap">
+                                  <param name="Name" value="getBitmapFromSVG">
+                                  </OBJECT>
+                                  <UL>
+                                      <LI> <OBJECT type="text/sitemap">
+                                          <param name="Name" value="getBitmapFromSVG(TSVGFruitsKolopachIndex,single,single,single)">
+                                          <param name="Local" value="USVGFruitsKolopach.getBitmapFromSVG(TSVGFruitsKolopachIndex,single,single,single).html">
+                                          </OBJECT>
+                                  </UL>
                           </UL>
                   </UL>
               <LI> <OBJECT type="text/sitemap">
@@ -4605,6 +4623,10 @@
                                           <param name="Name" value="Methods">
                                           </OBJECT>
                                           <UL>
+                                              <LI> <OBJECT type="text/sitemap">
+                                                  <param name="Name" value="Bitmap">
+                                                  <param name="Local" value="USVGIconesKolopach.TSVGIconesKolopach.Bitmap.html">
+                                                  </OBJECT>
                                               <LI> <OBJECT type="text/sitemap">
                                                   <param name="Name" value="Count">
                                                   <param name="Local" value="USVGIconesKolopach.TSVGIconesKolopach.Count.html">
@@ -4994,6 +5016,20 @@
                                   <param name="Local" value="USVGIconesKolopach.CSVGVentilo.html">
                                   </OBJECT>
                           </UL>
+                      <LI> <OBJECT type="text/sitemap">
+                          <param name="Name" value="Routines">
+                          </OBJECT>
+                          <UL>
+                              <LI> <OBJECT type="text/sitemap">
+                                  <param name="Name" value="getBitmapFromSVG">
+                                  </OBJECT>
+                                  <UL>
+                                      <LI> <OBJECT type="text/sitemap">
+                                          <param name="Name" value="getBitmapFromSVG(TSVGIconesKolopachIndex,single,single,single)">
+                                          <param name="Local" value="USVGIconesKolopach.getBitmapFromSVG(TSVGIconesKolopachIndex,single,single,single).html">
+                                          </OBJECT>
+                                  </UL>
+                          </UL>
                   </UL>
               <LI> <OBJECT type="text/sitemap">
                   <param name="Name" value="USVGInputPrompts">
@@ -5112,6 +5148,10 @@
                                           <param name="Name" value="Methods">
                                           </OBJECT>
                                           <UL>
+                                              <LI> <OBJECT type="text/sitemap">
+                                                  <param name="Name" value="Bitmap">
+                                                  <param name="Local" value="USVGInputPrompts.TSVGInputPrompts.Bitmap.html">
+                                                  </OBJECT>
                                               <LI> <OBJECT type="text/sitemap">
                                                   <param name="Name" value="Count">
                                                   <param name="Local" value="USVGInputPrompts.TSVGInputPrompts.Count.html">
@@ -5276,6 +5316,20 @@
                                   <param name="Name" value="CSVGSteamDpadUpOutline">
                                   <param name="Local" value="USVGInputPrompts.CSVGSteamDpadUpOutline.html">
                                   </OBJECT>
+                          </UL>
+                      <LI> <OBJECT type="text/sitemap">
+                          <param name="Name" value="Routines">
+                          </OBJECT>
+                          <UL>
+                              <LI> <OBJECT type="text/sitemap">
+                                  <param name="Name" value="getBitmapFromSVG">
+                                  </OBJECT>
+                                  <UL>
+                                      <LI> <OBJECT type="text/sitemap">
+                                          <param name="Name" value="getBitmapFromSVG(TSVGInputPromptsIndex,single,single,single)">
+                                          <param name="Local" value="USVGInputPrompts.getBitmapFromSVG(TSVGInputPromptsIndex,single,single,single).html">
+                                          </OBJECT>
+                                  </UL>
                           </UL>
                   </UL>
               <LI> <OBJECT type="text/sitemap">
@@ -7277,34 +7331,6 @@
                                                   <param name="Local" value="uGameData.TScoreChangedMessage.Broadcast.html">
                                                   </OBJECT>
                                           </UL>
-                                  </UL>
-                          </UL>
-                  </UL>
-              <LI> <OBJECT type="text/sitemap">
-                  <param name="Name" value="uSVGBitmapManager_InputPrompts">
-                  <param name="Local" value="uSVGBitmapManager_InputPrompts.html">
-                  </OBJECT>
-                  <UL>
-                      <LI> <OBJECT type="text/sitemap">
-                          <param name="Name" value="Routines">
-                          </OBJECT>
-                          <UL>
-                              <LI> <OBJECT type="text/sitemap">
-                                  <param name="Name" value="getBitmapFromSVG">
-                                  </OBJECT>
-                                  <UL>
-                                      <LI> <OBJECT type="text/sitemap">
-                                          <param name="Name" value="getBitmapFromSVG(TSVGFruitsKolopachIndex,single,single,single)">
-                                          <param name="Local" value="uSVGBitmapManager_InputPrompts.getBitmapFromSVG(TSVGFruitsKolopachIndex,single,single,single).html">
-                                          </OBJECT>
-                                      <LI> <OBJECT type="text/sitemap">
-                                          <param name="Name" value="getBitmapFromSVG(TSVGIconesKolopachIndex,single,single,single)">
-                                          <param name="Local" value="uSVGBitmapManager_InputPrompts.getBitmapFromSVG(TSVGIconesKolopachIndex,single,single,single).html">
-                                          </OBJECT>
-                                      <LI> <OBJECT type="text/sitemap">
-                                          <param name="Name" value="getBitmapFromSVG(TSVGInputPromptsIndex,single,single,single)">
-                                          <param name="Local" value="uSVGBitmapManager_InputPrompts.getBitmapFromSVG(TSVGInputPromptsIndex,single,single,single).html">
-                                          </OBJECT>
                                   </UL>
                           </UL>
                   </UL>
